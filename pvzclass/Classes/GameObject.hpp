@@ -467,8 +467,8 @@ namespace PVZ
 		/// @param special 是否使用副武器进行攻击
 		/// @return 生成的子弹
 		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
-		//animPlayArg(APA_XXXXXX)
-		void SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayArg, int imagespeed);
+		/// @deprecated 请改用 PlayBodyReanim()。
+		[[deprecated]] void SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayArg, int imagespeed);
 		/// @brief 以指定帧频播放闲置动画。IZ 关卡中动画速率会设为 0 。
 		/// @param speed 指定的帧频
 		void PlayIdleAnim(float speed);

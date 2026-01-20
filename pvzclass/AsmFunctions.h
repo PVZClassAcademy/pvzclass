@@ -467,7 +467,6 @@ typedef uint8_t byte;
 #define GAMECLICK INVOKE_DWORD(0x539390,0)
 #define MUSICSETTYPE INVOKE(0x45B750)
 #define ZOMBIE_SETANIMATION PUSHDWORD(0),PUSHDWORD(0),PUSH(0),PUSHDWORD(0),INVOKE(0x528B00)
-#define PLANT_SETANIMATION INVOKE_DWORD_BYTE_BYTE(0x45FD90,0,0,0)
 #define CARDSLOT_SET_CARDSCOUNT INVOKE(0x489CD0)
 
 #pragma endregion
@@ -539,7 +538,5 @@ extern byte __asm__GameClick[34];
 extern byte __asm__Music__set_Type[24];
 
 extern byte __asm__Zombie__setAnimation[100];
-
-extern byte __asm__Plant__setAnimation[100];
 
 extern byte __asm__CardSlot__set_CardsCount[24];

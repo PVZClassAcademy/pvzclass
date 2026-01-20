@@ -243,14 +243,6 @@ byte __asm__Zombie__setAnimation[100]
 	RET,
 };
 
-byte __asm__Plant__setAnimation[100]
-{
-	MOV_EAX(0),
-	MOV_ECX(0),
-	PLANT_SETANIMATION,
-	RET,
-};
-
 byte __asm__CardSlot__set_CardsCount[]
 {
 	MOV_EUX(REG_EAX, 0),
