@@ -469,6 +469,12 @@ namespace PVZ
 		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		/// @deprecated 请改用 PlayBodyReanim()。
 		[[deprecated]] void SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayArg, int imagespeed);
+		/// @brief 令本体模型播放指定动画
+		/// @param track_name 动画轨道名
+		/// @param loop_type 动画循环类型
+		/// @param blend_time 补间动画帧数
+		/// @param anim_rate 动画播放速率
+		void PlayBodyReanim(const char* track_name, PVZEnum::ReanimLoopType loop_type, int blend_time, float anim_rate);
 		/// @brief 以指定帧频播放闲置动画。IZ 关卡中动画速率会设为 0 。
 		/// @param speed 指定的帧频
 		void PlayIdleAnim(float speed);

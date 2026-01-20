@@ -208,6 +208,21 @@ void PVZ::Plant::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayA
 	PVZ::Memory::FreeMemory(Address);
 }
 
+void PVZ::Plant::PlayBodyReanim(const char* track_name, PVZEnum::ReanimLoopType loop_type, int blend_time, float anim_rate)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::StringVariable, track_name, std::strlen(track_name) + 1);
+
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.mov_reg_imm(REG_ECX, blend_time)
+		.push_float(anim_rate)
+		.push_imm32(loop_type)
+		.push_imm32(PVZ::Memory::StringVariable)
+		.invoke(0x45FD90)
+		.ret()
+	);
+}
+
 AsmBuilder PlayIdleAnim_builder = AsmBuilder();
 void PVZ::Plant::PlayIdleAnim(float speed)
 {
