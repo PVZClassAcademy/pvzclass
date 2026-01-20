@@ -13,6 +13,7 @@ namespace PVZ
 		static DWORD MemSize;
 		/// @brief 默认的场地物件类型，派生类需要定义同名常量，用于在 Board::GetAllGriditems() 中定向获取场地物件。
 		static const GriditemType::GriditemType ItemType = GriditemType::None;
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		Griditem(int indexoraddress);
 		Griditem(std::nullptr_t addr) : BaseClass(0) {};
 		/// @brief 场地物件所在的 PVZApp

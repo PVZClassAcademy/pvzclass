@@ -8,6 +8,7 @@ namespace PVZ
 	class TodParticleSystem : public BaseClass
 	{
 	public:
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		TodParticleSystem(DWORD indexoraddress);
 		/// @brief 是否已被移除。
 		T_PROPERTY(BOOLEAN, Dead, __get_Dead, __set_Dead, 0x1C);

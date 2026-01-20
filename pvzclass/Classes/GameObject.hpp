@@ -71,6 +71,7 @@ namespace PVZ
 	class Zombie : public GameObject
 	{
 	public:
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		Zombie(int indexoraddress);
 		/// @brief 植物的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
@@ -364,6 +365,7 @@ namespace PVZ
 		/// @brief 植物的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
 		static DWORD MemSize;
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		Plant(int indexoraddress);
 		/// @brief 调整该类在 PVZ 中对象的大小。
 		/// @note 请在派生类中调用这个函数。
@@ -503,6 +505,7 @@ namespace PVZ
 		/// @brief 掉落物的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
 		static DWORD MemSize;
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		Coin(int indexoraddress);
 		INT_READONLY_PROPERTY(ImageXVariation, __get_ImageXVariation, 8);
 		INT_READONLY_PROPERTY(ImageYVariation, __get_ImageYVariation, 0xC);
@@ -549,6 +552,7 @@ namespace PVZ
 		/// @brief 子弹的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
 		static DWORD MemSize;
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		Projectile(int indexoraddress);
 		/// @brief 实际 X 坐标
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);

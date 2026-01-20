@@ -297,6 +297,7 @@ namespace PVZ
 	class Animation : public BaseClass
 	{
 	public:
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		Animation(int idoraddress);
 		//support muiti-animprop(AP_XXXXXX)
 		static void UnLock(int animprop);
@@ -398,6 +399,7 @@ namespace PVZ
 	class Attachment : public BaseClass
 	{
 	public:
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		Attachment(int idoraddress);
 		// TODO: check whether this function works properly.
 		PVZ::Animation GetAnimation();
@@ -411,6 +413,7 @@ namespace PVZ
 	class TrackInstance : public BaseClass
 	{
 	public:
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		TrackInstance(int idoraddress);
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
