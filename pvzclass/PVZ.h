@@ -92,6 +92,21 @@ namespace PVZ
 		{ return(this->BaseAddress != INVALID_BASEADDRESS && this->BaseAddress != 0); }
 	};
 
+	template<typename T>
+	T GetByID(int id)
+	{
+		if (id)
+		{
+			T tmp = T::GetByIndex(ID_INDEX(id));
+			if (tmp.Id != id)
+				return T(nullptr);
+			else
+				return tmp;
+		}
+		else
+			return T(nullptr);
+	}
+
 	class Rect
 	{
 	public:
