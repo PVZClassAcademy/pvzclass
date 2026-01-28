@@ -5,6 +5,7 @@ DWORD PVZ::Memory::processId = 0;
 HANDLE PVZ::Memory::hThread = NULL;
 DWORD PVZ::Memory::mainThreadId = 0;
 int PVZ::Memory::Variable = 0;
+uint32_t PVZ::Memory::StringVariable = 0;
 HWND PVZ::Memory::mainwindowhandle = NULL;
 bool PVZ::Memory::immediateExecute = false;
 bool PVZ::Memory::localExecute = true;
