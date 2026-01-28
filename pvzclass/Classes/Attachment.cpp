@@ -1,11 +1,8 @@
-﻿#include "../PVZ.h"
+#include "../PVZ.h"
 
-PVZ::Attachment::Attachment(int idoraddress)
+PVZ::Attachment PVZ::Attachment::GetByIndex(uint32_t index)
 {
-	if (idoraddress > 1024)
-		BaseAddress = idoraddress;
-	else
-		BaseAddress = Memory::ReadPointer(0x6A9EC0, 0x820, 0xC, 0) + idoraddress * 0x30C;
+	return PVZ::Attachment(Memory::ReadPointer(0x6A9EC0, 0x820, 0xC, 0) + index * 0x30C);
 }
 
 PVZ::Animation PVZ::Attachment::GetAnimation()
