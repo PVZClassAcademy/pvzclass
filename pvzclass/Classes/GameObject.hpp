@@ -73,7 +73,7 @@ namespace PVZ
 	public:
 		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
 		Zombie(int indexoraddress);
-		/// @brief 植物的内存占用字节数。\n
+		/// @brief 僵尸的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
 		static DWORD MemSize;
 		/// @brief 调整该类在 PVZ 中对象的大小。
