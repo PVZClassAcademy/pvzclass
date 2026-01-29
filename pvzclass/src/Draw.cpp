@@ -109,6 +109,11 @@ void Draw::DrawString(DWORD x, DWORD y, PVZ::PVZString str, DWORD graphics)
 	PVZ::Memory::Execute(STRING(__asm__DrawString));
 }
 
+PVZ::Font PVZ::Graphics::GetFont()
+{
+	return PVZ::Font(PVZ::Memory::ReadMemory<uint32_t>(BaseAddress + 0x40));
+}
+
 void PVZ::Graphics::SetColor(int red, int green, int blue, int alpha)
 {
 	Red = red;
@@ -211,7 +216,7 @@ void PVZ::Graphics::DrawTextBox(DWORD edit)
 	PVZ::Memory::FreeMemory(rect);
 }
 
-void PVZ::Graphics::DrawString(int x, int y, PVZ::PVZString str, DWORD font, int just, int r, int g, int b, int a)
+void PVZ::Graphics::DrawString(int x, int y, PVZ::PVZString str, Font font, int just, int r, int g, int b, int a)
 {
 	PVZ::Memory::Execute(AsmBuilder()
 		.push(a)
@@ -219,7 +224,7 @@ void PVZ::Graphics::DrawString(int x, int y, PVZ::PVZString str, DWORD font, int
 		.push(g)
 		.push(r)
 		.push(just)
-		.mov_reg_imm(REG_EBX, font)
+		.mov_reg_imm(REG_EBX, font.GetBaseAddress())
 		.push(y)
 		.mov_reg_imm(REG_ECX, x)
 		.mov_reg_imm(REG_EDX, str.GetBaseAddress())

@@ -107,6 +107,35 @@ namespace PVZ
 			return T(nullptr);
 	}
 
+	/// @brief 对应 PVZ 内部数组的类
+	/// @tparam T 数组元素的类型
+	template<typename T>
+	class Array : public BaseClass
+	{
+	public:
+		Array(uint32_t address) : BaseClass(address) {};
+		class Item : public BaseClass
+		{
+		public:
+			explicit Item(uint32_t address) : BaseClass(address) {};
+
+			const Item& operator=(const T val)
+			{
+				PVZ::Memory::WriteMemoryUnsafe<T>(this->BaseAddress, val);
+				return *this;
+			}
+			/// @brief 获取该元素的值
+			T get() const { return PVZ::Memory::ReadMemory<T>(this->BaseAddress); }
+		};
+		/// @brief 获取指定下标的元素
+		/// @param index 下标
+		/// @return 元素
+		Item operator[](int index)
+		{
+			return Item(BaseAddress + index * sizeof(T));
+		}
+	};
+
 	class Rect
 	{
 	public:
@@ -126,6 +155,12 @@ namespace PVZ
 		/// @param rect 另一矩形
 		/// @return 两矩形的重叠部分。若无交叉部分，返回空矩形。
 		Rect Intersection(const Rect& rect) const;
+		/// @brief 判断矩形是否非空
+		/// @return 矩形非空
+		inline bool IsVaild()
+		{
+			return this->X | this->Y | this->Width | this->Height;
+		}
 	};
 	// 取得两个矩形横向重叠部分的长度。
 	// 若横向无重叠部分，返回两矩形横向间距的相反数。
@@ -177,11 +212,26 @@ namespace PVZ
 		std::optional<double> ToDouble(PVZString str);
 		/// @brief 拼接字符数组中的字符串
 		/// @param src 字符串
-		/// @param len 长度
+		/// @param len 字符串长度
 		void Concat(const char* src, int len);
 		/// @brief 拼接字符串
 		/// @param src 字符串
 		void Concat(PVZ::PVZString src);
+		/// @brief 赋值字符串为ptr
+		/// @param ptr 字符串
+		void Assign(const char* ptr, uint32_t len);
+		/// @brief 赋值字符串为ptr的前count个字符
+		/// @param ptr 字符串
+		/// @param count 子串长度
+		void Assign(const char* ptr, uint32_t len, uint32_t count);
+		/// @brief 赋值字符串为ptr的第roff个字符往右count个字符
+		/// @param ptr 字符串
+		/// @param len 字符串长度
+		/// @param 子串起始点
+		/// @param count 子串长度，为-1时不限制拷贝长度
+		void Assign(PVZString ptr, uint32_t len, uint32_t count, uint32_t roff);
+		/// @brief 获取c风格字符串
+		const char* c_str();
 	};
 
 	/// @brief 游戏程序主类（原 LawnApp）。
@@ -199,6 +249,8 @@ namespace PVZ
 		T_PROPERTY(BOOLEAN,						Shutdown,			__get_Shutdown,				__set_Shutdown,				0x341);
 		/// @brief 窗口句柄
 		T_PROPERTY(HWND,						HWnd,				__get_HWnd,					__set_HWnd,					0x350);
+		/// @brief DEBUG按键是否开启
+		T_PROPERTY(bool,						mDebugKeysEnabled,  __get_mDebugKeysEnabled,	__set_mDebugKeysEnabled,	0x5AC);
 		/// @brief 当前模式类型
 		T_PROPERTY(PVZLevel::PVZLevel,			LevelId,			__get_LevelId,				__set_LevelId,				0x7F8);
 		/// @brief 游戏状态
@@ -261,6 +313,7 @@ namespace PVZ
 	class LawnMower;
 	class Griditem;
 	class MousePointer;
+	class GameButton;
 	class Caption;
 	class CardSlot;
 	class Challenge;
@@ -414,6 +467,9 @@ namespace PVZ
 		/// @param theTrackName 轨道名称
 		/// @param theImage 图片
 		void SetImageOverride(const char* theTrackName, Image theImage);
+		/// @brief 用于补间动画开始混合时，设置每条轨道的初始补间动画数据。
+		/// @param blendTime 需要设置的补间市场
+		void StartBlend(int blendTime);
 	};
 	class Attachment : public BaseClass
 	{

@@ -7,6 +7,59 @@ PVZ::Projectile PVZ::Projectile::GetByIndex(uint32_t index)
 	return PVZ::Projectile(Memory::ReadMemory<int>(PVZBASEADDRESS + 0x0C8) + indexoraddress * MemSize);
 }
 
+void PVZ::Projectile::CheckForCollision()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(this->BaseAddress)
+		.invoke(0x46CE80)
+		.ret()
+	);
+}
+
+void PVZ::Projectile::ConvertToPea(int column)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EBX, column)
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.invoke(0x46EE00)
+		.ret()
+	);
+}
+
+void PVZ::Projectile::DoImpact(PVZ::Zombie zombie)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, zombie.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->BaseAddress)
+		.invoke(0x46E000)
+		.ret()
+	);
+}
+
+void PVZ::Projectile::DoSplashDamage(PVZ::Zombie zombie)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(zombie.GetBaseAddress())
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.invoke(0x46D390)
+		.ret()
+	);
+}
+PVZ::Rect PVZ::Projectile::GetProjectileRect()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
+		.invoke(0x46EBC0)
+		.ret()
+	);
+	auto rect = Rect{};
+	rect.X = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 0);
+	rect.Y = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4);
+	rect.Width = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8);
+	rect.Height = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 12);
+	return rect;
+}
 byte __asm__OnFire[]
 {
 	MOV_ECX(0),

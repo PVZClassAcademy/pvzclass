@@ -575,6 +575,40 @@ void PVZ::Zombie::RiseFromGrave(int row, int col)
 		.ret()
 	);
 }
+void PVZ::Zombie::LandFlyer(PVZ::DamageFlags flag)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(flag)
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x525B60)
+		.ret()
+	);
+}
+void PVZ::Zombie::GetTrackPosition(const char* trackName, float& thePosX, float& thePosY)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, strlen(trackName));
+	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + strlen(trackName), '\0');
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EDI,PVZ::Memory::Variable)
+		.push_imm32(PVZ::Memory::Variable + 4)
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_ESI,this->GetBaseAddress())
+		.invoke(0x5345F0)
+		.ret()
+	);
+	thePosY = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable);
+	thePosX = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable + 4);
+}
+
+void PVZ::Zombie::OverrideParticleColor(PVZ::TodParticleSystem particle)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX,particle.GetBaseAddress())
+		.mov_reg_imm(REG_EAX,this->GetBaseAddress())
+		.invoke(0x529810)
+		.ret()
+	);
+}
 
 void PVZ::Zombie::BossSummonZombie(ZombieType::ZombieType type, int row)
 {
@@ -659,6 +693,11 @@ PVZ::Rect PVZ::Zombie::GetActualAttackRect()
 }
 
 PVZ::Rect PVZ::Zombie::GetActualRect()
+{
+    return this->GetZombieRect();
+}
+
+PVZ::Rect PVZ::Zombie::GetZombieRect()
 {
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable)

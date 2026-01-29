@@ -360,6 +360,9 @@
     <ClCompile Include="Classes\CutScene.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
+    <ClCompile Include="Classes\GameButton.cpp">
+      <Filter>头文件\Classes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ProcessOpener.h">
@@ -955,6 +958,9 @@
     </ClInclude>
     <ClInclude Include="Enums\FoleyType.h">
       <Filter>头文件\Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="Classes\GameButton.hpp">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -403,7 +403,10 @@ PVZ::MousePointer PVZ::Board::GetMousePointer()
 {
 	return MousePointer(BaseAddress);
 }
-
+PVZ::GameButton PVZ::Board::GetMenuButton()
+{
+	return PVZ::Memory::ReadMemory<PVZ::GameButton>(BaseAddress + 0x148);
+}
 PVZ::Caption PVZ::Board::GetCaption()
 {
 	return Caption(BaseAddress);

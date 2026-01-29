@@ -2,7 +2,16 @@
 #include "../PVZ.h"
 
 namespace PVZ
-{
+{ 
+	class Font : public BaseClass
+	{
+	public:
+		Font(uint32_t address) :BaseClass(address) {};
+		INT_PROPERTY(mAscent, __get_mAscent, __set_mAscent, 0x4);
+		INT_PROPERTY(mAscentPadding, __get_mAscentPadding, __set_mAscentPadding, 0x8);
+		INT_PROPERTY(mHeight, __get_mHeight, __set_mHeight, 0xC);
+		INT_PROPERTY(mLineSpacingOffset, __get_mLineSpacingOffset, __set_mLineSpacingOffset, 0x10);
+	};
 	class Graphics : public BaseClass
 	{
 	public:
@@ -15,6 +24,9 @@ namespace PVZ
 		INT_PROPERTY(Green, __get_Green, __set_Green, 0x34);
 		INT_PROPERTY(Blue, __get_Blue, __set_Blue, 0x38);
 		INT_PROPERTY(Alpha, __get_Alpha, __set_Alpha, 0x3C);
+		/// @brief 获取Graphics使用的字体
+		/// @return 字体
+		Font GetFont();
 		/// @brief 设置颜色
 		void SetColor(int red, int green, int blue, int alpha = 0xFF);
 		/// @brief 设置是否着色
@@ -24,7 +36,7 @@ namespace PVZ
 		void ClipRect(int x, int y, int width, int height);
 		/// @brief 在指定位置绘制字体
 		/// @param just 文本的对齐方式：0(左对齐)|1(右对齐)|2(居中对齐)|3(左对齐，垂直居中)|4(右对齐，垂直居中)|5(完全居中)
-		void DrawString(int x, int y, PVZString str, DWORD font, int just, int r, int g, int b, int a);
+		void DrawString(int x, int y, PVZString str, Font font, int just, int r, int g, int b, int a);
 		/// @brief 在指定坐标绘制图片
 		/// @param image 绘制的图片
 		/// @param x X 坐标

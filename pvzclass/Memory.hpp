@@ -21,7 +21,10 @@ namespace PVZ
 		///		225 - 274存放随机数调用\n
 		///		300 - 400存放__autocollect_set\n
 		///		500 - 600存放Execute的同步代码\n
+		/// @attention 存放字符串的功能将在 3.0 完工时被废弃。
 		static int Variable;
+		/// @brief 临时字符数组，用于存放字符串参数
+		static uint32_t StringVariable;
 		/// @brief PVZ 进程句柄
 		static HANDLE hProcess;
 		/// @brief PVZ 进程 ID

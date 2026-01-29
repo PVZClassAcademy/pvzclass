@@ -292,6 +292,7 @@ namespace PVZ
 		Icetrace GetIcetrace();
 		Wave GetWave(int index);
 		MousePointer GetMousePointer();
+		GameButton GetMenuButton();
 		Caption GetCaption();
 		CardSlot GetCardSlot();
 		CutScene GetCutScene();

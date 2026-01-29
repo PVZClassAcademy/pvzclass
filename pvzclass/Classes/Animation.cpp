@@ -215,3 +215,13 @@ void PVZ::Animation::SetImageOverride(const char* theTrackName, Image theImage)
 	SETARG(__asm__Reanimation_SetImageOverride, 11) = this->GetBaseAddress();
 	PVZ::Memory::Execute(STRING(__asm__Reanimation_SetImageOverride));
 }
+
+void PVZ::Animation::StartBlend(int blendTime)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(blendTime)
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x473310)
+		.ret()
+	);
+}

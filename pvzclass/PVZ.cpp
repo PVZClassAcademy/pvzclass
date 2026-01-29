@@ -45,6 +45,7 @@ namespace PVZ
 		Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
 		Memory::mainwindowhandle = Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
 		Memory::Variable = Memory::AllocMemory(4);
+		Memory::StringVariable = Memory::AllocMemory(4);
 		Memory::mainThreadId = Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
 		Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, Memory::mainThreadId);
 
@@ -235,6 +236,7 @@ optional<double> PVZ::PVZString::ToDouble(PVZ::PVZString str)
 void PVZ::PVZString::Concat(const char* src, int len)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
+	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + len, '\0');
 
 	PVZ::Memory::Execute(AsmBuilder()
 		.push_imm32(len)
@@ -253,6 +255,55 @@ void PVZ::PVZString::Concat(PVZ::PVZString src)
 		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
 		.invoke(0x41DC70)
 		.ret());
+}
+void PVZ::PVZString::Assign(PVZString src, uint32_t len ,uint32_t count, uint32_t roff)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(count)
+		.push_imm32(roff)
+		.push_imm32(src.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x403E20)
+		.ret());
+}
+
+void PVZ::PVZString::Assign(const char* src, uint32_t len, uint32_t count)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
+	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + len, '\0');
+
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(count)
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x404330)
+		.ret());
+}
+
+void PVZ::PVZString::Assign(const char* src, uint32_t len)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
+	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + len, '\0');
+
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(PVZ::Memory::Variable + 100)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x404300)
+		.ret());
+}
+
+const char* PVZ::PVZString::c_str()
+{
+	uint32_t base_addr = this->GetBaseAddress();
+	int size = PVZ::Memory::ReadMemory<int>(base_addr + 0x18);
+	DWORD address = 0;
+	if (size < 16) address = base_addr + 4;
+	else address = PVZ::Memory::ReadMemory<DWORD>(base_addr + 4);
+	int len = PVZ::Memory::ReadMemory<int>(base_addr + 0x14);
+	char* result = new char[len + 1];
+	PVZ::Memory::ReadArray<char>(address, result, len);
+	result[len] = 0;
+	return result;
 }
 
 byte __asm_KillGameSelector[] =

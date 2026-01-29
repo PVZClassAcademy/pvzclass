@@ -23,6 +23,7 @@
 
 #include "Classes/ResourceManager.hpp"
 
+#include "Classes/GameButton.hpp"
 #include "Widgets/ButtonWidget.hpp"
 #include "Widgets/Dialog.hpp"
 #include "include/Widgets/GameSelector.hpp"

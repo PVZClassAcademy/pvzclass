@@ -149,7 +149,14 @@ void PVZ::Plant::Remove()
 	Memory::Execute(STRING(__asm__Plant__Remove));
 	return;
 }
-
+void PVZ::Plant::Update()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x463E40)
+		.ret()
+	);
+}
 PVZ::Projectile PVZ::Plant::Shoot(int targetid)
 {
 	return(this->Shoot(targetid == -1 ? MotionType::None : MotionType::Track, targetid, false));
@@ -182,6 +189,14 @@ PVZ::Projectile PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targeti
 	return re;
 }
 
+byte __asm__Plant__setAnimation[100]
+{
+	MOV_EAX(0),
+	MOV_ECX(0),
+	INVOKE_DWORD_BYTE_BYTE(0x45FD90,0,0,0),
+	RET,
+};
+
 void PVZ::Plant::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayArg, int imagespeed)
 {
 	int Address = PVZ::Memory::AllocMemory();
@@ -195,6 +210,21 @@ void PVZ::Plant::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayA
 	PVZ::Memory::CreateThread(Address);
 	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
 	PVZ::Memory::FreeMemory(Address);
+}
+
+void PVZ::Plant::PlayBodyReanim(const char* track_name, PVZEnum::ReanimLoopType loop_type, int blend_time, float anim_rate)
+{
+	PVZ::Memory::WriteArray<const char>(PVZ::Memory::StringVariable, track_name, std::strlen(track_name) + 1);
+
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.mov_reg_imm(REG_ECX, blend_time)
+		.push_float(anim_rate)
+		.push_imm32(loop_type)
+		.push_imm32(PVZ::Memory::StringVariable)
+		.invoke(0x45FD90)
+		.ret()
+	);
 }
 
 AsmBuilder PlayIdleAnim_builder = AsmBuilder();
@@ -224,6 +254,22 @@ void PVZ::Plant::AnimateNuts()
 		.invoke(0x464480)
 		.ret()
 	);
+}
+
+PVZ::Rect PVZ::Plant::GetPlantRect()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x467EF0)
+		.ret()
+	);
+	auto rect = Rect{};
+	rect.X = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 0);
+	rect.Y = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4);
+	rect.Width = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8);
+	rect.Height = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 12);
+	return rect;
 }
 
 PVZ::Plant::MagnetItem::MagnetItem(int address)
