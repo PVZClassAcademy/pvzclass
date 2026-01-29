@@ -4,7 +4,7 @@ DWORD PVZ::Projectile::MemSize = 0x94;
 
 PVZ::Projectile PVZ::Projectile::GetByIndex(uint32_t index)
 {
-	return PVZ::Projectile(Memory::ReadMemory<int>(PVZBASEADDRESS + 0x0C8) + indexoraddress * MemSize);
+	return PVZ::Projectile(Memory::ReadMemory<int>(PVZBASEADDRESS + 0x0C8) + index * MemSize);
 }
 
 void PVZ::Projectile::CheckForCollision()
