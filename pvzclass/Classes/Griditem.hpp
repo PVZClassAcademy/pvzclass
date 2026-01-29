@@ -14,7 +14,11 @@ namespace PVZ
 		/// @brief 默认的场地物件类型，派生类需要定义同名常量，用于在 Board::GetAllGriditems() 中定向获取场地物件。
 		static const GriditemType::GriditemType ItemType = GriditemType::None;
 		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
-		Griditem(int indexoraddress);
+		Griditem(uint32_t address) : BaseClass(address) {};
+		/// @brief 获取指定编号的对象
+		/// @param index 编号
+		/// @note 不保证以此法获得的对象未被移除
+		static PVZ::Griditem GetByIndex(uint32_t index);
 		Griditem(std::nullptr_t addr) : BaseClass(0) {};
 		/// @brief 场地物件所在的 PVZApp
 		T_PROPERTY(PVZApp, App, __get_App, __set_App, 0);
@@ -59,7 +63,7 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::Grave;
-		Grave(int indexoraddress) : Griditem(indexoraddress) {};
+		Grave(uint32_t address) : Griditem(address) {};
 		Grave(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		INT_PROPERTY(AppearedValue, __get_AppearedValue, __set_AppearedValue, 0x18);
 	};
@@ -68,7 +72,7 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::Crater;
-		Crater(int indexoraddress) :Griditem(indexoraddress) {};
+		Crater(uint32_t address) :Griditem(address) {};
 		Crater(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 消失倒计时
 		INT_PROPERTY(DisappearCountdown, __get_DisappearCountdown, __set_DisappearCountdown, 0x18);
@@ -78,7 +82,7 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::AquariumBrain;
-		AquariumBrain(int indexoraddress) :Griditem(indexoraddress) {};
+		AquariumBrain(uint32_t address) :Griditem(address) {};
 		AquariumBrain(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 	};
 	/// @brief 禅境花园的蜗牛
@@ -86,7 +90,7 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::Snail;
-		Snail(int indexoraddress) :Griditem(indexoraddress) {};
+		Snail(uint32_t address) :Griditem(address) {};
 		Snail(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 目标 X 坐标
 		T_PROPERTY(FLOAT, TargetX, __get_TargetX, __set_TargetX, 0x2C);
@@ -98,7 +102,7 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::Vase;
-		Vase(int indexoraddress) :Griditem(indexoraddress) {};
+		Vase(uint32_t address) :Griditem(address) {};
 		Vase(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 罐子外观。本质是场地物件的状态。
 		T_PROPERTY(VaseSkin::VaseSkin, Skin, __get_Skin, __set_Skin, 0xC);
@@ -122,7 +126,7 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::Rake;
-		Rake(int indexoraddress) : Griditem(indexoraddress) {};
+		Rake(uint32_t address) : Griditem(address) {};
 		Rake(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 	};
 	/// @brief IZ 模式的脑子
@@ -130,7 +134,7 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::IZBrain;
-		IZBrain(int indexoraddress) :Griditem(indexoraddress) {};
+		IZBrain(uint32_t address) :Griditem(address) {};
 		IZBrain(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 脑子剩余生命值
 		INT_PROPERTY(Hp, __get_Hp, __set_Hp, 0x18);
@@ -141,7 +145,7 @@ namespace PVZ
 	class Portal :public PVZ::Griditem
 	{
 	public:
-		Portal(int indexoraddress) :Griditem(indexoraddress) {};
+		Portal(uint32_t address) :Griditem(address) {};
 		Portal(Griditem griditem) : Griditem(griditem.GetBaseAddress()) {};
 		/// @brief 关闭此传送门
 		void Close();
@@ -173,7 +177,7 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::PortalBlue;
-		CirclePortal(int indexoraddress) : Portal(indexoraddress) {};
+		CirclePortal(uint32_t address) : Portal(address) {};
 		CirclePortal(Griditem griditem) : Portal(griditem.GetBaseAddress()) {};
 	};
 	/// @brief 矩形传送门，颜色为黄框
@@ -181,7 +185,7 @@ namespace PVZ
 	{
 	public:
 		static const GriditemType::GriditemType ItemType = GriditemType::PortalYellow;
-		SquarePortal(int indexoraddress) : Portal(indexoraddress) {};
+		SquarePortal(uint32_t address) : Portal(address) {};
 		SquarePortal(Griditem griditem) : Portal(griditem.GetBaseAddress()) {};
 	};
 }
