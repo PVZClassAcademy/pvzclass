@@ -2,12 +2,9 @@
 
 DWORD PVZ::Coin::MemSize = 0x0D8;
 
-PVZ::Coin::Coin(int indexoraddress)
+PVZ::Coin PVZ::Coin::GetByIndex(uint32_t index)
 {
-	if (indexoraddress > 1024)
-		BaseAddress = indexoraddress;
-	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xE4) + indexoraddress * MemSize;
+    return PVZ::Coin(Memory::ReadMemory<uint32_t>(PVZBASEADDRESS + 0x0E4) + index * MemSize);
 }
 
 void PVZ::Coin::GetCollision(PVZ::Rect* collbox)

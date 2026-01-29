@@ -4,12 +4,9 @@ using std::max;
 
 DWORD PVZ::Zombie::MemSize = 0x15C;
 
-PVZ::Zombie::Zombie(int indexoraddress)
+PVZ::Zombie PVZ::Zombie::GetByIndex(uint32_t index)
 {
-	if (indexoraddress > 65535)
-		BaseAddress = indexoraddress;
-	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x90) + indexoraddress * MemSize;
+	return PVZ::Zombie(Memory::ReadMemory<uint32_t>(PVZBASEADDRESS + 0x90) + index * MemSize);
 }
 
 void PVZ::Zombie::SetMemSize(int NewSize, int NewCount)

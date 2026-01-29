@@ -2,12 +2,9 @@
 
 DWORD PVZ::Plant::MemSize = 0x14C;
 
-PVZ::Plant::Plant(int indexoraddress)
+PVZ::Plant PVZ::Plant::GetByIndex(uint32_t index)
 {
-	if (indexoraddress > 1024)
-		BaseAddress = indexoraddress;
-	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xAC) + indexoraddress * MemSize;
+	return PVZ::Plant(Memory::ReadMemory<uint32_t>(PVZBASEADDRESS + 0x0AC) + index * MemSize);
 }
 
 void PVZ::Plant::SetMemSize(int NewSize = 0x14C, int NewCount = 1024)

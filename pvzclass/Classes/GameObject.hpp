@@ -40,6 +40,7 @@ namespace PVZ
 	{
 	protected:
 		GameObject() : BaseClass(0) {};
+		GameObject(uint32_t address) : BaseClass(address) {};
 	public:
 		/// @brief 获取 GameObject 所在的 PVZApp
 		PVZApp GetLawnApp()
@@ -72,10 +73,14 @@ namespace PVZ
 	{
 	public:
 		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
-		Zombie(int indexoraddress);
+		Zombie(uint32_t address) : GameObject(address) {};
 		/// @brief 僵尸的内存占用字节数。\n
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
 		static DWORD MemSize;
+		/// @brief 获取指定编号的对象
+		/// @param index 编号
+		/// @note 不保证以此法获得的对象未被移除
+		static PVZ::Zombie GetByIndex(uint32_t index);
 		/// @brief 调整该类在 PVZ 中对象的大小。
 		/// @note 请在派生类中调用这个函数。
 		/// @note 该函数会自动调整 MemSize。
@@ -366,7 +371,11 @@ namespace PVZ
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
 		static DWORD MemSize;
 		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
-		Plant(int indexoraddress);
+		Plant(uint32_t address) : GameObject(address) {};
+		/// @brief 获取指定编号的对象
+		/// @param index 编号
+		/// @note 不保证以此法获得的对象未被移除
+		static PVZ::Plant GetByIndex(uint32_t index);
 		/// @brief 调整该类在 PVZ 中对象的大小。
 		/// @note 请在派生类中调用这个函数。
 		/// @note 该函数会自动调整 MemSize。
@@ -506,7 +515,11 @@ namespace PVZ
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
 		static DWORD MemSize;
 		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
-		Coin(int indexoraddress);
+		Coin(uint32_t address) : GameObject(address) {};
+		/// @brief 获取指定编号的对象
+		/// @param index 编号
+		/// @note 不保证以此法获得的对象未被移除
+		static PVZ::Coin GetByIndex(uint32_t index);
 		INT_READONLY_PROPERTY(ImageXVariation, __get_ImageXVariation, 8);
 		INT_READONLY_PROPERTY(ImageYVariation, __get_ImageYVariation, 0xC);
 		void GetCollision(Rect* collbox);
@@ -553,7 +566,11 @@ namespace PVZ
 		///		若派生类需要对应扩指针的对象，请在派生类中修改此数值。
 		static DWORD MemSize;
 		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
-		Projectile(int indexoraddress);
+		Projectile(uint32_t address) : GameObject(address) {};
+		/// @brief 获取指定编号的对象
+		/// @param index 编号
+		/// @note 不保证以此法获得的对象未被移除
+		static PVZ::Projectile GetByIndex(uint32_t index);
 		/// @brief 实际 X 坐标
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);
 		/// @brief 子弹本体的 Y 坐标
