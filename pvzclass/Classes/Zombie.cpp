@@ -385,7 +385,7 @@ void PVZ::Zombie::EquipBucket(int shield)
 {
 	if (this->GetAccessoriesType1().Type)
 		return;
-	this->GetAnimation().AssignRenderGroupToPrefix(0, "anim_bucket");
+	this->GetAnimation().AssignRenderGroupToPrefix("anim_bucket", 0);
 	this->SetAccessoriesType1({ HelmType::Bucket, shield, shield });
 }
 
@@ -393,7 +393,7 @@ void PVZ::Zombie::EquipCone(int shield)
 {
 	if (this->GetAccessoriesType1().Type)
 		return;
-	this->GetAnimation().AssignRenderGroupToPrefix(0, "anim_cone");
+	this->GetAnimation().AssignRenderGroupToPrefix("anim_cone", 0);
 	this->SetAccessoriesType1({ HelmType::RoadCone, shield, shield });
 }
 

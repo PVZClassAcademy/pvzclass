@@ -153,7 +153,7 @@ bool PVZ::Animation::ShouldTriggerTimedEvent(float thetime)
 	) & 0x0FF;
 }
 
-void PVZ::Animation::AssignRenderGroupToPrefix(byte RenderGroup, const char* trackName)
+void PVZ::Animation::AssignRenderGroupToPrefix(const char* trackName, byte RenderGroup)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, std::strlen(trackName) + 1);
 	__asm__Reanimation__AssignGroupToPrefix[1] = RenderGroup;
