@@ -730,3 +730,25 @@ float PVZ::Zombie::ZombieTargetLeadX(float time)
 	float tmp = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable);
 	return tmp;
 }
+
+
+PVZ::Plant PVZ::Zombie::FindCatapultTarget()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x525890)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+	return PVZ::Plant(PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable));
+}
+
+void PVZ::Zombie::ZombieCatapultFire(PVZ::Plant plant)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, plant.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x525730)
+		.ret()
+	);
+}
