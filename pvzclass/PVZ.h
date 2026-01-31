@@ -99,12 +99,12 @@ namespace PVZ
 		{
 			T tmp = T::GetByIndex(ID_INDEX(id));
 			if (tmp.Id != id)
-				return T((uint32_t)NULL);
+				return T((uint32_t)nullptr);
 			else
 				return tmp;
 		}
 		else
-			return T((uint32_t)NULL);
+			return T((uint32_t)nullptr);
 	}
 
 	/// @brief 对应 PVZ 内部数组的类
