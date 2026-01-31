@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <unordered_map>
 #include <cstdint>
 #include <stdexcept>
 #include <iostream>
@@ -10,7 +11,8 @@ class AsmBuilder
 private:
 	byte* code;
 	int ptr;  // 指向最后一条指令的下一字节
-
+	std::unordered_map<std::string, int> labels;
+	std::vector<std::pair<int, std::string>> fixups;
 public:
 	AsmBuilder() : ptr(1)
 	{
@@ -31,6 +33,7 @@ public:
 	// 返回当前生成的机器码
 	byte* get_code() const
 	{
+
 		return code;
 	}
 
@@ -89,6 +92,12 @@ public:
 	{
 		*(float*)(code + ptr) = dword;
 		ptr += 4;
+		return *this;
+	}
+
+	inline AsmBuilder& label(const char* name)
+	{
+		labels[name] = ptr;
 		return *this;
 	}
 
@@ -881,6 +890,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JMP 指令，跳转到标签
+	AsmBuilder& jmp_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jmp_rel(0);
+	}
+
 	// 添加 JMP 指令（相对地址），参数强制为 8 位
 	AsmBuilder& jmp_rel8(int8_t offset)
 	{
@@ -905,6 +921,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JZ 指令，跳转到标签
+	AsmBuilder& jz_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jz_rel(0);
+	}
+
 	// 添加 JNZ 指令
 	AsmBuilder& jnz(uint32_t address)
 	{
@@ -923,6 +946,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JNZ 指令，跳转到标签
+	AsmBuilder& jnz_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jnz_rel(0);
+	}
+
 	// 添加 JE 指令
 	AsmBuilder& je(uint32_t address)
 	{
@@ -935,6 +965,13 @@ public:
 		return jz_rel(offset);
 	}
 
+	// 添加 JE 指令，跳转到标签
+	AsmBuilder& je_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jz_rel(0);
+	}
+
 	// 添加 JNE 指令
 	AsmBuilder& jne(uint32_t address)
 	{
@@ -945,6 +982,13 @@ public:
 	AsmBuilder& jne_rel(int32_t offset)
 	{
 		return jnz_rel(offset);
+	}
+
+	// 添加 JNE 指令，跳转到标签
+	AsmBuilder& jne_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jnz_rel(0);
 	}
 
 	// 添加 JB 指令
@@ -965,6 +1009,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JB 指令，跳转到标签
+	AsmBuilder& jb_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jb_rel(0);
+	}
+
 	// 添加 JBE 指令
 	AsmBuilder& jbe(uint32_t address)
 	{
@@ -981,6 +1032,13 @@ public:
 		add_byte(0x86);
 		add_dword(offset);
 		return *this;
+	}
+
+	// 添加 JBE 指令，跳转到标签
+	AsmBuilder& jbe_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jbe_rel(0);
 	}
 
 	// 添加 JA 指令
@@ -1001,6 +1059,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JA 指令，跳转到标签
+	AsmBuilder& ja_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return ja_rel(0);
+	}
+
 	// 添加 JAE 指令
 	AsmBuilder& jae(uint32_t address)
 	{
@@ -1019,6 +1084,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JAE 指令，跳转到标签
+	AsmBuilder& jae_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jae_rel(0);
+	}
+
 	// 添加 JC 指令
 	AsmBuilder& jc(uint32_t address)
 	{
@@ -1031,6 +1103,13 @@ public:
 		return jb_rel(offset);
 	}
 
+	// 添加 JC 指令，跳转到标签
+	AsmBuilder& jc_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jb_rel(0);
+	}
+
 	// 添加 JNC 指令
 	AsmBuilder& jnc(uint32_t address)
 	{
@@ -1041,6 +1120,13 @@ public:
 	AsmBuilder& jnc_rel(int32_t offset)
 	{
 		return jae_rel(offset);
+	}
+
+	// 添加 JNC 指令，跳转到标签
+	AsmBuilder& jnc_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jae_rel(0);
 	}
 
 	// 添加 JS 指令
@@ -1061,6 +1147,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JS 指令，跳转到标签
+	AsmBuilder& js_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return js_rel(0);
+	}
+
 	// 添加 JNS 指令
 	AsmBuilder& jns(uint32_t address)
 	{
@@ -1077,6 +1170,13 @@ public:
 		add_byte(0x89);
 		add_dword(offset);
 		return *this;
+	}
+
+	// 添加 JNS 指令，跳转到标签
+	AsmBuilder& jns_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jns_rel(0);
 	}
 
 	// 添加 JP 指令
@@ -1097,6 +1197,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JP 指令，跳转到标签
+	AsmBuilder& jp_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jp_rel(0);
+	}
+	
 	// 添加 JNP 指令
 	AsmBuilder& jnp(uint32_t address)
 	{
@@ -1113,6 +1220,13 @@ public:
 		add_byte(0x8B);
 		add_dword(offset);
 		return *this;
+	}
+
+	// 添加 JNP 指令，跳转到标签
+	AsmBuilder& jnp_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jnp_rel(0);
 	}
 
 	// 添加 JO 指令
@@ -1133,6 +1247,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JO 指令，跳转到标签
+	AsmBuilder& jo_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jo_rel(0);
+	}
+
 	// 添加 JNO 指令
 	AsmBuilder& jno(uint32_t address)
 	{
@@ -1149,6 +1270,13 @@ public:
 		add_byte(0x81);
 		add_dword(offset);
 		return *this;
+	}
+
+	// 添加 JNO 指令，跳转到标签
+	AsmBuilder& jno_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jno_rel(0);
 	}
 
 	// 添加 JG 指令
@@ -1169,6 +1297,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JG 指令，跳转到标签
+	AsmBuilder& jg_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jg_rel(0);
+	}
+
 	// 添加 JGE 指令
 	AsmBuilder& jge(uint32_t address)
 	{
@@ -1185,6 +1320,13 @@ public:
 		add_byte(0x8D);
 		add_dword(offset);
 		return *this;
+	}
+
+	// 添加 JGE 指令，跳转到标签
+	AsmBuilder& jge_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jge_rel(0);
 	}
 
 	// 添加 JL 指令
@@ -1205,6 +1347,13 @@ public:
 		return *this;
 	}
 
+	// 添加 JL 指令，跳转到标签
+	AsmBuilder& jl_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jl_rel(0);
+	}
+
 	// 添加 JLE 指令
 	AsmBuilder& jle(uint32_t address)
 	{
@@ -1221,6 +1370,13 @@ public:
 		add_byte(0x8E);
 		add_dword(offset);
 		return *this;
+	}
+
+	// 添加 JLE 指令，跳转到标签
+	AsmBuilder& jle_label(std::string label_name)
+	{
+		fixups.push_back({ ptr, label_name });
+		return jle_rel(0);
 	}
 
 	// 添加 LOOP 指令
