@@ -24,15 +24,17 @@ public:
 			INVOKE(address),
 			ADD_ESP(16),
 			TEST_EUX_EVX(REG_EAX, REG_EAX),
-			JNS(8),
+			JNS(7),
 
 			POPAD,
-			MOV_ECX(0x52FD2E),
-			JMP_REG32(REG_ECX),
+			PUSHDWORD(0x52FD2E),
+			RET,
 
-			0xF7, 0xD8,
-			ADD_PTR_EUX_ADD_V_EVX(REG_ESI, 0x40, REG_EAX),
-			ADD_PTR_EUX_ADD_V_V(REG_ESI, 0x40, 4),
+			0x29,0x46,0x40,
+			POPAD,
+			0x8B,0x4E,0x40,
+			PUSHDWORD(0x52FCF7),
+			RET
 		};
 		start(STRING(code));
 	}
