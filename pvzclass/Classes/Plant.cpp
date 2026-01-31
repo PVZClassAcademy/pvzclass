@@ -45,43 +45,43 @@ void PVZ::Plant::SetMemSize(int NewSize = 0x14C, int NewCount = 1024)
 PVZ::Animation PVZ::Plant::GetAnimationPart1()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x94);
-	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
 PVZ::Animation PVZ::Plant::GetAnimationPart2()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x98);
-	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
 PVZ::Animation PVZ::Plant::GetAnimationPart3()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x9C);
-	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
 PVZ::Animation PVZ::Plant::GetAnimationPart4()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA0);
-	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
 PVZ::Animation PVZ::Plant::GetAnimationEyeBlink()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA4);
-	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
 PVZ::Animation PVZ::Plant::GetAnimationPotatoGlow()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xA8);
-	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
 PVZ::Animation PVZ::Plant::GetAnimationSleep()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0xAC);
-	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
 void PVZ::Plant::Light(int cs)

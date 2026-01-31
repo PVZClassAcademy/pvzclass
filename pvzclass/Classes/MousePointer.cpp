@@ -8,5 +8,5 @@ PVZ::MousePointer::MousePointer(int address) : GameObject()
 PVZ::Animation PVZ::MousePointer::GetAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x48);
-	return (((ID & 0xFFFF0000) == 0) ? INVALID_BASEADDRESS : Animation(ID & 0x00FFFF));
+	return (((ID & 0xFFFF0000) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }

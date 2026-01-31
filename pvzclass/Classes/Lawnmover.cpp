@@ -10,7 +10,7 @@ PVZ::LawnMower PVZ::LawnMower::GetByIndex(uint32_t index)
 PVZ::Animation PVZ::LawnMower::GetAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x1C);
-	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
 byte __asm__Lawnmover_Die[]

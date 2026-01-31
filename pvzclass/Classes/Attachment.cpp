@@ -8,5 +8,5 @@ PVZ::Attachment PVZ::Attachment::GetByIndex(uint32_t index)
 PVZ::Animation PVZ::Attachment::GetAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress);
-	return (Animation(ID & 0x00FFFF));
+	return Animation::GetByIndex(ID_INDEX(ID));
 }
