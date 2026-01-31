@@ -1,6 +1,7 @@
 #pragma once
 #include "DLLEvent.h"
 
+/*
 // 子弹碰撞检查事件
 // 参数：子弹地址
 // 返回值：0伤害僵尸 1伤害植物（水平） 2伤害植物（投掷）
@@ -90,4 +91,72 @@ private:
 	int newAddress1, hookAddress1, rawlen1;
 	int newAddress2, hookAddress2, rawlen2;
 	int newAddress3, hookAddress3, rawlen3;
+};*/
+namespace PVZEvent {
+	class ProjectileCollisionEvent : public DLLEvent
+	{
+	public:
+		ProjectileCollisionEvent(int address) : DLLEvent() { Init(address); }
+		class ProjectileNormalCollisionEvent : public DLLEventTemplate<0x46CFC5, 10, REG_EBP>
+		{
+		public:
+			ProjectileNormalCollisionEvent(int address) : DLLEventTemplate() { Init(address); }
+		protected:
+			virtual void InitExtra(AsmBuilder& builder) override
+			{
+				builder.cmp_reg_imm(REG_EAX, 0)
+					.popad()
+					.push_reg(REG_EBP)
+
+					.jge_label("no_pvz_judge")
+					.cmp_reg_imm(REG_ECX, 0xD)
+					.jnz_label("hit_zombie")
+					.jmp_label("hit_plant")
+					.label("no_pvz_judge")
+
+					.jz_label("hit_zombie")
+					.label("hit_plant")
+					.jmp_to(0x46CFCF)
+					.label("hit_zombie")
+					.jmp_to(0x46D058);
+			}
+		} *normal;
+
+		class ProjectileThrowCollisionEvent : public DLLEventTemplate<0x46D63E, 10, REG_EBP>
+		{
+		public:
+			ProjectileThrowCollisionEvent(int address) : DLLEventTemplate() { Init(address); }
+		protected:
+			virtual void InitExtra(AsmBuilder& builder)
+			{
+				builder.cmp_reg_imm(REG_EAX, 0)
+					.popad()
+					.jge_label("no_pvz_judge")
+					.cmp_reg_imm(REG_EAX, 0x9)
+					.jz_label("hit_plant")
+					.cmp_reg_imm(REG_EAX, 0xD)
+					.jz_label("hit_plant")
+					.jmp_to(0x46D648)
+
+					.label("no_pvz_judge")
+					.jz_label("hit_zombie")
+					.label("hit_plant")
+					.jmp_to(0x46D656)
+					.label("hit_zombie")
+					.jmp_to(0x46D648);
+			}
+		} *throvv;
+		// part3没看懂所以不搬
+	public:
+		void Init(int address)
+		{
+			normal = new ProjectileNormalCollisionEvent(address);
+			throvv = new ProjectileThrowCollisionEvent(address);
+		}
+		void end()
+		{
+			normal->end();
+			throvv->end();
+		}
+	};
 };
