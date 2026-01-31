@@ -7,7 +7,7 @@
 #include <cassert>
 
 #define DEFINE_JUMP_FUNC(jump_name, jump_type) \
-    inline AsmBuilder& jump_name(uint32_t address) { return add_jump_short(jump_type, address); } \
+    inline AsmBuilder& jump_name(uint32_t address) { return add_jump_near(jump_type, address); } \
     inline AsmBuilder& jump_name##_rel(int32_t offset) { return add_jump_rel32(jump_type, offset); } \
     inline AsmBuilder& jump_name##_label(std::string label_name) { return add_jump_label(jump_type, label_name); }
 
@@ -16,12 +16,12 @@ class AsmBuilder
 {
 private:
 
-	struct JumpShortOpcode
+	struct JumpNearOpcode
 	{
 		uint8_t op1, op2;
 	};
 
-	enum JumpShortType {
+	enum JumpNearType {
 		Jmp,
 		Jz, Jnz,
 		Je, Jne,
@@ -55,53 +55,53 @@ private:
 	std::unordered_map<std::string, int> labels;
 	std::vector<LabelEntry> fixups;
 
-	inline static const std::unordered_map<JumpShortType, JumpShortOpcode> JUMP_SHORT_OPCODES = {
+	inline static const std::unordered_map<JumpNearType, JumpNearOpcode> JUMP_SHORT_OPCODES = {
 		// 无条件
-		{JumpShortType::Jmp,      {0xE9, 0x00}},  // JMP rel32（单字节0xE9，无第二字节）
+		{JumpNearType::Jmp,      {0xE9, 0x00}},  // JMP rel32（单字节0xE9，无第二字节）
 
 		// 零标志（ZF）
-		{JumpShortType::Jz,       {0x0F, 0x84}},  // JZ rel32
-		{JumpShortType::Jnz,      {0x0F, 0x85}},  // JNZ rel32
-		{JumpShortType::Je,       {0x0F, 0x84}},  // JE = JZ
-		{JumpShortType::Jne,      {0x0F, 0x85}},  // JNE = JNZ
+		{JumpNearType::Jz,       {0x0F, 0x84}},  // JZ rel32
+		{JumpNearType::Jnz,      {0x0F, 0x85}},  // JNZ rel32
+		{JumpNearType::Je,       {0x0F, 0x84}},  // JE = JZ
+		{JumpNearType::Jne,      {0x0F, 0x85}},  // JNE = JNZ
 
 		// 进位标志（CF）
-		{JumpShortType::Jb,       {0x0F, 0x82}},  // JB = JC = JNAE
-		{JumpShortType::Jbe,      {0x0F, 0x86}},  // JBE = JNA
-		{JumpShortType::Jnb,      {0x0F, 0x83}},  // JNB = JAE = JNC
-		{JumpShortType::Jnbe,     {0x0F, 0x87}},  // JNBE = JA
-		{JumpShortType::Ja,       {0x0F, 0x87}},  // JA = JNBE
-		{JumpShortType::Jna,      {0x0F, 0x86}},  // JNA = JBE
-		{JumpShortType::Jae,      {0x0F, 0x83}},  // JAE = JNB = JNC
-		{JumpShortType::Jnae,     {0x0F, 0x82}},  // JNAE = JB = JC
-		{JumpShortType::Jc,       {0x0F, 0x82}},  // JC = JB = JNAE
-		{JumpShortType::Jnc,      {0x0F, 0x83}},  // JNC = JNB = JAE
+		{JumpNearType::Jb,       {0x0F, 0x82}},  // JB = JC = JNAE
+		{JumpNearType::Jbe,      {0x0F, 0x86}},  // JBE = JNA
+		{JumpNearType::Jnb,      {0x0F, 0x83}},  // JNB = JAE = JNC
+		{JumpNearType::Jnbe,     {0x0F, 0x87}},  // JNBE = JA
+		{JumpNearType::Ja,       {0x0F, 0x87}},  // JA = JNBE
+		{JumpNearType::Jna,      {0x0F, 0x86}},  // JNA = JBE
+		{JumpNearType::Jae,      {0x0F, 0x83}},  // JAE = JNB = JNC
+		{JumpNearType::Jnae,     {0x0F, 0x82}},  // JNAE = JB = JC
+		{JumpNearType::Jc,       {0x0F, 0x82}},  // JC = JB = JNAE
+		{JumpNearType::Jnc,      {0x0F, 0x83}},  // JNC = JNB = JAE
 
 		// 符号标志（SF）
-		{JumpShortType::Js,       {0x0F, 0x88}},  // JS rel32
-		{JumpShortType::Jns,      {0x0F, 0x89}},  // JNS rel32
+		{JumpNearType::Js,       {0x0F, 0x88}},  // JS rel32
+		{JumpNearType::Jns,      {0x0F, 0x89}},  // JNS rel32
 
 		// 溢出标志（OF）
-		{JumpShortType::Jo,       {0x0F, 0x80}},  // JO rel32
-		{JumpShortType::Jno,      {0x0F, 0x81}},  // JNO rel32
+		{JumpNearType::Jo,       {0x0F, 0x80}},  // JO rel32
+		{JumpNearType::Jno,      {0x0F, 0x81}},  // JNO rel32
 
 		// 奇偶标志（PF）
-		{JumpShortType::Jp,       {0x0F, 0x8A}},  // JP = JPE
-		{JumpShortType::Jnp,      {0x0F, 0x8B}},  // JNP = JPO
-		{JumpShortType::Jpe,      {0x0F, 0x8A}},  // JPE = JP
-		{JumpShortType::Jpo,      {0x0F, 0x8B}},  // JPO = JNP
+		{JumpNearType::Jp,       {0x0F, 0x8A}},  // JP = JPE
+		{JumpNearType::Jnp,      {0x0F, 0x8B}},  // JNP = JPO
+		{JumpNearType::Jpe,      {0x0F, 0x8A}},  // JPE = JP
+		{JumpNearType::Jpo,      {0x0F, 0x8B}},  // JPO = JNP
 
 		// 有符号数大小（SF/OF）
-		{JumpShortType::Jl,       {0x0F, 0x8C}},  // JL = JNGE
-		{JumpShortType::Jle,      {0x0F, 0x8E}},  // JLE = JNG
-		{JumpShortType::Jnl,      {0x0F, 0x8D}},  // JNL = JGE
-		{JumpShortType::Jnle,     {0x0F, 0x8F}},  // JNLE = JG
-		{JumpShortType::Jg,       {0x0F, 0x8F}},  // JG = JNLE
-		{JumpShortType::Jng,      {0x0F, 0x8E}},  // JNG = JLE
-		{JumpShortType::Jge,      {0x0F, 0x8D}},  // JGE = JNL
-		{JumpShortType::Jnge,     {0x0F, 0x8C}},  // JNGE = JL
+		{JumpNearType::Jl,       {0x0F, 0x8C}},  // JL = JNGE
+		{JumpNearType::Jle,      {0x0F, 0x8E}},  // JLE = JNG
+		{JumpNearType::Jnl,      {0x0F, 0x8D}},  // JNL = JGE
+		{JumpNearType::Jnle,     {0x0F, 0x8F}},  // JNLE = JG
+		{JumpNearType::Jg,       {0x0F, 0x8F}},  // JG = JNLE
+		{JumpNearType::Jng,      {0x0F, 0x8E}},  // JNG = JLE
+		{JumpNearType::Jge,      {0x0F, 0x8D}},  // JGE = JNL
+		{JumpNearType::Jnge,     {0x0F, 0x8C}},  // JNGE = JL
 	};
-	AsmBuilder& add_jump_rel32(JumpShortType type, uint32_t rel_offset)
+	AsmBuilder& add_jump_rel32(JumpNearType type, uint32_t rel_offset)
 	{
 		auto opcode = JUMP_SHORT_OPCODES.at(type);
 		if (opcode.op2 == 0x00)
@@ -119,16 +119,16 @@ private:
 		}
 		return *this;
 	}
-	AsmBuilder& add_jump_short(JumpShortType type, uint32_t address)
+	AsmBuilder& add_jump_near(JumpNearType type, uint32_t address)
 	{
-		const int op_len = type == JumpShortType::Jmp ? 5 : 6;
+		const int op_len = type == JumpNearType::Jmp ? 5 : 6;
 		return add_jump_rel32(type, address - (ptr + op_len));
 	}
 
 	// 添加 JMP 指令，跳转到标签
-	AsmBuilder& add_jump_label(JumpShortType type, std::string label_name)
+	AsmBuilder& add_jump_label(JumpNearType type, std::string label_name)
 	{
-		const int jump_prefix_len = type == JumpShortType::Jmp ? 1 : 2;
+		const int jump_prefix_len = type == JumpNearType::Jmp ? 1 : 2;
 		fixups.push_back({ label_name, ptr, ptr + jump_prefix_len });
 		add_jump_rel32(type, 0);
 		return *this;
@@ -1026,27 +1026,27 @@ public:
 		return add_byte(0xEB).add_byte(offset);
 	}
 
-	DEFINE_JUMP_FUNC(jmp, JumpShortType::Jmp);
-	DEFINE_JUMP_FUNC(jz, JumpShortType::Jz);
-	DEFINE_JUMP_FUNC(jnz, JumpShortType::Jnz);
-	DEFINE_JUMP_FUNC(je, JumpShortType::Je);
-	DEFINE_JUMP_FUNC(jne, JumpShortType::Jne);
-	DEFINE_JUMP_FUNC(jb, JumpShortType::Jb);
-	DEFINE_JUMP_FUNC(jbe, JumpShortType::Jbe);
-	DEFINE_JUMP_FUNC(ja, JumpShortType::Ja);
-	DEFINE_JUMP_FUNC(jae, JumpShortType::Jae);
-	DEFINE_JUMP_FUNC(jc, JumpShortType::Jc);
-	DEFINE_JUMP_FUNC(jnc, JumpShortType::Jnc);
-	DEFINE_JUMP_FUNC(js, JumpShortType::Js);
-	DEFINE_JUMP_FUNC(jns, JumpShortType::Jns);
-	DEFINE_JUMP_FUNC(jp, JumpShortType::Jp);
-	DEFINE_JUMP_FUNC(jo, JumpShortType::Jo);
-	DEFINE_JUMP_FUNC(jno, JumpShortType::Jno);
-	DEFINE_JUMP_FUNC(jg, JumpShortType::Jg);
-	DEFINE_JUMP_FUNC(jng, JumpShortType::Jng);
-	DEFINE_JUMP_FUNC(jge, JumpShortType::Jge);
-	DEFINE_JUMP_FUNC(jl, JumpShortType::Jl);
-	DEFINE_JUMP_FUNC(jle, JumpShortType::Jle);
+	DEFINE_JUMP_FUNC(jmp, JumpNearType::Jmp);
+	DEFINE_JUMP_FUNC(jz, JumpNearType::Jz);
+	DEFINE_JUMP_FUNC(jnz, JumpNearType::Jnz);
+	DEFINE_JUMP_FUNC(je, JumpNearType::Je);
+	DEFINE_JUMP_FUNC(jne, JumpNearType::Jne);
+	DEFINE_JUMP_FUNC(jb, JumpNearType::Jb);
+	DEFINE_JUMP_FUNC(jbe, JumpNearType::Jbe);
+	DEFINE_JUMP_FUNC(ja, JumpNearType::Ja);
+	DEFINE_JUMP_FUNC(jae, JumpNearType::Jae);
+	DEFINE_JUMP_FUNC(jc, JumpNearType::Jc);
+	DEFINE_JUMP_FUNC(jnc, JumpNearType::Jnc);
+	DEFINE_JUMP_FUNC(js, JumpNearType::Js);
+	DEFINE_JUMP_FUNC(jns, JumpNearType::Jns);
+	DEFINE_JUMP_FUNC(jp, JumpNearType::Jp);
+	DEFINE_JUMP_FUNC(jo, JumpNearType::Jo);
+	DEFINE_JUMP_FUNC(jno, JumpNearType::Jno);
+	DEFINE_JUMP_FUNC(jg, JumpNearType::Jg);
+	DEFINE_JUMP_FUNC(jng, JumpNearType::Jng);
+	DEFINE_JUMP_FUNC(jge, JumpNearType::Jge);
+	DEFINE_JUMP_FUNC(jl, JumpNearType::Jl);
+	DEFINE_JUMP_FUNC(jle, JumpNearType::Jle);
 
 	// 添加 LOOP 指令
 	AsmBuilder& loop(uint8_t count, uint32_t address)
