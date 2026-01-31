@@ -1,11 +1,8 @@
 #include "TodParticleSystem.hpp"
 
-PVZ::TodParticleSystem::TodParticleSystem(DWORD indexoraddress) : BaseClass(0)
+PVZ::TodParticleSystem PVZ::TodParticleSystem::GetByIndex(uint32_t index)
 {
-	if (indexoraddress < 65536)
-		BaseAddress = Memory::ReadPointer(0x6A9EC0, 0x820, 0, 0) + indexoraddress * 0x2C;
-	else
-		BaseAddress = indexoraddress;
+	return PVZ::TodParticleSystem(Memory::ReadPointer(0x6A9EC0, 0x820, 0, 0) + index * 0x2C);
 }
 
 void PVZ::TodParticleSystem::Die()

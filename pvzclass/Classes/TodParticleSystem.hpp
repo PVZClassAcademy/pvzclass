@@ -8,7 +8,12 @@ namespace PVZ
 	class TodParticleSystem : public BaseClass
 	{
 	public:
-		TodParticleSystem(DWORD indexoraddress);
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
+		TodParticleSystem(uint32_t address) : BaseClass(address) {};
+		/// @brief 获取指定编号的对象
+		/// @param index 编号
+		/// @note 不保证以此法获得的对象未被移除
+		static TodParticleSystem GetByIndex(uint32_t index);
 		/// @brief 是否已被移除。
 		T_PROPERTY(BOOLEAN, Dead, __get_Dead, __set_Dead, 0x1C);
 		T_PROPERTY(DWORD, Id, __get_Id, __set_Id, 0x28);

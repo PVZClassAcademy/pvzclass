@@ -2,12 +2,9 @@
 
 DWORD PVZ::Lawnmover::MemSize = 0x48;
 
-PVZ::LawnMower::LawnMower(int indexoraddress)
+PVZ::LawnMower PVZ::LawnMower::GetByIndex(uint32_t index)
 {
-	if (indexoraddress > 1024)
-		BaseAddress = indexoraddress;
-	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x100) + indexoraddress * MemSize;
+    return LawnMower(Memory::ReadMemory<int>(PVZ::GetBoard().GetBaseAddress() + 0x100) + index * MemSize);
 }
 
 PVZ::Animation PVZ::LawnMower::GetAnimation()

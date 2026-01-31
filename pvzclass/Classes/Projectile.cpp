@@ -2,12 +2,9 @@
 
 DWORD PVZ::Projectile::MemSize = 0x94;
 
-PVZ::Projectile::Projectile(int indexoraddress)
+PVZ::Projectile PVZ::Projectile::GetByIndex(uint32_t index)
 {
-	if (indexoraddress > 65535)
-		BaseAddress = indexoraddress;
-	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0xC8) + indexoraddress * MemSize;
+	return PVZ::Projectile(Memory::ReadMemory<int>(PVZBASEADDRESS + 0x0C8) + index * MemSize);
 }
 
 void PVZ::Projectile::CheckForCollision()

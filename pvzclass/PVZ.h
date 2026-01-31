@@ -92,6 +92,21 @@ namespace PVZ
 		{ return(this->BaseAddress != INVALID_BASEADDRESS && this->BaseAddress != 0); }
 	};
 
+	template<typename T>
+	T GetByID(int id)
+	{
+		if (id)
+		{
+			T tmp = T::GetByIndex(ID_INDEX(id));
+			if (tmp.Id != id)
+				return T(nullptr);
+			else
+				return tmp;
+		}
+		else
+			return T(nullptr);
+	}
+
 	/// @brief 对应 PVZ 内部数组的类
 	/// @tparam T 数组元素的类型
 	template<typename T>
@@ -350,7 +365,12 @@ namespace PVZ
 	class Animation : public BaseClass
 	{
 	public:
-		Animation(int idoraddress);
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
+		Animation(uint32_t address) : BaseClass(address) {};
+		/// @brief 获取指定编号的对象
+		/// @param index 编号
+		/// @note 不保证以此法获得的对象未被移除
+		static Animation GetByIndex(uint32_t index);
 		//support muiti-animprop(AP_XXXXXX)
 		static void UnLock(int animprop);
 		static void Lock();
@@ -454,7 +474,12 @@ namespace PVZ
 	class Attachment : public BaseClass
 	{
 	public:
-		Attachment(int idoraddress);
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
+		Attachment(uint32_t address) : BaseClass(address) {};
+		/// @brief 获取指定编号的对象
+		/// @param index 编号
+		/// @note 不保证以此法获得的对象未被移除
+		static Attachment GetByIndex(uint32_t index);
 		// TODO: check whether this function works properly.
 		PVZ::Animation GetAnimation();
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
@@ -467,7 +492,12 @@ namespace PVZ
 	class TrackInstance : public BaseClass
 	{
 	public:
-		TrackInstance(int idoraddress);
+		/// @attention 从 3.0 起，该函数将不再具有按编号构造的功能。
+		TrackInstance(uint32_t address) : BaseClass(address) {};
+		/// @brief 获取指定编号的对象
+		/// @param index 编号
+		/// @note 不保证以此法获得的对象未被移除
+		static TrackInstance GetByIndex(uint32_t index);
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
 	};

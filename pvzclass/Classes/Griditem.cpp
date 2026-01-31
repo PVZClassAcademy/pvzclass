@@ -4,12 +4,9 @@
 
 DWORD PVZ::Griditem::MemSize = 0x0EC;
 
-PVZ::Griditem::Griditem(int indexoraddress)
+PVZ::Griditem PVZ::Griditem::GetByIndex(uint32_t index)
 {
-	if (indexoraddress > 1024)
-		BaseAddress = indexoraddress;
-	else
-		BaseAddress = Memory::ReadMemory<int>(PVZBASEADDRESS + 0x11C) + indexoraddress * MemSize;
+	return PVZ::Griditem(Memory::ReadMemory<uint32_t>(PVZ::GetBoard().GetBaseAddress() + 0x11C) + index * MemSize);
 }
 
 PVZ::Board PVZ::Griditem::GetBoard()
