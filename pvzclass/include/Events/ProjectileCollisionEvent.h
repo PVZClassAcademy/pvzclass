@@ -93,6 +93,10 @@ private:
 	int newAddress3, hookAddress3, rawlen3;
 };*/
 namespace PVZEvent {
+	/// @brief 子弹运动时碰撞箱击中检测事件
+	/// @param 子弹
+	/// @return 负数则使用原版判断，0时只检测僵尸，正数时只检测植物
+	/// @note 如果需要让原本不能击中僵尸的子弹击中僵尸还需要修改子弹的DamageAbility
 	class ProjectileCollisionEvent : public DLLEvent
 	{
 	public:
