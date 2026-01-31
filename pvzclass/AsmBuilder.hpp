@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <stdexcept>
 #include <iostream>
+#include <cassert>
 
 #define DEFINE_JUMP_FUNC(jump_name, jump_type) \
     inline AsmBuilder& jump_name(uint32_t address) { return add_jump_short(jump_type, address); } \
@@ -175,9 +176,9 @@ public:
 	}
 
 	// 返回当前生成的机器码
-	byte* get_code() const
+	byte* get_code()
 	{
-
+		fill_labels();
 		return code;
 	}
 
