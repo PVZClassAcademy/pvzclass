@@ -16,6 +16,9 @@ class AsmBuilder
 {
 private:
 
+	byte* code;
+	int ptr;  // 指向最后一条指令的下一字节
+
 	struct JumpNearOpcode
 	{
 		uint8_t op1, op2;
@@ -47,11 +50,10 @@ private:
 	};
 	struct LabelEntry {
 		std::string label_name;
-		int op_pos;
+		int ins_pos;
 		int offset_pos;
 	};
-	byte* code;
-	int ptr;  // 指向最后一条指令的下一字节
+
 	std::unordered_map<std::string, int> labels;
 	std::vector<LabelEntry> fixups;
 
@@ -138,7 +140,7 @@ private:
 		for (const auto& entry : fixups)
 		{
 			const std::string& label_name = entry.label_name;
-			int op_start = entry.op_pos;
+			int ins_start = entry.ins_pos;
 			int offset_pos = entry.offset_pos;
 
 			auto label_iter = labels.find(label_name);
@@ -149,10 +151,10 @@ private:
 			}
 			int target_addr = label_iter->second;
 
-			int op_code_len = offset_pos - op_start;
+			int op_code_len = offset_pos - ins_start;
 			int total_op_len = op_code_len + 4;
 
-			int next_insn_addr = op_start + total_op_len;
+			int next_insn_addr = ins_start + total_op_len;
 			int32_t rel32 = static_cast<int32_t>(target_addr - next_insn_addr);
 
 			*(int32_t*)(code + offset_pos) = rel32;
