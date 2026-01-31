@@ -48,6 +48,8 @@ private:
 		Jge, Jnge,
 
 	};
+
+	// 用于记录标签跳转的待修正项
 	struct LabelEntry {
 		std::string label_name;
 		int ins_pos;
@@ -55,7 +57,7 @@ private:
 	};
 
 	std::unordered_map<std::string, int> labels;
-	std::vector<LabelEntry> fixups;
+	std::vector<LabelEntry> fixups;// 待填充的标签跳转项
 
 	inline static const std::unordered_map<JumpNearType, JumpNearOpcode> JUMP_SHORT_OPCODES = {
 		// 无条件
@@ -103,6 +105,10 @@ private:
 		{JumpNearType::Jge,      {0x0F, 0x8D}},  // JGE = JNL
 		{JumpNearType::Jnge,     {0x0F, 0x8C}},  // JNGE = JL
 	};
+
+	/// @brief 添加相对跳转指令
+	/// @param type 跳转类型
+	/// @param rel_offset 相对偏移
 	AsmBuilder& add_jump_rel32(JumpNearType type, uint32_t rel_offset)
 	{
 		auto opcode = JUMP_SHORT_OPCODES.at(type);
@@ -121,13 +127,18 @@ private:
 		}
 		return *this;
 	}
+	/// @brief 添加绝对跳转指令
+	/// @param type 跳转类型
+	/// @param address 跳转地址
 	AsmBuilder& add_jump_near(JumpNearType type, uint32_t address)
 	{
 		const int op_len = type == JumpNearType::Jmp ? 5 : 6;
 		return add_jump_rel32(type, address - (ptr + op_len));
 	}
 
-	// 添加 JMP 指令，跳转到标签
+	/// @brief 添加标签跳转指令
+	/// @param type 跳转类型
+	/// @param label_name 标签名称
 	AsmBuilder& add_jump_label(JumpNearType type, std::string label_name)
 	{
 		const int jump_prefix_len = type == JumpNearType::Jmp ? 1 : 2;
@@ -135,6 +146,7 @@ private:
 		add_jump_rel32(type, 0);
 		return *this;
 	}
+	/// @brief 填充标签跳转的偏移
 	void fill_labels()
 	{
 		for (const auto& entry : fixups)
@@ -159,6 +171,8 @@ private:
 
 			*(int32_t*)(code + offset_pos) = rel32;
 		}
+		labels.clear();
+		fixups.clear();
 	}
 public:
 	AsmBuilder() : ptr(1)
