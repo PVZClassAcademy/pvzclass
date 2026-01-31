@@ -355,7 +355,12 @@ namespace PVZ
 		Rect GetZombieRect();
 		/// @brief 根据僵尸当前的运动，估算僵尸在time后大概的受击中心x
 		float ZombieTargetLeadX(float time);
-
+		/// @brief 投篮车尝试寻找目标植物
+		/// @return 目标植物，没有找到目标时address为0。
+		Plant FindCatapultTarget();
+		/// @brief 投篮车对目标植物开火
+		/// @param 目标植物，address为0表示无目标。
+		void ZombieCatapultFire(Plant plant);
 		/// @brief 设置是否显示铁门僵尸的手臂。
 		/// @param shown 是否显示，默认为 true
 		void ShowDoorArms(bool shown = true);

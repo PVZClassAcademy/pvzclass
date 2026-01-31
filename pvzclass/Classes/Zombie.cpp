@@ -382,7 +382,7 @@ void PVZ::Zombie::EquipBucket(int shield)
 {
 	if (this->GetAccessoriesType1().Type)
 		return;
-	this->GetAnimation().AssignRenderGroupToPrefix(0, "anim_bucket");
+	this->GetAnimation().AssignRenderGroupToPrefix("anim_bucket", 0);
 	this->SetAccessoriesType1({ HelmType::Bucket, shield, shield });
 }
 
@@ -390,7 +390,7 @@ void PVZ::Zombie::EquipCone(int shield)
 {
 	if (this->GetAccessoriesType1().Type)
 		return;
-	this->GetAnimation().AssignRenderGroupToPrefix(0, "anim_cone");
+	this->GetAnimation().AssignRenderGroupToPrefix("anim_cone", 0);
 	this->SetAccessoriesType1({ HelmType::RoadCone, shield, shield });
 }
 
@@ -726,4 +726,26 @@ float PVZ::Zombie::ZombieTargetLeadX(float time)
 	);
 	float tmp = PVZ::Memory::ReadMemory<float>(PVZ::Memory::Variable);
 	return tmp;
+}
+
+
+PVZ::Plant PVZ::Zombie::FindCatapultTarget()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x525890)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+	return PVZ::Plant(PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable));
+}
+
+void PVZ::Zombie::ZombieCatapultFire(PVZ::Plant plant)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, plant.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x525730)
+		.ret()
+	);
 }

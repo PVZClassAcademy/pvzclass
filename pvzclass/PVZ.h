@@ -453,7 +453,7 @@ namespace PVZ
 		/// @brief 设置指定前缀的所有轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
 		/// @param trackName 动作轨道的名称前缀
 		/// @param renderGroup 分组大小
-		void AssignRenderGroupToPrefix(byte RenderGroup, const char* TrackName);
+		void AssignRenderGroupToPrefix(const char* TrackName,byte RenderGroup);
 		/// @brief 设置指定动画轨道在绘制时的分组。通常情况下，分组为 -1 时表示隐藏该轨道。
 		/// @param trackName 执行的动作轨道名称
 		/// @param renderGroup 分组大小

@@ -1,16 +1,179 @@
 #pragma once
 #include <vector>
+#include <unordered_map>
 #include <cstdint>
 #include <stdexcept>
 #include <iostream>
+#include <cassert>
+
+#define DEFINE_JUMP_FUNC(jump_name, jump_type) \
+    inline AsmBuilder& jump_name(uint32_t address) { return add_jump_near(jump_type, address); } \
+    inline AsmBuilder& jump_name##_rel(int32_t offset) { return add_jump_rel32(jump_type, offset); } \
+    inline AsmBuilder& jump_name##_label(std::string label_name) { return add_jump_label(jump_type, label_name); }
 
 /// @brief 构建指令序列的类
 class AsmBuilder
 {
 private:
+
 	byte* code;
 	int ptr;  // 指向最后一条指令的下一字节
 
+	struct JumpNearOpcode
+	{
+		uint8_t op1, op2;
+	};
+
+	enum JumpNearType {
+		Jmp,
+		Jz, Jnz,
+		Je, Jne,
+
+		Jb, Jbe,
+		Jnb, Jnbe,
+		Ja, Jna,
+		Jae, Jnae,
+		Jc, Jnc,
+
+		Js, Jns,
+
+		Jo, Jno,
+
+		Jp, Jnp,
+		Jpe, Jpo,
+
+		Jl, Jle,
+		Jnl, Jnle,
+		Jg, Jng,
+		Jge, Jnge,
+
+	};
+
+	// 用于记录标签跳转的待修正项
+	struct LabelEntry {
+		std::string label_name;
+		int ins_pos;
+		int offset_pos;
+	};
+
+	std::unordered_map<std::string, int> labels;
+	std::vector<LabelEntry> fixups;// 待填充的标签跳转项
+
+	inline static const std::unordered_map<JumpNearType, JumpNearOpcode> JUMP_SHORT_OPCODES = {
+		// 无条件
+		{JumpNearType::Jmp,      {0xE9, 0x00}},  // JMP rel32（单字节0xE9，无第二字节）
+
+		// 零标志（ZF）
+		{JumpNearType::Jz,       {0x0F, 0x84}},  // JZ rel32
+		{JumpNearType::Jnz,      {0x0F, 0x85}},  // JNZ rel32
+		{JumpNearType::Je,       {0x0F, 0x84}},  // JE = JZ
+		{JumpNearType::Jne,      {0x0F, 0x85}},  // JNE = JNZ
+
+		// 进位标志（CF）
+		{JumpNearType::Jb,       {0x0F, 0x82}},  // JB = JC = JNAE
+		{JumpNearType::Jbe,      {0x0F, 0x86}},  // JBE = JNA
+		{JumpNearType::Jnb,      {0x0F, 0x83}},  // JNB = JAE = JNC
+		{JumpNearType::Jnbe,     {0x0F, 0x87}},  // JNBE = JA
+		{JumpNearType::Ja,       {0x0F, 0x87}},  // JA = JNBE
+		{JumpNearType::Jna,      {0x0F, 0x86}},  // JNA = JBE
+		{JumpNearType::Jae,      {0x0F, 0x83}},  // JAE = JNB = JNC
+		{JumpNearType::Jnae,     {0x0F, 0x82}},  // JNAE = JB = JC
+		{JumpNearType::Jc,       {0x0F, 0x82}},  // JC = JB = JNAE
+		{JumpNearType::Jnc,      {0x0F, 0x83}},  // JNC = JNB = JAE
+
+		// 符号标志（SF）
+		{JumpNearType::Js,       {0x0F, 0x88}},  // JS rel32
+		{JumpNearType::Jns,      {0x0F, 0x89}},  // JNS rel32
+
+		// 溢出标志（OF）
+		{JumpNearType::Jo,       {0x0F, 0x80}},  // JO rel32
+		{JumpNearType::Jno,      {0x0F, 0x81}},  // JNO rel32
+
+		// 奇偶标志（PF）
+		{JumpNearType::Jp,       {0x0F, 0x8A}},  // JP = JPE
+		{JumpNearType::Jnp,      {0x0F, 0x8B}},  // JNP = JPO
+		{JumpNearType::Jpe,      {0x0F, 0x8A}},  // JPE = JP
+		{JumpNearType::Jpo,      {0x0F, 0x8B}},  // JPO = JNP
+
+		// 有符号数大小（SF/OF）
+		{JumpNearType::Jl,       {0x0F, 0x8C}},  // JL = JNGE
+		{JumpNearType::Jle,      {0x0F, 0x8E}},  // JLE = JNG
+		{JumpNearType::Jnl,      {0x0F, 0x8D}},  // JNL = JGE
+		{JumpNearType::Jnle,     {0x0F, 0x8F}},  // JNLE = JG
+		{JumpNearType::Jg,       {0x0F, 0x8F}},  // JG = JNLE
+		{JumpNearType::Jng,      {0x0F, 0x8E}},  // JNG = JLE
+		{JumpNearType::Jge,      {0x0F, 0x8D}},  // JGE = JNL
+		{JumpNearType::Jnge,     {0x0F, 0x8C}},  // JNGE = JL
+	};
+
+	/// @brief 添加相对跳转指令
+	/// @param type 跳转类型
+	/// @param rel_offset 相对偏移
+	AsmBuilder& add_jump_rel32(JumpNearType type, uint32_t rel_offset)
+	{
+		auto opcode = JUMP_SHORT_OPCODES.at(type);
+		if (opcode.op2 == 0x00)
+		{
+			// 无条件跳转
+			add_byte(opcode.op1);
+			add_dword(rel_offset);
+		}
+		else
+		{
+			// 条件跳转
+			add_byte(opcode.op1);
+			add_byte(opcode.op2);
+			add_dword(rel_offset);
+		}
+		return *this;
+	}
+	/// @brief 添加绝对跳转指令
+	/// @param type 跳转类型
+	/// @param address 跳转地址
+	AsmBuilder& add_jump_near(JumpNearType type, uint32_t address)
+	{
+		const int op_len = type == JumpNearType::Jmp ? 5 : 6;
+		return add_jump_rel32(type, address - (ptr + op_len));
+	}
+
+	/// @brief 添加标签跳转指令
+	/// @param type 跳转类型
+	/// @param label_name 标签名称
+	AsmBuilder& add_jump_label(JumpNearType type, std::string label_name)
+	{
+		const int jump_prefix_len = type == JumpNearType::Jmp ? 1 : 2;
+		fixups.push_back({ label_name, ptr, ptr + jump_prefix_len });
+		add_jump_rel32(type, 0);
+		return *this;
+	}
+	/// @brief 填充标签跳转的偏移
+	void fill_labels()
+	{
+		for (const auto& entry : fixups)
+		{
+			const std::string& label_name = entry.label_name;
+			int ins_start = entry.ins_pos;
+			int offset_pos = entry.offset_pos;
+
+			auto label_iter = labels.find(label_name);
+			if (label_iter == labels.end())
+			{
+				assert(false && "Undefined label in jump instruction!");
+				continue;
+			}
+			int target_addr = label_iter->second;
+
+			int op_code_len = offset_pos - ins_start;
+			int total_op_len = op_code_len + 4;
+
+			int next_insn_addr = ins_start + total_op_len;
+			int32_t rel32 = static_cast<int32_t>(target_addr - next_insn_addr);
+
+			*(int32_t*)(code + offset_pos) = rel32;
+		}
+		labels.clear();
+		fixups.clear();
+	}
 public:
 	AsmBuilder() : ptr(1)
 	{
@@ -29,8 +192,9 @@ public:
 	}
 
 	// 返回当前生成的机器码
-	byte* get_code() const
+	byte* get_code()
 	{
+		fill_labels();
 		return code;
 	}
 
@@ -89,6 +253,12 @@ public:
 	{
 		*(float*)(code + ptr) = dword;
 		ptr += 4;
+		return *this;
+	}
+
+	inline AsmBuilder& label(const char* name)
+	{
+		labels[name] = ptr;
 		return *this;
 	}
 
@@ -865,21 +1035,6 @@ public:
 		return *this;
 	}
 
-	// 添加 JMP 指令
-	AsmBuilder& jmp(uint32_t address)
-	{
-		add_byte(0xE9);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JMP 指令（相对地址）
-	AsmBuilder& jmp_rel(int32_t offset)
-	{
-		add_byte(0xE9);
-		add_dword(offset);
-		return *this;
-	}
 
 	// 添加 JMP 指令（相对地址），参数强制为 8 位
 	AsmBuilder& jmp_rel8(int8_t offset)
@@ -887,341 +1042,27 @@ public:
 		return add_byte(0xEB).add_byte(offset);
 	}
 
-	// 添加 JZ 指令
-	AsmBuilder& jz(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x84);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JZ 指令（相对地址）
-	AsmBuilder& jz_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x84);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JNZ 指令
-	AsmBuilder& jnz(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x85);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JNZ 指令（相对地址）
-	AsmBuilder& jnz_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x85);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JE 指令
-	AsmBuilder& je(uint32_t address)
-	{
-		return jz(address);
-	}
-
-	// 添加 JE 指令（相对地址）
-	AsmBuilder& je_rel(int32_t offset)
-	{
-		return jz_rel(offset);
-	}
-
-	// 添加 JNE 指令
-	AsmBuilder& jne(uint32_t address)
-	{
-		return jnz(address);
-	}
-
-	// 添加 JNE 指令（相对地址）
-	AsmBuilder& jne_rel(int32_t offset)
-	{
-		return jnz_rel(offset);
-	}
-
-	// 添加 JB 指令
-	AsmBuilder& jb(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x82);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JB 指令（相对地址）
-	AsmBuilder& jb_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x82);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JBE 指令
-	AsmBuilder& jbe(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x86);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JBE 指令（相对地址）
-	AsmBuilder& jbe_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x86);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JA 指令
-	AsmBuilder& ja(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x87);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JA 指令（相对地址）
-	AsmBuilder& ja_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x87);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JAE 指令
-	AsmBuilder& jae(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x83);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JAE 指令（相对地址）
-	AsmBuilder& jae_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x83);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JC 指令
-	AsmBuilder& jc(uint32_t address)
-	{
-		return jb(address);
-	}
-
-	// 添加 JC 指令（相对地址）
-	AsmBuilder& jc_rel(int32_t offset)
-	{
-		return jb_rel(offset);
-	}
-
-	// 添加 JNC 指令
-	AsmBuilder& jnc(uint32_t address)
-	{
-		return jae(address);
-	}
-
-	// 添加 JNC 指令（相对地址）
-	AsmBuilder& jnc_rel(int32_t offset)
-	{
-		return jae_rel(offset);
-	}
-
-	// 添加 JS 指令
-	AsmBuilder& js(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x88);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JS 指令（相对地址）
-	AsmBuilder& js_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x88);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JNS 指令
-	AsmBuilder& jns(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x89);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JNS 指令（相对地址）
-	AsmBuilder& jns_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x89);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JP 指令
-	AsmBuilder& jp(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x8A);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JP 指令（相对地址）
-	AsmBuilder& jp_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x8A);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JNP 指令
-	AsmBuilder& jnp(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x8B);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JNP 指令（相对地址）
-	AsmBuilder& jnp_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x8B);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JO 指令
-	AsmBuilder& jo(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x80);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JO 指令（相对地址）
-	AsmBuilder& jo_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x80);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JNO 指令
-	AsmBuilder& jno(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x81);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JNO 指令（相对地址）
-	AsmBuilder& jno_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x81);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JG 指令
-	AsmBuilder& jg(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x8F);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JG 指令（相对地址）
-	AsmBuilder& jg_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x8F);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JGE 指令
-	AsmBuilder& jge(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x8D);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JGE 指令（相对地址）
-	AsmBuilder& jge_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x8D);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JL 指令
-	AsmBuilder& jl(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x8C);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JL 指令（相对地址）
-	AsmBuilder& jl_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x8C);
-		add_dword(offset);
-		return *this;
-	}
-
-	// 添加 JLE 指令
-	AsmBuilder& jle(uint32_t address)
-	{
-		add_byte(0x0F);
-		add_byte(0x8E);
-		add_dword(address - (ptr + 4));
-		return *this;
-	}
-
-	// 添加 JLE 指令（相对地址）
-	AsmBuilder& jle_rel(int32_t offset)
-	{
-		add_byte(0x0F);
-		add_byte(0x8E);
-		add_dword(offset);
-		return *this;
-	}
+	DEFINE_JUMP_FUNC(jmp, JumpNearType::Jmp);
+	DEFINE_JUMP_FUNC(jz, JumpNearType::Jz);
+	DEFINE_JUMP_FUNC(jnz, JumpNearType::Jnz);
+	DEFINE_JUMP_FUNC(je, JumpNearType::Je);
+	DEFINE_JUMP_FUNC(jne, JumpNearType::Jne);
+	DEFINE_JUMP_FUNC(jb, JumpNearType::Jb);
+	DEFINE_JUMP_FUNC(jbe, JumpNearType::Jbe);
+	DEFINE_JUMP_FUNC(ja, JumpNearType::Ja);
+	DEFINE_JUMP_FUNC(jae, JumpNearType::Jae);
+	DEFINE_JUMP_FUNC(jc, JumpNearType::Jc);
+	DEFINE_JUMP_FUNC(jnc, JumpNearType::Jnc);
+	DEFINE_JUMP_FUNC(js, JumpNearType::Js);
+	DEFINE_JUMP_FUNC(jns, JumpNearType::Jns);
+	DEFINE_JUMP_FUNC(jp, JumpNearType::Jp);
+	DEFINE_JUMP_FUNC(jo, JumpNearType::Jo);
+	DEFINE_JUMP_FUNC(jno, JumpNearType::Jno);
+	DEFINE_JUMP_FUNC(jg, JumpNearType::Jg);
+	DEFINE_JUMP_FUNC(jng, JumpNearType::Jng);
+	DEFINE_JUMP_FUNC(jge, JumpNearType::Jge);
+	DEFINE_JUMP_FUNC(jl, JumpNearType::Jl);
+	DEFINE_JUMP_FUNC(jle, JumpNearType::Jle);
 
 	// 添加 LOOP 指令
 	AsmBuilder& loop(uint8_t count, uint32_t address)
