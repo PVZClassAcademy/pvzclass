@@ -1042,6 +1042,13 @@ public:
 		return add_byte(0xEB).add_byte(offset);
 	}
 
+	AsmBuilder& jmp_to(uint32_t address)
+	{
+		push_imm32(address)
+			.ret();
+		return *this;
+	}
+
 	DEFINE_JUMP_FUNC(jmp, JumpNearType::Jmp);
 	DEFINE_JUMP_FUNC(jz, JumpNearType::Jz);
 	DEFINE_JUMP_FUNC(jnz, JumpNearType::Jnz);
