@@ -24,7 +24,7 @@ byte __asm__Griditem__Remove[]
 PVZ::Animation PVZ::Griditem::GetReanimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x34);
-	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation(ID_INDEX(ID)));
+	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
 void PVZ::Griditem::SetReanimationn(Animation anim)
