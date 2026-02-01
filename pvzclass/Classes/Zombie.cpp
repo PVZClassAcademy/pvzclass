@@ -195,7 +195,7 @@ PVZ::Animation PVZ::Zombie::GetAnimation()
 PVZ::Animation PVZ::Zombie::GetSpecialHeadAnimation()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x144);
-	return (ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : ID_INDEX(ID);
+	return (ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID));
 }
 
 void PVZ::Zombie::SetSpecialHeadAnimation(PVZ::Animation anim)

@@ -24,7 +24,7 @@ void PVZ::Coin::SetCollision(PVZ::Rect* collbox)
 PVZ::Attachment PVZ::Coin::GetAttachment()
 {
 	int ID = Memory::ReadMemory<int>(BaseAddress + 0x60);
-	return (((ID & 0xFFFF0000) == 0) ? INVALID_BASEADDRESS : Attachment(ID & 0x00FFFF));
+	return (((ID & 0xFFFF0000) == 0) ? INVALID_BASEADDRESS : Attachment::GetByIndex(ID & 0x00FFFF));
 }
 
 PVZ::GardenPlant PVZ::Coin::GetGardenPlant()
