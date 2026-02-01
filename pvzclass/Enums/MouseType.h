@@ -23,7 +23,7 @@ namespace MouseType
 		WheelBarrow,
 		TreeFood,
 	};
-	constexpr MouseType CobCannonTarget = Crosshair;
+	inline constexpr MouseType CobCannonTarget = Crosshair;
 
 	extern const char* ToString(MouseType mouset);
 

@@ -20,7 +20,7 @@ namespace ProjectileType
 		ZombiePea,
 	};
 
-	constexpr ProjectileType Cactus = Spike;
+	inline constexpr ProjectileType Cactus = Spike;
 
 	extern const char* ToString(ProjectileType projectilet);
 

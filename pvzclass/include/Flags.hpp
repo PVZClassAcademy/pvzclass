@@ -6,27 +6,27 @@ namespace PVZ
 	typedef unsigned char DamageRangeFlags;
 
 	/// @brief 是否位于地面上（或水面上）。
-	constexpr DamageRangeFlags DRF_GROUND = (1 << 0);
+	inline constexpr DamageRangeFlags DRF_GROUND = (1 << 0);
 	/// @brief 是否飞行。
-	constexpr DamageRangeFlags DRF_FLYING = (1 << 1);
+	inline constexpr DamageRangeFlags DRF_FLYING = (1 << 1);
 	/// @brief 是否潜水。
-	constexpr DamageRangeFlags DRF_SUBMERGED = (1 << 2);
+	inline constexpr DamageRangeFlags DRF_SUBMERGED = (1 << 2);
 	/// @brief 内测版中用于判断是否为僵尸狗。正式版 PVZ 中被废弃。
-	constexpr DamageRangeFlags DRF_DOG = (1 << 3);
+	inline constexpr DamageRangeFlags DRF_DOG = (1 << 3);
 	/// @brief 是否正在落地（或出土）。
-	constexpr DamageRangeFlags DRF_OFF_GROUND = (1 << 4);
+	inline constexpr DamageRangeFlags DRF_OFF_GROUND = (1 << 4);
 	/// @brief 是否考虑已被击杀的僵尸。
-	constexpr DamageRangeFlags DRF_DYING = (1 << 5);
+	inline constexpr DamageRangeFlags DRF_DYING = (1 << 5);
 	/// @brief 是否位于地下。
-	constexpr DamageRangeFlags DRF_UNDERGROUND = (1 << 6);
+	inline constexpr DamageRangeFlags DRF_UNDERGROUND = (1 << 6);
 	/// @brief 是否被魅惑。
-	constexpr DamageRangeFlags DRF_HYPNOTIZED = (1 << 7);
+	inline constexpr DamageRangeFlags DRF_HYPNOTIZED = (1 << 7);
 
 	/// @brief 全体未被魅惑的僵尸。
-	constexpr DamageRangeFlags DRF_ALL = DRF_GROUND | DRF_FLYING
+	inline constexpr DamageRangeFlags DRF_ALL = DRF_GROUND | DRF_FLYING
 		| DRF_SUBMERGED | DRF_DOG | DRF_OFF_GROUND | DRF_DYING | DRF_UNDERGROUND;
 	/// @brief 全体被魅惑的僵尸。
-	constexpr DamageRangeFlags DRF_ALL_HYPNOTIZED = DRF_HYPNOTIZED | DRF_ALL;
+	inline constexpr DamageRangeFlags DRF_ALL_HYPNOTIZED = DRF_HYPNOTIZED | DRF_ALL;
 
 	#pragma endregion
 

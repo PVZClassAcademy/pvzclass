@@ -46,7 +46,7 @@ using std::is_base_of;
 #define ID_INDEX(id) ((id) & 0x0000FFFF)
 #define ID_RANK(id) ((id) & 0xFFFF0000)
 
-constexpr auto INVALID_BASEADDRESS = 0x400000;
+inline constexpr auto INVALID_BASEADDRESS = 0x400000;
 
 /// @brief 包含大部分用于控制 PVZ 内部对象的类和方法。
 /// @note Only version 1.0.0.1051 is fully supported
