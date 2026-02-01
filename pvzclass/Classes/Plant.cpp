@@ -169,7 +169,7 @@ PVZ::Projectile PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targeti
 	__asm__Shoot[3] = Row;
 	if (targetid != -1)
 	{
-		Zombie tmp = Zombie(ID_INDEX(targetid));
+		Zombie tmp = PVZ::GetByID<Zombie>(targetid);
 		SETARG(__asm__Shoot, 5) = tmp.GetBaseAddress();
 	}
 	SETARG(__asm__Shoot, 10) = BaseAddress;

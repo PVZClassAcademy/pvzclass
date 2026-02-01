@@ -490,12 +490,13 @@ namespace PVZ
 		/// @brief 立即更新一次
 		void Update();
 		/// @deprecated
-		PVZ::Projectile Shoot(int targetid = -1);
+		[[deprecated]] PVZ::Projectile Shoot(int targetid = -1);
 		/// @brief 立刻发射子弹
 		/// @param motiontype 子弹移动类型
 		/// @param targetid 攻击目标僵尸的 ID
 		/// @param special 是否使用副武器进行攻击
 		/// @return 生成的子弹
+		/// @todo 将此函数的目标参数改为 Zombie
 		PVZ::Projectile Shoot(MotionType::MotionType motiontype = MotionType::None, int targetid = -1, bool special = false);
 		/// @deprecated 请改用 PlayBodyReanim()。
 		[[deprecated]] void SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayArg, int imagespeed);
