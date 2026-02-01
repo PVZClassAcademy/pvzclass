@@ -75,14 +75,14 @@ typedef uint8_t byte;
 
 #pragma region asm extra
 
-#define REG_EAX 0
-#define REG_ECX 1
-#define REG_EDX 2
-#define REG_EBX 3
-#define REG_ESP 4
-#define REG_EBP 5
-#define REG_ESI 6
-#define REG_EDI 7
+inline constexpr auto REG_EAX = 0;
+inline constexpr auto REG_ECX = 1;
+inline constexpr auto REG_EDX = 2;
+inline constexpr auto REG_EBX = 3;
+inline constexpr auto REG_ESP = 4;
+inline constexpr auto REG_EBP = 5;
+inline constexpr auto REG_ESI = 6;
+inline constexpr auto REG_EDI = 7;
 
 #define JNO(b) 0x71,b
 #define JB(b) 0x72,b
