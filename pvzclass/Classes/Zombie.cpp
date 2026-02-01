@@ -711,10 +711,10 @@ PVZ::Rect PVZ::Zombie::GetZombieRect()
 
 	return Rect
 	{
-		*(int*)(PVZ::Memory::Variable),
-		*(int*)(PVZ::Memory::Variable + 4),
-		*(int*)(PVZ::Memory::Variable + 8),
-		*(int*)(PVZ::Memory::Variable + 12)
+		PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable),
+		PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4),
+		PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8),
+		PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 12)
 	};
 }
 

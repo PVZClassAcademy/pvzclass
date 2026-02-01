@@ -63,10 +63,10 @@ PVZ::Rect PVZ::Projectile::GetProjectileRect()
 	Memory::Execute(__asm__Projectile_GetProjectileRect, 24);
 	return Rect
 	{
-		*(int*)(PVZ::Memory::Variable),
-		*(int*)(PVZ::Memory::Variable + 4),
-		*(int*)(PVZ::Memory::Variable + 8),
-		*(int*)(PVZ::Memory::Variable + 12)
+		PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable),
+		PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4),
+		PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8),
+		PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 12)
 	};
 }
 byte __asm__OnFire[]
