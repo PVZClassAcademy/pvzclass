@@ -696,23 +696,26 @@ PVZ::Rect PVZ::Zombie::GetActualRect()
 {
     return this->GetZombieRect();
 }
-
+byte __asm__Zombie_GetRect[]
+{
+	MOV_EDI(0),
+	MOV_EBX(0),
+	INVOKE(0x5320B0),
+	RET
+};
 PVZ::Rect PVZ::Zombie::GetZombieRect()
 {
-	PVZ::Memory::Execute(AsmBuilder()
-		.mov_reg_imm(REG_EDI, PVZ::Memory::Variable)
-		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
-		.invoke(0x5320B0)
-		.ret()
-	);
+	SETARG(__asm__Zombie_GetRect, 1) = PVZ::Memory::Variable;
+	SETARG(__asm__Zombie_GetRect, 6) = this->GetBaseAddress();
+	Memory::Execute(__asm__Zombie_GetRect, 24);
 
-	Rect tmp = Rect();
-	tmp.X = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable);
-	tmp.Y = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4);
-	tmp.Width = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8);
-	tmp.Height = PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 0x0C);
-
-	return tmp;
+	return Rect
+	{
+		*(int*)(PVZ::Memory::Variable),
+		*(int*)(PVZ::Memory::Variable + 4),
+		*(int*)(PVZ::Memory::Variable + 8),
+		*(int*)(PVZ::Memory::Variable + 12)
+	};
 }
 
 float PVZ::Zombie::ZombieTargetLeadX(float time)
