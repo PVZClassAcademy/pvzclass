@@ -753,10 +753,10 @@ void PVZ::Zombie::ZombieCatapultFire(PVZ::Plant plant)
 	);
 }
 
-int PVZ::Zombie::GetBobsledPosition(PVZ::Zombie zombie)
+int PVZ::Zombie::GetBobsledPosition()
 {
 	return PVZ::Memory::Execute(AsmBuilder()
-		.mov_reg_imm(REG_ECX, zombie.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
 		.invoke(0x5346A0)
 		.ret()
 	);
