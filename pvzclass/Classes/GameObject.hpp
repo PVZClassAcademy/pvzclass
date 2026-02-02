@@ -361,6 +361,10 @@ namespace PVZ
 		/// @brief 投篮车对目标植物开火
 		/// @param 目标植物，address为0表示无目标。
 		void ZombieCatapultFire(Plant plant);
+		/// @brief 取得雪橇僵尸在雪橇僵尸小队中的位置，即获取僵尸是雪橇僵尸小队中的第几只雪橇僵尸。
+		/// @note 此函数通常用于判断僵尸是否为雪橇僵尸、雪橇小队是否存在雪橇以及雪橇僵尸是否位于雪橇小队中等。
+		/// @return 雪橇僵尸在雪橇僵尸小队中的位置，对于非雪橇僵尸的其他僵尸，以及当雪橇僵尸小队不存在雪橇（雪橇已损坏）时，返回 -1。
+		int GetBobsledPosition(Zombie zombie);
 		/// @brief 设置是否显示铁门僵尸的手臂。
 		/// @param shown 是否显示，默认为 true
 		void ShowDoorArms(bool shown = true);

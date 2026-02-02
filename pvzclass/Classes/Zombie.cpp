@@ -752,3 +752,12 @@ void PVZ::Zombie::ZombieCatapultFire(PVZ::Plant plant)
 		.ret()
 	);
 }
+
+int PVZ::Zombie::GetBobsledPosition(PVZ::Zombie zombie)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, zombie.GetBaseAddress())
+		.invoke(0x5346A0)
+		.ret()
+	);
+}
