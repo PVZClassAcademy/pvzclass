@@ -761,3 +761,15 @@ int PVZ::Zombie::GetBobsledPosition()
 		.ret()
 	);
 }
+
+void PVZ::Zombie::BungeeDropZombie(Zombie target, int col, int row)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
+		.push_imm32(target.GetBaseAddress())
+		.mov_reg_imm(REG_EAX, row)
+		.mov_reg_imm(REG_ECX, col)
+		.invoke(0x524970)
+		.ret()
+	);
+}
