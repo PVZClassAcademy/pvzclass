@@ -752,3 +752,24 @@ void PVZ::Zombie::ZombieCatapultFire(PVZ::Plant plant)
 		.ret()
 	);
 }
+
+int PVZ::Zombie::GetBobsledPosition()
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x5346A0)
+		.ret()
+	);
+}
+
+void PVZ::Zombie::BungeeDropZombie(Zombie target, int col, int row)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EBX, this->GetBaseAddress())
+		.push_imm32(target.GetBaseAddress())
+		.mov_reg_imm(REG_EAX, row)
+		.mov_reg_imm(REG_ECX, col)
+		.invoke(0x524970)
+		.ret()
+	);
+}
