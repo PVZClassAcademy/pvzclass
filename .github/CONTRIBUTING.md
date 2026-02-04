@@ -56,4 +56,4 @@
 
 ## 事件规范
 
-所有从 `ThreeStateEventTemplate` 派生的事件类，应当具有 `_ts` 命名后缀。
+所有从 `ThreeStateEventTemplate` 派生的事件类，应当具有 `_ts` 命名后缀（复合事件的成员事件除外）。
