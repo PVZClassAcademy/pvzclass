@@ -163,4 +163,18 @@ namespace PVZEvent {
 			throvv->end();
 		}
 	};
+
+	/// @brief 子弹击中植物时，判断使用的受伤植物顺序的事件
+	/// @param 子弹地址
+	/// @note 目前不支持自定义
+	/// @retval ThreeState::Enable 投掷顺序
+	/// @retval ThreeState::Disable 啃食顺序
+	/// @retval ThreeState::None 与原版一致
+	class ProjectileHitPlantPriorityEvent_ts : public ThreeStateEventTemplate<0x46CB5D, 7, 0x46CBC9, 0x46CB6C, REG_EBP>
+	{
+	public:
+		ProjectileHitPlantPriorityEvent_ts(const char* str) : ThreeStateEventTemplate() { Init(str); };
+		ProjectileHitPlantPriorityEvent_ts(int address) : ThreeStateEventTemplate() { Init(address); };
+		ProjectileHitPlantPriorityEvent_ts() : ProjectileHitPlantPriorityEvent_ts("onProjectileHitPlantPriority") {};
+	};
 };
