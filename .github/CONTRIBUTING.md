@@ -44,6 +44,8 @@
 
 本项目使用 [Doxygen](www.doxygen.nl) 作为 API 文档生成工具。
 
+`Doxyfile` （Doxygen 配置文件）位于 docs 文件夹中，可直接加载。
+
 # 代码规范
 
 **!! 本项目使用制表符缩进 !!**
@@ -51,3 +53,7 @@
 代码样式工具为 AStyle，具体参数请参见 `devScript/AStyle.bat`。
 
 请在开启 Pull Request 前校正代码样式。不符合样式的 Pull Request **不会被合并**。
+
+## 事件规范
+
+所有从 `ThreeStateEventTemplate` 派生的事件类，应当具有 `_ts` 命名后缀（复合事件的成员事件除外）。
