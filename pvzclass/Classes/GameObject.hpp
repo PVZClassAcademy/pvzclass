@@ -565,15 +565,21 @@ namespace PVZ
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x24);
 		/// @brief 实际 Y 坐标
 		T_PROPERTY(FLOAT, Y, __get_Y, __set_Y, 0x28);
+		/// @brief X方向速度
+		T_PROPERTY(FLOAT, SpeedX, __get_SpeedX, __set_SpeedX, 0x2C);
+		/// @brief Y方向速度
+		T_PROPERTY(FLOAT, SpeedY, __get_SpeedY, __set_SpeedY, 0x30);
 		/// @brief 大小
 		T_PROPERTY(FLOAT, Size, __get_Size, __set_Size, 0x34);
 		/// @brief 是否已消失
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x38);
+		/// @brief 淡出倒计时
+		INT_PROPERTY(FadeCount, __get_FadeCount, __set_FadeCount, 0x3C);
 		/// @brief 已存在时间
 		INT_READONLY_PROPERTY(ExistedTime, __get_ExistedTime, 0x4C);
 		/// @brief 是否已被收集
 		T_PROPERTY(BOOLEAN, Collected, __get_Collected, __set_Collected, 0x50);
-		/// @brief 消失倒计时
+		/// @brief 消失正计时
 		INT_PROPERTY(DisappearCounter, __get_DisappearCounter, __set_DisappearCounter, 0x54);
 		/// @brief 物品类型
 		T_PROPERTY(CoinType::CoinType, Type, __get_Type, __set_Type, 0x58);
