@@ -56,6 +56,10 @@ namespace PVZ
 	/// @param pid 进程 id
 	void InitPVZNoLock(DWORD pid);
 
+	/// @brief 初始化 PVZ 命名空间，且不在程序内附加钩子。Memory::localExecute 和 Memory::immediateExecute 会设置为 true 。
+	/// @note 该函数供 pvzdll 初始化使用。
+	void InitPVZDLL();
+
 	void InitPVZ(DWORD pid);
 	void QuitPVZ();
 
