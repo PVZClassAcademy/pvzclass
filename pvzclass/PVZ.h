@@ -351,6 +351,13 @@ namespace PVZ
 	public:
 		Matrix3(DWORD address) : BaseClass(address) {};
 
+		FLOAT_SIMPLE_PROPERTY(XScale,	0x00);
+		FLOAT_SIMPLE_PROPERTY(XSlant,	0x04);
+		FLOAT_SIMPLE_PROPERTY(XOffset,	0x08);
+		FLOAT_SIMPLE_PROPERTY(YSlant,	0x0C);
+		FLOAT_SIMPLE_PROPERTY(YScale,	0x10);
+		FLOAT_SIMPLE_PROPERTY(YOffset,	0x14);
+
 		/// @brief 根据指定的平移坐标、旋转弧度和拉伸比例，设定矩阵每个项的数值。
 		void ScaleRotateTransformMatrix(float x, float y, float rad, float ScaleX, float ScaleY);
 	};
