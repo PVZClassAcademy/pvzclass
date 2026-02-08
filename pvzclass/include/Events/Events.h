@@ -28,6 +28,7 @@
 #include "PeaOnFireEvent.h"
 #include "ProjectileCollisionEvent.h"
 #include "ProjectileCreateEvent.h"
+#include "ProjectileDrawTransEvent.hpp"
 #include "ProjectileHitPlantEvent.h"
 #include "ProjectileHitZombieEvent.h"
 #include "ProjectileRemoveEvent.h"

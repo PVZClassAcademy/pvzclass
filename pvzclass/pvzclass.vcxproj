@@ -196,6 +196,7 @@
     <ClCompile Include="Classes\TrackInstance.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Enums\AnimationType.cpp" />
+    <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp" />
     <ClCompile Include="src\Creators.cpp" />
     <ClCompile Include="src\Draw.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
