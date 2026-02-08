@@ -67,6 +67,15 @@ namespace PVZ
 	}
 }
 
+void InitPVZDLL()
+{
+	PVZ::Memory::immediateExecute = true;
+	PVZ::Memory::localExecute = false;
+	PVZ::Memory::mainwindowhandle = PVZ::Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
+	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
+	PVZ::Memory::StringVariable = PVZ::Memory::AllocMemory(4);
+}
+
 void PVZ::InitPVZNoLock(DWORD pid)
 {
 	Memory::localExecute = false;
