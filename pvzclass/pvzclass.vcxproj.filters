@@ -366,6 +366,9 @@
     <ClCompile Include="Enums\AnimationType.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ProcessOpener.h">
