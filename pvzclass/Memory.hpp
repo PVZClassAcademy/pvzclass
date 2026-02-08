@@ -272,3 +272,14 @@ namespace PVZ
 	{ return Memory::ReadMemory<type>(BaseAddress+offset+index*size); } \
 	inline void setmethod(int index, type value) \
 	{ Memory::WriteMemoryUnsafe<type>(BaseAddress+offset+index*size, value); }
+
+/// @brief 与T_PROPERTY类似，但自动生成get和set方法名
+/// @see T_PROPERTY
+/// @param type 类型
+/// @param propname 属性名称
+/// @param offset 偏移
+#define T_SIMPLE_PROPERTY(type, propname, offset) T_PROPERTY(type, propname, __get_##propname, __set##propname, offset)
+/// @brief 与T_SIMPLE_PROPERTY类似, 但属性类型为int
+#define INT_SIMPLE_PROPERTY(propname, offset) T_PROPERTY(int, propname, __get_##propname, __set##propname, offset)
+/// @brief 与T_SIMPLE_PROPERTY类似, 但属性类型为float
+#define FLOAT_SIMPLE_PROPERTY(propname, offset) T_PROPERTY(float, propname, __get_##propname, __set##propname, offset)
