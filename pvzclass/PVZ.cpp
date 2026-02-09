@@ -67,7 +67,7 @@ namespace PVZ
 	}
 }
 
-void InitPVZDLL()
+void PVZ::InitPVZDLL()
 {
 	PVZ::Memory::immediateExecute = true;
 	PVZ::Memory::localExecute = false;
