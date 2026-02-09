@@ -112,6 +112,7 @@ namespace PVZ
 	}
 
 	/// @brief 对应 PVZ 内部数组的类
+	/// @note 请勿将此类嵌套
 	/// @tparam T 数组元素的类型
 	template<typename T>
 	class Array : public BaseClass
