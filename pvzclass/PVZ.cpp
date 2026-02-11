@@ -67,10 +67,9 @@ namespace PVZ
 	}
 }
 
-void InitPVZDLL()
+void PVZ::InitPVZDLL()
 {
 	PVZ::Memory::immediateExecute = true;
-	PVZ::Memory::localExecute = false;
 	PVZ::Memory::mainwindowhandle = PVZ::Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
 	PVZ::Memory::StringVariable = PVZ::Memory::AllocMemory(4);
@@ -398,9 +397,9 @@ PVZ::PVZString PVZ::PVZApp::GetString(PVZ::PVZString id, PVZ::PVZString default_
 bool PVZ::PVZApp::LoadProperties(PVZ::PVZString file_name, bool check_sig)
 {
 	return PVZ::Memory::Execute(AsmBuilder()
-		.push_imm32(this->BaseAddress)
-		.mov_reg_imm(REG_ECX, file_name.GetBaseAddress())
 		.push_imm32(check_sig)
+		.mov_reg_imm(REG_ECX, file_name.GetBaseAddress())
+		.push_imm32(this->BaseAddress)
 		.invoke(0x5524C0)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
 		.ret()
