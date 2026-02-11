@@ -239,6 +239,18 @@ public:
 		ptr += length;
 		return *this;
 	}
+	// 添加多个字节到机器码中（byte初始化列表形式）
+	AsmBuilder& add_bytes(std::initializer_list<uint8_t> bytes)
+	{
+		uint32_t length = static_cast<uint32_t>(bytes.size());
+		const uint8_t* data = bytes.begin();
+
+		if (length > 0 && data != nullptr && code != nullptr) {
+			memcpy(code + ptr, data, length);
+			ptr += length;
+		}
+		return *this;
+	}
 
 	// 添加一个 DWORD (4 字节) 到机器码中
 	inline AsmBuilder& add_dword(uint32_t dword)
