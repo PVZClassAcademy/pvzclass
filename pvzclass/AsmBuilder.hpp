@@ -50,16 +50,6 @@ protected:
 
 	};
 
-	// 用于记录标签跳转的待修正项
-	struct LabelEntry {
-		std::string label_name;
-		int ins_pos;
-		int offset_pos;
-	};
-
-	std::unordered_map<std::string, int> labels;
-	std::vector<LabelEntry> fixups;// 待填充的标签跳转项
-
 	inline static const std::unordered_map<JumpNearType, JumpNearOpcode> JUMP_SHORT_OPCODES = {
 		// 无条件
 		{JumpNearType::Jmp,      {0xE9, 0x00}},  // JMP rel32（单字节0xE9，无第二字节）
@@ -135,45 +125,6 @@ protected:
 	{
 		const int op_len = type == JumpNearType::Jmp ? 5 : 6;
 		return add_jump_rel32(type, address - (ptr + op_len));
-	}
-
-	/// @brief 添加标签跳转指令
-	/// @param type 跳转类型
-	/// @param label_name 标签名称
-	BaseBuilder& add_jump_label(JumpNearType type, std::string label_name)
-	{
-		const int jump_prefix_len = type == JumpNearType::Jmp ? 1 : 2;
-		fixups.push_back({ label_name, ptr, ptr + jump_prefix_len });
-		add_jump_rel32(type, 0);
-		return *this;
-	}
-	/// @brief 填充标签跳转的偏移
-	void fill_labels()
-	{
-		for (const auto& entry : fixups)
-		{
-			const std::string& label_name = entry.label_name;
-			int ins_start = entry.ins_pos;
-			int offset_pos = entry.offset_pos;
-
-			auto label_iter = labels.find(label_name);
-			if (label_iter == labels.end())
-			{
-				assert(false && "Undefined label in jump instruction!");
-				continue;
-			}
-			int target_addr = label_iter->second;
-
-			int op_code_len = offset_pos - ins_start;
-			int total_op_len = op_code_len + 4;
-
-			int next_insn_addr = ins_start + total_op_len;
-			int32_t rel32 = static_cast<int32_t>(target_addr - next_insn_addr);
-
-			*(int32_t*)(code + offset_pos) = rel32;
-		}
-		labels.clear();
-		fixups.clear();
 	}
 public:
 	BaseBuilder() : ptr(1) {};
@@ -254,12 +205,6 @@ public:
 		*(float*)(code + ptr) = dword;
 		ptr += 4;
 		return static_cast<_Derived&>(*this);
-	}
-
-	inline BaseBuilder& label(const char* name)
-	{
-		labels[name] = ptr;
-		return *this;
 	}
 
 	// 添加 NOP 指令
@@ -1581,5 +1526,71 @@ public:
 	byte* get_code_impl()
 	{
 		return code;
+	}
+};
+
+class LabelBuilder : public BaseBuilder<LabelBuilder, 128>
+{
+private:
+	// 用于记录标签跳转的待修正项
+	struct LabelEntry {
+		std::string label_name;
+		int ins_pos;
+		int offset_pos;
+	};
+
+	std::unordered_map<std::string, int> labels;
+	std::vector<LabelEntry> fixups;// 待填充的标签跳转项
+
+	/// @brief 添加标签跳转指令
+	/// @param type 跳转类型
+	/// @param label_name 标签名称
+	LabelBuilder& add_jump_label(JumpNearType type, std::string label_name)
+	{
+		const int jump_prefix_len = type == JumpNearType::Jmp ? 1 : 2;
+		fixups.push_back({ label_name, ptr, ptr + jump_prefix_len });
+		add_jump_rel32(type, 0);
+		return *this;
+	}
+
+	/// @brief 填充标签跳转的偏移
+	void fill_labels()
+	{
+		for (const auto& entry : fixups)
+		{
+			const std::string& label_name = entry.label_name;
+			int ins_start = entry.ins_pos;
+			int offset_pos = entry.offset_pos;
+
+			auto label_iter = labels.find(label_name);
+			if (label_iter == labels.end())
+			{
+				assert(false && "Undefined label in jump instruction!");
+				continue;
+			}
+			int target_addr = label_iter->second;
+
+			int op_code_len = offset_pos - ins_start;
+			int total_op_len = op_code_len + 4;
+
+			int next_insn_addr = ins_start + total_op_len;
+			int32_t rel32 = static_cast<int32_t>(target_addr - next_insn_addr);
+
+			*(int32_t*)(code + offset_pos) = rel32;
+		}
+		labels.clear();
+		fixups.clear();
+	}
+public:
+	byte* get_code_impl()
+	{
+		fill_labels();
+		return code;
+	}
+
+	inline LabelBuilder& label(const char* name)
+	{
+		labels[name] = ptr;
+		return *this;
 	}
 };
