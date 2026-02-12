@@ -101,7 +101,7 @@ protected:
 	{
 		hookAddress = _Hook_Address;
 		rawlen = _Raw_Len;
-		AsmBuilder builder(128);
+		AsmBuilder builder{};
 		builder.add_bytes(compiled_base_bytes.data(), calculate_total_size());
 
 		builder.invoke(address).add_reg_imm(REG_ESP, this->regs.size() << 2);
