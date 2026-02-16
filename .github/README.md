@@ -268,7 +268,7 @@ std::vector<SPT<PVZ::Zombie>> zombies = PVZ::GetBoard()->GetAllZombies();
 ### 关于 Events
 
 - 全面更新过的事件组件
-- 详情请查阅[这篇文档](Events说明.md)。
+- 详情请查阅[这篇文档](../docs/Events说明.md)。
 
 ## 怎么用？
 
