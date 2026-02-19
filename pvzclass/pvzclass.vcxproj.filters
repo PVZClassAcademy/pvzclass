@@ -361,7 +361,7 @@
       <Filter>源文件\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GameButton.cpp">
-      <Filter>头文件\Classes</Filter>
+      <Filter>源文件\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Enums\AnimationType.cpp">
       <Filter>源文件</Filter>
