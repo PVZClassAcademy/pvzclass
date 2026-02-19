@@ -25,7 +25,7 @@ namespace Creator
 #define CREATEPLANT INVOKE_DWORD_BYTE_BYTE_BYTE(0x40D120,0,0,0,255)
 #define CREATEPROJECTILE INVOKE_DWORD_DWORD_BYTE_BYTE_BYTE(0x40D620,0,0,0,0,0)
 #define CREATECOIN INVOKE_DWORD_DWORD_BYTE_BYTE(0x40CB10,0,0,0,0)
-#define RESETLAWNMOVER INVOKE_DWORD(0x40BC70,0)
+#define RESETLAWNMOWER INVOKE_DWORD(0x40BC70,0)
 #define CREATEGRDITEM INVOKE(0x41E1C0)
 #define CREATEGRAVE INVOKE(0x426620)
 #define CREATECRATER INVOKE_BYTE(0x408F80,0)
@@ -100,9 +100,10 @@ namespace Creator
 	/// @return 生成的物品
 	PVZ::Coin CreateCoin(CoinType::CoinType type, int x, int y, CoinMotionType::CoinMotionType motion);
 
+	/// @deprecated 请使用ResetLawnmowers
+	[[deprecated]] void ResetLawnmover();
 	/// @brief 移除场上已有的除草机，然后初始化本关的除草机。
-	void ResetLawnmover();
-
+	void ResetLawnmowers();
 	/// @brief 生成一个空的场地物件
 	/// @note 此物件的各项属性都需要自行设定。
 	/// @return 生成的场地物件

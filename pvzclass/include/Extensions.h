@@ -245,10 +245,16 @@ inline void AutoCollect(BOOLEAN b = true)
 
 /// @brief 禁用初始小推车
 /// @param b 是否开启此功能
-inline void DisableInitialLawnmover(BOOLEAN b = true)
+inline void DisableInitialLawnmower(BOOLEAN b = true)
 {
 	MEMMOD_INT(0x40BC8C, 34793, 1965488771);
 	MEMMOD_BYTE(0x40BC90, 0, 5);
+}
+
+/// @deprecated 请使用DisableInitialLawnmower
+[[deprecated]] inline void DisableInitialLawnmover(BOOLEAN b = true)
+{
+	DisableInitialLawnmower(b);
 }
 
 /// @brief 禁用冰冻关卡延迟一段时间后播放的失败音效
