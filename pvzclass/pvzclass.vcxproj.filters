@@ -168,7 +168,7 @@
     <ClCompile Include="Enums\MouseClickState.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Enums\LawnmoverType.cpp">
+    <ClCompile Include="Enums\LawnmowerType.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
     <ClCompile Include="Enums\LawnTypeEnum.cpp">
@@ -249,7 +249,7 @@
     <ClCompile Include="Classes\Lawn.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Lawnmover.cpp">
+    <ClCompile Include="Classes\Lawnmower.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Classes\Memory.cpp">
@@ -306,7 +306,7 @@
     <ClCompile Include="Enums\GardenPlantNeed.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Enums\LawnmoverState.cpp">
+    <ClCompile Include="Enums\LawnmowerState.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
     <ClCompile Include="Enums\GriditemType.cpp">
@@ -361,7 +361,7 @@
       <Filter>源文件\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Classes\GameButton.cpp">
-      <Filter>头文件\Classes</Filter>
+      <Filter>源文件\Classes</Filter>
     </ClCompile>
     <ClCompile Include="Enums\AnimationType.cpp">
       <Filter>源文件</Filter>
@@ -416,7 +416,7 @@
     <ClInclude Include="Enums\INGAMEState.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\LawnmoverType.h">
+    <ClInclude Include="Enums\LawnmowerType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\MouseClickState.h">
@@ -494,7 +494,7 @@
     <ClInclude Include="Enums\GardenPlantNeed.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\LawnmoverState.h">
+    <ClInclude Include="Enums\LawnmowerState.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\LowerSoundType.h">
