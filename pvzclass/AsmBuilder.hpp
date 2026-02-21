@@ -8,8 +8,9 @@
 
 #define DEFINE_JUMP_FUNC(jump_name, jump_type) \
     inline _Derived& jump_name(uint32_t address) { return add_jump_near(jump_type, address); } \
-    inline _Derived& jump_name##_rel(int32_t offset) { return add_jump_rel32(jump_type, offset); } \
-    inline _Derived& jump_name##_label(std::string label_name) { return add_jump_label(jump_type, label_name); }
+    inline _Derived& jump_name##_rel(int32_t offset) { return add_jump_rel32(jump_type, offset); } 
+#define DEFINE_JUMP_LABEL(jump_name, jump_type) \
+    inline LabelBuilder& jump_name##_label(std::string label_name) { return add_jump_label(jump_type, label_name); }
 
 /// @brief 构建指令序列的类
 template<typename _Derived, size_t _SIZE = 100>
@@ -994,27 +995,27 @@ public:
 		return static_cast<_Derived&>(*this);
 	}
 
-	DEFINE_JUMP_FUNC(jmp, JumpNearType::Jmp);
-	DEFINE_JUMP_FUNC(jz, JumpNearType::Jz);
-	DEFINE_JUMP_FUNC(jnz, JumpNearType::Jnz);
-	DEFINE_JUMP_FUNC(je, JumpNearType::Je);
-	DEFINE_JUMP_FUNC(jne, JumpNearType::Jne);
-	DEFINE_JUMP_FUNC(jb, JumpNearType::Jb);
-	DEFINE_JUMP_FUNC(jbe, JumpNearType::Jbe);
-	DEFINE_JUMP_FUNC(ja, JumpNearType::Ja);
-	DEFINE_JUMP_FUNC(jae, JumpNearType::Jae);
-	DEFINE_JUMP_FUNC(jc, JumpNearType::Jc);
-	DEFINE_JUMP_FUNC(jnc, JumpNearType::Jnc);
-	DEFINE_JUMP_FUNC(js, JumpNearType::Js);
-	DEFINE_JUMP_FUNC(jns, JumpNearType::Jns);
-	DEFINE_JUMP_FUNC(jp, JumpNearType::Jp);
-	DEFINE_JUMP_FUNC(jo, JumpNearType::Jo);
-	DEFINE_JUMP_FUNC(jno, JumpNearType::Jno);
-	DEFINE_JUMP_FUNC(jg, JumpNearType::Jg);
-	DEFINE_JUMP_FUNC(jng, JumpNearType::Jng);
-	DEFINE_JUMP_FUNC(jge, JumpNearType::Jge);
-	DEFINE_JUMP_FUNC(jl, JumpNearType::Jl);
-	DEFINE_JUMP_FUNC(jle, JumpNearType::Jle);
+	DEFINE_JUMP_FUNC(jmp, JumpNearType::Jmp)
+	DEFINE_JUMP_FUNC(jz, JumpNearType::Jz)
+	DEFINE_JUMP_FUNC(jnz, JumpNearType::Jnz)
+	DEFINE_JUMP_FUNC(je, JumpNearType::Je)
+	DEFINE_JUMP_FUNC(jne, JumpNearType::Jne)
+	DEFINE_JUMP_FUNC(jb, JumpNearType::Jb)
+	DEFINE_JUMP_FUNC(jbe, JumpNearType::Jbe)
+	DEFINE_JUMP_FUNC(ja, JumpNearType::Ja)
+	DEFINE_JUMP_FUNC(jae, JumpNearType::Jae)
+	DEFINE_JUMP_FUNC(jc, JumpNearType::Jc)
+	DEFINE_JUMP_FUNC(jnc, JumpNearType::Jnc)
+	DEFINE_JUMP_FUNC(js, JumpNearType::Js)
+	DEFINE_JUMP_FUNC(jns, JumpNearType::Jns)
+	DEFINE_JUMP_FUNC(jp, JumpNearType::Jp)
+	DEFINE_JUMP_FUNC(jo, JumpNearType::Jo)
+	DEFINE_JUMP_FUNC(jno, JumpNearType::Jno)
+	DEFINE_JUMP_FUNC(jg, JumpNearType::Jg)
+	DEFINE_JUMP_FUNC(jng, JumpNearType::Jng)
+	DEFINE_JUMP_FUNC(jge, JumpNearType::Jge)
+	DEFINE_JUMP_FUNC(jl, JumpNearType::Jl)
+	DEFINE_JUMP_FUNC(jle, JumpNearType::Jle)
 
 	// 添加 LOOP 指令
 	_Derived& loop(uint8_t count, uint32_t address)
@@ -1593,4 +1594,26 @@ public:
 		labels[name] = ptr;
 		return *this;
 	}
+
+	DEFINE_JUMP_LABEL(jmp, JumpNearType::Jmp)
+	DEFINE_JUMP_LABEL(jz, JumpNearType::Jz)
+	DEFINE_JUMP_LABEL(jnz, JumpNearType::Jnz)
+	DEFINE_JUMP_LABEL(je, JumpNearType::Je)
+	DEFINE_JUMP_LABEL(jne, JumpNearType::Jne)
+	DEFINE_JUMP_LABEL(jb, JumpNearType::Jb)
+	DEFINE_JUMP_LABEL(jbe, JumpNearType::Jbe)
+	DEFINE_JUMP_LABEL(ja, JumpNearType::Ja)
+	DEFINE_JUMP_LABEL(jae, JumpNearType::Jae)
+	DEFINE_JUMP_LABEL(jc, JumpNearType::Jc)
+	DEFINE_JUMP_LABEL(jnc, JumpNearType::Jnc)
+	DEFINE_JUMP_LABEL(js, JumpNearType::Js)
+	DEFINE_JUMP_LABEL(jns, JumpNearType::Jns)
+	DEFINE_JUMP_LABEL(jp, JumpNearType::Jp)
+	DEFINE_JUMP_LABEL(jo, JumpNearType::Jo)
+	DEFINE_JUMP_LABEL(jno, JumpNearType::Jno)
+	DEFINE_JUMP_LABEL(jg, JumpNearType::Jg)
+	DEFINE_JUMP_LABEL(jng, JumpNearType::Jng)
+	DEFINE_JUMP_LABEL(jge, JumpNearType::Jge)
+	DEFINE_JUMP_LABEL(jl, JumpNearType::Jl)
+	DEFINE_JUMP_LABEL(jle, JumpNearType::Jle)
 };
