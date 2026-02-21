@@ -44,7 +44,7 @@ private:
 template<DWORD _Hook_Address, uint8_t _Raw_Len, DWORD ...Params>
 class DLLEventTemplate : public DLLEvent
 {
-private:
+protected:
 	template<DWORD param>
 	static constexpr size_t param_size()
 	{
