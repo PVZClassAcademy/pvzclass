@@ -1,6 +1,6 @@
 #include "LawnMower.hpp"
 
-DWORD PVZ::Lawnmover::MemSize = 0x48;
+DWORD PVZ::LawnMower::MemSize = 0x48;
 
 PVZ::LawnMower PVZ::LawnMower::GetByIndex(uint32_t index)
 {
@@ -13,17 +13,17 @@ PVZ::Animation PVZ::LawnMower::GetAnimation()
 	return ((ID_RANK(ID) == 0) ? INVALID_BASEADDRESS : Animation::GetByIndex(ID_INDEX(ID)));
 }
 
-byte __asm__Lawnmover_Die[]
+byte __asm__Lawnmower_Die[]
 {
 	MOV_EUX(REG_EAX, 0),
-	LAWNMOVER_DIE,
+	LAWNMOWER_DIE,
 	RET,
 };
 
 void PVZ::LawnMower::Die()
 {
-	SETARG(__asm__Lawnmover_Die, 1) = BaseAddress;
-	Memory::Execute(STRING(__asm__Lawnmover_Die));
+	SETARG(__asm__Lawnmower_Die, 1) = BaseAddress;
+	Memory::Execute(STRING(__asm__Lawnmower_Die));
 	return;
 }
 

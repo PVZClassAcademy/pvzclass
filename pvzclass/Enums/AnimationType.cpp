@@ -96,7 +96,7 @@ namespace AnimationType {
         case WinterMelon: return "WinterMelon";
         case TwinSunflower: return "TwinSunflower";
         case PoolCleaner: return "PoolCleaner";
-        case RoofLawnmover: return "RoofLawnmover";
+        case RoofLawnmower: return "RoofLawnmower";
         case FirePea: return "FirePea";
         case Imitater: return "Imitater";
         case ZombieYeti: return "ZombieYeti";

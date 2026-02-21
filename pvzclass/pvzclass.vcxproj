@@ -176,7 +176,7 @@
     <ClCompile Include="Classes\Icetrace.cpp" />
     <ClCompile Include="Classes\Lawn.cpp" />
     <ClCompile Include="AsmFunctions.cpp" />
-    <ClCompile Include="Classes\Lawnmover.cpp" />
+    <ClCompile Include="Classes\Lawnmower.cpp" />
     <ClCompile Include="Classes\Matrix3.cpp" />
     <ClCompile Include="Classes\Memory.cpp" />
     <ClCompile Include="Classes\Challenge.cpp" />
@@ -213,8 +213,8 @@
     <ClCompile Include="Enums\GriditemType.cpp" />
     <ClCompile Include="Enums\INGAMEEffect.cpp" />
     <ClCompile Include="Enums\INGAMEState.cpp" />
-    <ClCompile Include="Enums\LawnmoverState.cpp" />
-    <ClCompile Include="Enums\LawnmoverType.cpp" />
+    <ClCompile Include="Enums\LawnmowerState.cpp" />
+    <ClCompile Include="Enums\LawnmowerType.cpp" />
     <ClCompile Include="Enums\LawnTypeEnum.cpp" />
     <ClCompile Include="Enums\MotionType.cpp" />
     <ClCompile Include="Enums\MouseClickState.cpp" />
@@ -368,7 +368,7 @@
     <ClInclude Include="include\Events\ZombieAbilityEvents.hpp" />
     <ClInclude Include="include\Events\ZombieSpeedAlterEvent.hpp" />
     <ClInclude Include="include\Events\ZombieTakeDmgEvent.h" />
-    <ClInclude Include="Enums\LawnmoverState.h" />
+    <ClInclude Include="Enums\LawnmowerState.h" />
     <ClInclude Include="include\Creators.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="AsmFunctions.h" />
@@ -385,7 +385,7 @@
     <ClInclude Include="Enums\GriditemType.h" />
     <ClInclude Include="Enums\INGAMEEffect.h" />
     <ClInclude Include="Enums\INGAMEState.h" />
-    <ClInclude Include="Enums\LawnmoverType.h" />
+    <ClInclude Include="Enums\LawnmowerType.h" />
     <ClInclude Include="Enums\LawnTypeEnum.h" />
     <ClInclude Include="Enums\LowerSoundType.h" />
     <ClInclude Include="Enums\MotionType.h" />

@@ -39,17 +39,32 @@
 - `PVZ::PVZString` 及其相关的一系列函数，用于取代 `Draw::PString`。
   - `Draw::PString` 已被彻底移除。
 - `PVZApp` 新增一系列加载 XML 配置文件和获取配置项的函数。
+- `PVZ::Zombie` 新增一系列成员函数。
+- `PVZ::Projectile` 新增一系列成员。
+- `PVZ::GameButton`
+- `PVZ::Array`
+- `PVZ::Memory::StringVariable`，用于承接原本 `PVZ::Memory::Variable` 的作用。
+- `PVZ::InitPVZDLL()`，用于dll的初始化。
+- `PVZEvent::ProjectileDrawTransEvent`
 
 ### 改动内容
 
 - `BaseClass::BaseAddress` 现在是 `uint32_t` 类型的变量。
 - 将大部分原本位于 `Draw` 命名空间的函数迁移到 `PVZ::Graphics` 中。
 - 清除了 pvzdll 中的所有导出声明。
+- 所有参数名为 `indexoraddress` 或 `idoraddress` 的构造函数不再具有按编号构造的功能。
+  - 此功能由对应类的 `GetByIndex()` 承接。
+- 调整了 `Animation::AssignRenderGroupToPrefix()` 的参数顺序。
+- `ProjectileCollisionEvent` 被拆分为 `PVZEvent::ProjectileCollisionEvent` 和
+- `REG_` 系列宏变为内联常量。
+- 所有从 `ThreeStateEventTemplate` 派生的事件类现在具有 `_ts` 命名后缀（复合事件的成员事件除外）。
 
 ### 修复漏洞
 
 - 修复 `Debug` 构建下 pvzdll 无法正确添加附加库目录的漏洞。
 - 修复僵王冰火球导致绘图偏移的漏洞。
+- 修复 `SpikeRockTakeDamageEvent` 不正常的漏洞。
+- 修复了	 `AnimationType::Wallnut` 被错误命名为 `Wallbut` 的漏洞。
 
 ### 兼容性
 

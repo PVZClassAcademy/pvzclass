@@ -11,7 +11,7 @@ int main()
 	PVZ::Memory::InjectDll("pvzdll.dll");
 	PVZ::Memory::InvokeDllProc("init");
 	EnableBackgroundRunning();
-	DisableInitialLawnmover();
+	DisableInitialLawnmower();
 	DisableIceLevelFailSound();
 	PVZEvent::FatalErrorEvent();
 	PVZ::QuitPVZ();

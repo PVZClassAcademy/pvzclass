@@ -218,23 +218,27 @@ PVZ::Coin Creator::CreateCoin(CoinType::CoinType type, int x, int y, CoinMotionT
 	return PVZ::Coin(PVZ::Memory::Execute(STRING(__asm__CreateCoin)));
 }
 
-byte __asm__ResetLawnmover[19]
+byte __asm__ResetLawnmower[19]
 {
-	RESETLAWNMOVER,
+	RESETLAWNMOWER,
 	RET,
 };
 
 void Creator::ResetLawnmover()
 {
+	Creator::ResetLawnmowers();
+}
+void Creator::ResetLawnmowers()
+{
 	PVZ::Memory::AllAccess(0x679BF8);
 	PVZ::Memory::WriteMemory<float>(0x679BF8, -21.0f);
 	PVZ::Memory::WriteMemory<short>(0x40BC98, makeshort(JMP(0x60)));
 	PVZ::Memory::WriteMemory<byte>(0x40BD17, 1);
-	SETARG(__asm__ResetLawnmover, 1) = PVZBASEADDRESS;
-	auto lawnmovers = PVZ::GetBoard().GetAllLawnmovers();
-	for (DWORD i = 0; i < lawnmovers.size(); i++)
-		lawnmovers[i].Die();
-	PVZ::Memory::Execute(STRING(__asm__ResetLawnmover));
+	SETARG(__asm__ResetLawnmower, 1) = PVZBASEADDRESS;
+	auto lawnmowers = PVZ::GetBoard().GetAllLawnmowers();
+	for (DWORD i = 0; i < lawnmowers.size(); i++)
+		lawnmowers[i].Die();
+	PVZ::Memory::Execute(STRING(__asm__ResetLawnmower));
 	PVZ::Memory::WriteMemory<float>(0x679BF8, -160.0f);
 	PVZ::Memory::WriteMemory<short>(0x40BC98, makeshort(JNZ(9)));
 	PVZ::Memory::WriteMemory<byte>(0x40BD17, 0);

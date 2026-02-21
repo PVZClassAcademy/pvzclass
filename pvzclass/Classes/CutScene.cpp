@@ -42,3 +42,12 @@ void PVZ::CutScene::PlaceStreetZombie(ZombieType::ZombieType type, bool grid[5][
 		PVZ::Memory::FreeMemory(address);
 	}
 }
+
+void PVZ::CutScene::CancelIntro()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x43B3C0)
+		.ret()
+	);
+}
