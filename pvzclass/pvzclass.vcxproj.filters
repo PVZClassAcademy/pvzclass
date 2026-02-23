@@ -933,7 +933,7 @@
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
     <ClInclude Include="include\Events\BossBungeeSpawnEvent.h">
-      <Filter>头文件</Filter>
+      <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
     <ClInclude Include="include\Events\GetRandomNumberEvent.h">
       <Filter>头文件\Events</Filter>
