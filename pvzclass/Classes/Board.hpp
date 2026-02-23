@@ -290,7 +290,7 @@ namespace PVZ
 			{
 				if (!Memory::ReadMemory<byte>(base_addr + 0x20 + T::MemSize * i)
 					&& (T::ItemType == 0 || Memory::ReadMemory<byte>(base_addr + 8 + T::MemSize * i) == T::ItemType))
-					griditems.push_back(T(i));
+					griditems.push_back(T(base_addr + T::MemSize * i));
 			}
 			return griditems;
 		}
@@ -302,7 +302,7 @@ namespace PVZ
 		Caption GetCaption();
 		CardSlot GetCardSlot();
 		CutScene GetCutScene();
-		
+
 		/// @brief 获取 Challenge 类型的成员。
 		/// @tparam T 返回值的类型，必须为 Challenge 或它的派生类。
 		/// @return Challenge （或者其派生类）成员对象 

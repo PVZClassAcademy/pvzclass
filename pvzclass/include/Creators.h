@@ -36,8 +36,6 @@ namespace Creator
 #define CREATEPLANTEFFECT INVOKE_DWORD(0x4666A0,0)
 #define CREATEEXPLOTION INVOKE_DWORD_BYTE_DWORD_DWORD_DWORD_BYTE_BYTE_BYTE(0x41D8A0,0,0,0,0,0,0,0,0)
 #define _CREATEEFFECT INVOKE_DWORD_DWORD_DWORD_DWORD(0x518A70,0,0,0x61A80,0)
-/// @deprecated
-#define CREATESOUND INVOKE_BYTE(0x515020,0)
 #define CREATEUPPERSOUND INVOKE_DWORD(0x4560C0,0)
 #define FREEZEALL INVOKE(0x466420)
 #define STOPSOUND INVOKE(0x515290)
@@ -209,19 +207,6 @@ namespace Creator
 
 	/// @deprecated
 	void CreateEffect(EffectType::EffectType type, float x, float y);
-
-	/// @brief 播放 Foley 型音效。
-	/// @param soundid 通过 FoleyType::FoleyType 表示的音效类型
-	/// @see LowerSoundType
-	/// @note 部分音效是持续的，需要用 StopSound() 手动停止音效持续播放
-	/// @deprecated 请改用 PVZ::PVZApp::PlayFoley()
-	void CreateSound(int soundid);
-
-	/// @brief 同 CreateSound()
-	/// @param sound 音效类型
-	/// @see CreateSound()
-	/// @deprecated 请改用 PVZ::PVZApp::PlayFoley()
-	void CreateLowerSound(LowerSoundType::LowerSoundType sound);
 
 	/// @brief 播放 Sample 型音效
 	/// @param sound 音效类型
