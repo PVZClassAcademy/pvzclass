@@ -19,6 +19,7 @@
 #include "LawnmowerStartEvent.hpp"
 #include "GetRandomNumberEvent.h"
 #include "NewGameEvent.h"
+#include "MagnetEvents.hpp"
 #include "PlantCreateEvent.h"
 #include "PlantFromBankEvent.h"
 #include "PlantReloadEvent.h"
