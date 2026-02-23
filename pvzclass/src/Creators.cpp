@@ -493,26 +493,6 @@ void Creator::CreateEffect(EffectType::EffectType type, float x, float y)
 	PVZ::CreateParticleSystem(x, y, 0x618A0, type);
 }
 
-byte __asm__CreateSound[26]
-{
-	MOV_EAX(0),
-	MOV_ECX(0),
-	CREATESOUND,
-	RET,
-};
-
-void Creator::CreateSound(int soundid)
-{
-	SETARG(__asm__CreateSound, 1) = soundid;
-	SETARG(__asm__CreateSound, 6) = PVZ::Memory::ReadPointer(0x6A9EC0, 0x784);
-	PVZ::Memory::Execute(STRING(__asm__CreateSound));
-}
-
-void Creator::CreateLowerSound(LowerSoundType::LowerSoundType sound)
-{
-	Creator::CreateSound((int)sound);
-}
-
 byte __asm__CreateSampleSound[24]
 {
 	MOV_ECX(0),

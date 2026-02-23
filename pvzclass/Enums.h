@@ -36,7 +36,6 @@
 #include "Enums/ZombieState.h"
 #include "Enums/PlantState.h"
 #include "Enums/EffectType.h"
-#include "Enums/LowerSoundType.h"
 #include "Enums/UpperSoundType.h"
 #include "Enums/AnimationType.h"
 #include "Enums/ChallengeState.h"

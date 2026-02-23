@@ -497,9 +497,6 @@
     <ClInclude Include="Enums\LawnmowerState.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
-    <ClInclude Include="Enums\LowerSoundType.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
     <ClInclude Include="Enums\SeedState.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
