@@ -965,5 +965,8 @@
     <ClInclude Include="Classes\GameButton.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\MagnetEvents.hpp">
+      <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

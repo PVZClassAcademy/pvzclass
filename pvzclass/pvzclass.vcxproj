@@ -282,6 +282,7 @@
     <ClInclude Include="include\Events\ClickToolEvent.h" />
     <ClInclude Include="include\Events\FatalErrorEvent.h" />
     <ClInclude Include="include\Events\GetRandomNumberEvent.h" />
+    <ClInclude Include="include\Events\MagnetEvents.hpp" />
     <ClInclude Include="include\Events\PlantFromBankEvent.h" />
     <ClInclude Include="include\Draw.h" />
     <ClInclude Include="Enums\KeyCode.hpp" />
