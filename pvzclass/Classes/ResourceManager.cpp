@@ -117,3 +117,16 @@ PVZ::Image PVZ::ResourceManager::GetImage(const char* imageName)
 		.ret()
 	);
 }
+
+PVZ::Font PVZ::ResourceManager::GetFont(const char* fontName)
+{
+	auto id_str = PVZ::PVZString::Make(fontName);
+	return PVZ::Font{ (uint32_t)PVZ::Memory::Execute(AsmBuilder128()
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.mov_reg_imm(REG_ECX, id_str.GetBaseAddress())
+		.invoke(0x5B7F90)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) };
+	id_str.Free();
+}
