@@ -303,7 +303,14 @@ namespace PVZ
 		/// @param check_sig 是否检查签名文件
 		/// @return 是否加载成功
 		bool LoadProperties(PVZ::PVZString file_name, bool check_sig = false);
-
+		/// @brief 创建一个LawnDialog对话, 这个函数封装了LawnApp类的实现
+		/// @param theDialogId 对话的id
+		/// @param isModal 是否允许用户在显示此对话期间，交互其他控件
+		/// @param theDialogHeader 对话的标题内容
+		/// @param theDialogLines 对话的文字内容
+		/// @param theDialogFooter 对话的底部内容
+		/// @param theButtonMode 对话底部按钮种类
+		/// @return LawnDialog
 		PVZ::LawnDialog NewDialog(
 			int						theDialogId,
 			bool					isModal,
