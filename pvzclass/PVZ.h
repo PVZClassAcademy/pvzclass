@@ -239,6 +239,8 @@ namespace PVZ
 		const char* c_str();
 	};
 
+	class LawnDialog;
+
 	/// @brief 游戏程序主类（原 LawnApp）。
 	class PVZApp : public BaseClass
 	{
@@ -301,6 +303,15 @@ namespace PVZ
 		/// @param check_sig 是否检查签名文件
 		/// @return 是否加载成功
 		bool LoadProperties(PVZ::PVZString file_name, bool check_sig = false);
+
+		PVZ::LawnDialog NewDialog(
+			int						theDialogId,
+			bool					isModal,
+			PVZ::PVZString			theDialogHeader,
+			PVZ::PVZString			theDialogLines,
+			PVZ::PVZString			theDialogFooter,
+			int						theButtonMode
+		);
 	};
 	/// @brief 获取游戏程序主对象
 	/// @return 游戏程序主对象

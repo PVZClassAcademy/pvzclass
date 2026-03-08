@@ -1,4 +1,5 @@
 #include "PVZ.h"
+#include "../include/Widgets/Dialog.hpp"
 
 using std::optional;
 using std::nullopt;
@@ -404,6 +405,29 @@ bool PVZ::PVZApp::LoadProperties(PVZ::PVZString file_name, bool check_sig)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
 		.ret()
 	) & 0x0FF;
+}
+
+PVZ::LawnDialog PVZ::PVZApp::NewDialog(
+	int						theDialogId,
+	bool					isModal,
+	PVZ::PVZString			theDialogHeader,
+	PVZ::PVZString			theDialogLines,
+	PVZ::PVZString			theDialogFooter,
+	int						theButtonMode
+	)
+{
+	return PVZ::LawnDialog{ PVZ::Memory::Execute(AsmBuilder128()
+		.push_imm32(theButtonMode)
+		.push_imm32(theDialogFooter.GetBaseAddress())
+		.push_imm32(theDialogLines.GetBaseAddress())
+		.push_imm32(theDialogHeader.GetBaseAddress())
+		.push_imm32(isModal)
+		.push_imm32(theDialogId)
+		.mov_reg_imm(REG_ECX,this->GetBaseAddress())
+		.invoke(0x451580)
+		.mov_reg_imm(REG_EAX,PVZ::Memory::Variable)
+		.ret()
+	) };
 }
 
 #pragma endregion
