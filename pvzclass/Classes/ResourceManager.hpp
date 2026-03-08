@@ -1,5 +1,6 @@
-﻿#pragma once
+#pragma once
 #include "../PVZ.h"
+#include "../include/Draw.h"
 
 namespace PVZ
 {
@@ -34,6 +35,10 @@ namespace PVZ
 		/// @param imageName 图片在资源描述文件中的名称。
 		/// @return 对应的图片。
 		Image GetImage(const char* imageName);
+		/// @brief 获取指定的字体。
+		/// @param fontName 字体在资源描述文件中的名称。
+		/// @return 对应的字体。
+		Font GetFont(const char* fontName);
 	};
 	/// @brief 获取资源管理器对象
 	/// @return 资源管理器对象
