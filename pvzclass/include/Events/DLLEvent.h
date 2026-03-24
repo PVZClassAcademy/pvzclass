@@ -299,7 +299,7 @@ class ThreeStateEventTemplate : public DLLEventTemplate<_Hook_Address, _Raw_Len,
 protected:
 	static constexpr std::array<uint8_t, 19> compiled_special_bytes =
 	{
-		TEST_AL_AL,
+		TEST_EUX_EVX(REG_EAX, REG_EAX),
 		JS(15),
 		POPAD,
 		JE(6),
