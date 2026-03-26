@@ -22,6 +22,12 @@ void DLLEvent::start(BYTE* code, int newlen)
 	newAddress += newlen + rawlen + 0x10;
 }
 
+DLLEvent::~DLLEvent()
+{
+	if (rawCode != nullptr)
+		delete[](rawCode);
+}
+
 void DLLEvent::end()
 {
 	PVZ::Memory::WriteArray<BYTE>(hookAddress, rawCode, rawlen);
