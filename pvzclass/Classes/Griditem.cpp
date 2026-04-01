@@ -29,7 +29,7 @@ PVZ::Animation PVZ::Griditem::GetReanimation()
 
 void PVZ::Griditem::SetReanimationn(Animation anim)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x34, anim.Id);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x34, anim.Id);
 }
 
 void PVZ::Griditem::Remove()

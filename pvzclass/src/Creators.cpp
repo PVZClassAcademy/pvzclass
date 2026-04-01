@@ -179,23 +179,23 @@ PVZ::Projectile Creator::CreateProjectile(ProjectileType::ProjectileType type, i
 	angle = angle / 180 * PI;
 	int xspeed = (int)(sin(angle) * speed * 10000);
 	int yspeed = (int)(-cos(angle) * speed * 10000);
-	PVZ::Memory::WriteMemory<float>(PVZ::Memory::Variable + 4, 10000.0f);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 8, xspeed);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 12, yspeed);
-	PVZ::Memory::WriteMemory<byte>(PVZ::Memory::Variable + 22, type);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 28, y);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 33, x);
+	PVZ::Memory::WriteMemoryUnsafe<float>(PVZ::Memory::Variable + 4, 10000.0f);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 8, xspeed);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 12, yspeed);
+	PVZ::Memory::WriteMemoryUnsafe<byte>(PVZ::Memory::Variable + 22, type);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 28, y);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 33, x);
 	xytorc(&x, &y);
-	PVZ::Memory::WriteMemory<byte>(PVZ::Memory::Variable + 24, x);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 17, PVZBASEADDRESS);
-	PVZ::Memory::WriteMemory<byte>(0x552014, 0xFE);
+	PVZ::Memory::WriteMemoryUnsafe<byte>(PVZ::Memory::Variable + 24, x);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 17, PVZBASEADDRESS);
+	PVZ::Memory::WriteMemoryUnsafe<byte>(0x552014, 0xFE);
 
 	if (PVZ::Memory::localExecute)
 		PVZ::Memory::Execute((byte*)(PVZ::Memory::Variable + 16), 84);
 	else
 		PVZ::Memory::CreateThread(PVZ::Memory::Variable + 16);
 
-	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
+	PVZ::Memory::WriteMemoryUnsafe<byte>(0x552014, 0xDB);
 	return PVZ::Projectile(PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable));
 }
 
@@ -417,7 +417,7 @@ byte __asm__CreateCaption[]
 void Creator::CreateCaption(const char* str, int length, CaptionStyle::CaptionStyle style, int duration)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, str, length);
-	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + length, 0);
+	PVZ::Memory::WriteMemoryUnsafe<char>(PVZ::Memory::Variable + 100 + length, 0);
 	SETARG(__asm__CreateCaption, 1) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__CreateCaption, 6) = PVZ::Memory::Variable + 600;
 	SETARG(__asm__CreateCaption, 24) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x140);
@@ -455,14 +455,14 @@ byte __asm__CreatePlantEffect[19]
 
 void Creator::CreatePlantEffect(PlantEffectType::PlantEffectType type, int x, int y)
 {
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 100, PVZ_BASE);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 104, PVZBASEADDRESS);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 100 + 0x24, type);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 108, x + 50);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 100 + 0xC, y + 50);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100, PVZ_BASE);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 104, PVZBASEADDRESS);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100 + 0x24, type);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 108, x + 50);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100 + 0xC, y + 50);
 	xytorc(&x, &y);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 100 + 0x1C, x);
-	PVZ::Memory::WriteMemory<int>(PVZ::Memory::Variable + 100 + 0x28, y);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100 + 0x1C, x);
+	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100 + 0x28, y);
 	SETARG(__asm__CreatePlantEffect, 1) = PVZ::Memory::Variable + 100;
 	PVZ::Memory::Execute(STRING(__asm__CreatePlantEffect));
 }
@@ -546,10 +546,10 @@ void Creator::CreateIZombieFormation(PVZLevel::PVZLevel izlevel)
 	if (izlevel >= PVZLevel::I_Zombie && izlevel <= PVZLevel::I_Zombie_Endless)
 	{
 		PVZLevel::PVZLevel curlevel = PVZ::Memory::ReadMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8);
-		PVZ::Memory::WriteMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, izlevel);
+		PVZ::Memory::WriteMemoryUnsafe<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, izlevel);
 		SETARG(__asm__CreateIZombieFormation, 1) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x160);
 		PVZ::Memory::Execute(STRING(__asm__CreateIZombieFormation));
-		PVZ::Memory::WriteMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, curlevel);
+		PVZ::Memory::WriteMemoryUnsafe<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, curlevel);
 	}
 }
 
@@ -565,10 +565,10 @@ void Creator::CreateVaseFormation(PVZLevel::PVZLevel vblevel)
 	if (vblevel >= PVZLevel::Vasebreaker && vblevel <= PVZLevel::Vasebreaker_Endless)
 	{
 		PVZLevel::PVZLevel curlevel = PVZ::Memory::ReadMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8);
-		PVZ::Memory::WriteMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, vblevel);
+		PVZ::Memory::WriteMemoryUnsafe<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, vblevel);
 		SETARG(__asm__CreateVaseFormation, 1) = PVZ::Memory::ReadMemory<int>(PVZBASEADDRESS + 0x160);
 		PVZ::Memory::Execute(STRING(__asm__CreateVaseFormation));
-		PVZ::Memory::WriteMemory<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, curlevel);
+		PVZ::Memory::WriteMemoryUnsafe<PVZLevel::PVZLevel>(PVZ_BASE + 0x7F8, curlevel);
 	}
 }
 
@@ -645,9 +645,9 @@ void Creator::CreateZombieInLevel(ZombieType::ZombieType* ztypes, int length, in
 	__ClearZombiePreview();
 	SETARG(__asm__CreateZombieInLevel, 1) = PVZBASEADDRESS;
 	for (int i = 0; i < 33; i++)
-		PVZ::Memory::WriteMemory<byte>(PVZBASEADDRESS + 0x54D4 + i, 0);
+		PVZ::Memory::WriteMemoryUnsafe<byte>(PVZBASEADDRESS + 0x54D4 + i, 0);
 	for (int i = 0; i < length; i++)
-		PVZ::Memory::WriteMemory<byte>(PVZBASEADDRESS + 0x54D4 + ztypes[i], 1);
+		PVZ::Memory::WriteMemoryUnsafe<byte>(PVZBASEADDRESS + 0x54D4 + ztypes[i], 1);
 	PVZ::Memory::Execute(STRING(__asm__CreateZombieInLevel));
 	PVZ::Memory::WriteMemory<int>(0x4092FD, 20);
 	PVZ::Memory::WriteMemory<int>(0x4093F2, 12);

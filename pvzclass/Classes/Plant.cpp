@@ -86,12 +86,12 @@ PVZ::Animation PVZ::Plant::GetAnimationSleep()
 
 void PVZ::Plant::Light(int cs)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0xB8, cs);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xB8, cs);
 }
 
 void PVZ::Plant::Flash(int cs)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0xBC, cs);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xBC, cs);
 }
 
 void PVZ::Plant::SetSleeping(bool sleeping)
@@ -205,7 +205,7 @@ void PVZ::Plant::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayA
 	__asm__Plant__setAnimation[13] = animPlayArg;
 	SETARG(__asm__Plant__setAnimation, 15) = Address + 33;
 	lstrcpyA((LPSTR)(__asm__Plant__setAnimation + 33), animName);
-	PVZ::Memory::WriteArray<byte>(Address, STRING(__asm__Plant__setAnimation));
+	PVZ::Memory::WriteArrayUnsafe<byte>(Address, STRING(__asm__Plant__setAnimation));
 	PVZ::Memory::WriteMemory<byte>(0x552014, 0xFE);
 	PVZ::Memory::CreateThread(Address);
 	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
@@ -214,7 +214,7 @@ void PVZ::Plant::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayA
 
 void PVZ::Plant::PlayBodyReanim(const char* track_name, PVZEnum::ReanimLoopType loop_type, int blend_time, float anim_rate)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::StringVariable, track_name, std::strlen(track_name) + 1);
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::StringVariable, track_name, std::strlen(track_name) + 1);
 
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EAX, this->BaseAddress)
