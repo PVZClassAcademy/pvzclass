@@ -5,7 +5,6 @@
 #include "AsmBuilder.hpp"
 #include "Memory.hpp"
 #include <ctime>
-#include <memory>
 #include <vector>
 #include <type_traits>
 #include <optional>
@@ -20,11 +19,6 @@ using std::is_base_of;
 #define SETARGFLOAT(asmfunction,index) *(float*)(asmfunction+index)
 
 #define LOGICALINCLUDE(c,v) (c&v)==v
-
-#define SPT std::shared_ptr
-#define UPT std::unique_ptr
-#define MKU std::make_unique
-#define MKS std::make_shared
 
 #pragma endregion
 
