@@ -78,14 +78,14 @@ FLOAT PVZ::Zombie::__get_Speed()
 
 void PVZ::Zombie::SetSpeed(float speed)
 {
-	Memory::WriteMemory<float>(BaseAddress + 0x34, speed);
+	Memory::WriteMemoryUnsafe<float>(BaseAddress + 0x34, speed);
 	SETARG(__asm__Zombie__UpdateSpeed, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__Zombie__UpdateSpeed));
 }
 
 void PVZ::Zombie::Light(int cs)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x54, cs);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x54, cs);
 }
 
 void PVZ::Zombie::GetCollision(CollisionBox* collbox)
@@ -98,10 +98,10 @@ void PVZ::Zombie::GetCollision(CollisionBox* collbox)
 
 void PVZ::Zombie::SetCollision(CollisionBox* collbox)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x8C, collbox->X);
-	Memory::WriteMemory<int>(BaseAddress + 0x90, collbox->Y);
-	Memory::WriteMemory<int>(BaseAddress + 0x94, collbox->Width);
-	Memory::WriteMemory<int>(BaseAddress + 0x98, collbox->Height);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x8C, collbox->X);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x90, collbox->Y);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x94, collbox->Width);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x98, collbox->Height);
 }
 
 void PVZ::Zombie::GetAttackCollision(CollisionBox* collbox)
@@ -114,10 +114,10 @@ void PVZ::Zombie::GetAttackCollision(CollisionBox* collbox)
 
 void PVZ::Zombie::SetAttackCollision(CollisionBox* collbox)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x9C, collbox->X);
-	Memory::WriteMemory<int>(BaseAddress + 0xA0, collbox->Y);
-	Memory::WriteMemory<int>(BaseAddress + 0xA4, collbox->Width);
-	Memory::WriteMemory<int>(BaseAddress + 0xA8, collbox->Height);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x9C, collbox->X);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xA0, collbox->Y);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xA4, collbox->Width);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xA8, collbox->Height);
 }
 
 PVZ::Zombie::AccessoriesType1 PVZ::Zombie::GetAccessoriesType1()
@@ -131,9 +131,9 @@ PVZ::Zombie::AccessoriesType1 PVZ::Zombie::GetAccessoriesType1()
 
 void PVZ::Zombie::SetAccessoriesType1(AccessoriesType1 acctype1)
 {
-	Memory::WriteMemory<HelmType::HelmType>(BaseAddress + 0xC4, acctype1.Type);
-	Memory::WriteMemory<int>(BaseAddress + 0xD0, acctype1.Hp);
-	Memory::WriteMemory<int>(BaseAddress + 0xD4, acctype1.MaxHp);
+	Memory::WriteMemoryUnsafe<HelmType::HelmType>(BaseAddress + 0xC4, acctype1.Type);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xD0, acctype1.Hp);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xD4, acctype1.MaxHp);
 }
 
 PVZ::Zombie::AccessoriesType2 PVZ::Zombie::GetAccessoriesType2()
@@ -147,9 +147,9 @@ PVZ::Zombie::AccessoriesType2 PVZ::Zombie::GetAccessoriesType2()
 
 void PVZ::Zombie::SetAccessoriesType2(AccessoriesType2 acctype2)
 {
-	Memory::WriteMemory<ShieldType::ShieldType>(BaseAddress + 0xD8, acctype2.Type);
-	Memory::WriteMemory<int>(BaseAddress + 0xDC, acctype2.Hp);
-	Memory::WriteMemory<int>(BaseAddress + 0xE0, acctype2.MaxHp);
+	Memory::WriteMemoryUnsafe<ShieldType::ShieldType>(BaseAddress + 0xD8, acctype2.Type);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xDC, acctype2.Hp);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xE0, acctype2.MaxHp);
 
 }
 
@@ -182,8 +182,8 @@ void PVZ::Zombie::GetBodyHp(int* hp, int* maxhp)
 
 void PVZ::Zombie::SetBodyHp(int hp, int maxhp)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0xC8, hp);
-	Memory::WriteMemory<int>(BaseAddress + 0xCC, maxhp);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xC8, hp);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xCC, maxhp);
 }
 
 PVZ::Animation PVZ::Zombie::GetAnimation()
@@ -200,7 +200,7 @@ PVZ::Animation PVZ::Zombie::GetSpecialHeadAnimation()
 
 void PVZ::Zombie::SetSpecialHeadAnimation(PVZ::Animation anim)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x144, anim.Id);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x144, anim.Id);
 }
 
 void PVZ::Zombie::Hit(int damage, DamageFlags flags)
@@ -360,7 +360,7 @@ void PVZ::Zombie::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType LoopType
 	__asm__Zombie__setAnimation[17] = LoopType;
 	SETARG(__asm__Zombie__setAnimation, 19) = Address + 41;
 	lstrcpyA((LPSTR)(__asm__Zombie__setAnimation + 41), animName);
-	PVZ::Memory::WriteArray<byte>(Address, STRING(__asm__Zombie__setAnimation));
+	PVZ::Memory::WriteArrayUnsafe<byte>(Address, STRING(__asm__Zombie__setAnimation));
 	PVZ::Memory::CreateThread(Address);
 	PVZ::Memory::FreeMemory(Address);
 }
@@ -587,7 +587,7 @@ void PVZ::Zombie::LandFlyer(PVZ::DamageFlags flag)
 void PVZ::Zombie::GetTrackPosition(const char* trackName, float& thePosX, float& thePosY)
 {
 	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, strlen(trackName));
-	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + strlen(trackName), '\0');
+	PVZ::Memory::WriteMemoryUnsafe<char>(PVZ::Memory::Variable + 100 + strlen(trackName), '\0');
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EDI,PVZ::Memory::Variable)
 		.push_imm32(PVZ::Memory::Variable + 4)

@@ -3,7 +3,6 @@
 #include <unordered_map>
 #include <cstdint>
 #include <stdexcept>
-#include <iostream>
 #include <cassert>
 
 #define DEFINE_JUMP_FUNC(jump_name, jump_type) \
