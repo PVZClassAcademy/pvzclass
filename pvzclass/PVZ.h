@@ -515,8 +515,15 @@ namespace PVZ
 		/// @param index 编号
 		/// @note 不保证以此法获得的对象未被移除
 		static Attachment GetByIndex(uint32_t index);
-		// TODO: check whether this function works properly.
-		PVZ::Animation GetAnimation();
+		/// @brief 获取附件效果
+		/// @param index 编号
+		/// @return 附件效果
+		AttachEffect GetEffect(int index);
+		/// @brief 附件效果总数
+		INT_READONLY_PROPERTY(NumEffect, __get_NumEffects, 0x300);
+		/// @brief 是否被移除
+		T_READONLY_PROPERTY(BYTE, IsDead, __get_IsDead, 0x304);
+		/// @brief 识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
 	};
 	class AttachmentID : public BaseClass
