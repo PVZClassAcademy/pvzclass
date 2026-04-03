@@ -369,6 +369,9 @@
     <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Effects\EffectSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ProcessOpener.h">
@@ -967,6 +970,9 @@
     </ClInclude>
     <ClInclude Include="include\Events\MagnetEvents.hpp">
       <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Effects\EffectSystem.hpp">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -5,8 +5,7 @@ PVZ::Attachment PVZ::Attachment::GetByIndex(uint32_t index)
 	return PVZ::Attachment(Memory::ReadPointer(0x6A9EC0, 0x820, 0xC, 0) + index * 0x30C);
 }
 
-PVZ::Animation PVZ::Attachment::GetAnimation()
+PVZ::AttachEffect PVZ::Attachment::GetEffect(int index)
 {
-	int ID = Memory::ReadMemory<int>(BaseAddress);
-	return Animation::GetByIndex(ID_INDEX(ID));
+	return AttachEffect(this->GetBaseAddress() + index * 0x30);
 }

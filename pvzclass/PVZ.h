@@ -42,6 +42,19 @@ using std::is_base_of;
 
 inline constexpr auto INVALID_BASEADDRESS = 0x400000;
 
+namespace PVZEnum
+{
+	/// @brief 附件效果类型
+	enum class AttachEffectType : int
+	{
+		PARTICLE,
+		TRAIL,
+		REANIM,
+		ATTACHMENT,
+		OTHER
+	};
+}
+
 /// @brief 包含大部分用于控制 PVZ 内部对象的类和方法。
 /// @note Only version 1.0.0.1051 is fully supported
 namespace PVZ
@@ -379,11 +392,21 @@ namespace PVZ
 		void ScaleRotateTransformMatrix(float x, float y, float rad, float ScaleX, float ScaleY);
 	};
 	class TrackInstance;
+
+	/// @brief 附件效果，为 Attachment 的主要成员
 	class AttachEffect : public BaseClass
 	{
 	public:
-		AttachEffect(int address) : BaseClass(address) {};
+		AttachEffect(uint32_t address) : BaseClass(address) {};
+		/// @brief 附件效果识别 ID
+		INT_SIMPLE_PROPERTY(EffectID, 0);
+		/// @brief 附件效果类型
+		T_SIMPLE_PROPERTY(PVZEnum::AttachEffectType, Type, 4);
+		/// @brief 获取附件效果的变换矩阵
+		/// @return 变换矩阵
 		Matrix3 GetOffset();
+		T_SIMPLE_PROPERTY(uint8_t, DontDrawIfParentHidden, 0x2C);
+		T_SIMPLE_PROPERTY(uint8_t, DontPropogateColor, 0x2D);
 	};
 	/// @brief 动画部件。相当于其他游戏的模型。
 	class Animation : public BaseClass
@@ -504,8 +527,15 @@ namespace PVZ
 		/// @param index 编号
 		/// @note 不保证以此法获得的对象未被移除
 		static Attachment GetByIndex(uint32_t index);
-		// TODO: check whether this function works properly.
-		PVZ::Animation GetAnimation();
+		/// @brief 获取附件效果
+		/// @param index 编号
+		/// @return 附件效果
+		AttachEffect GetEffect(int index);
+		/// @brief 附件效果总数
+		INT_READONLY_PROPERTY(NumEffect, __get_NumEffects, 0x300);
+		/// @brief 是否被移除
+		T_READONLY_PROPERTY(BYTE, IsDead, __get_IsDead, 0x304);
+		/// @brief 识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
 	};
 	class AttachmentID : public BaseClass
