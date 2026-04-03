@@ -188,14 +188,14 @@ PVZ::Projectile Creator::CreateProjectile(ProjectileType::ProjectileType type, i
 	xytorc(&x, &y);
 	PVZ::Memory::WriteMemoryUnsafe<byte>(PVZ::Memory::Variable + 24, x);
 	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 17, PVZBASEADDRESS);
-	PVZ::Memory::WriteMemoryUnsafe<byte>(0x552014, 0xFE);
+	PVZ::Memory::WriteMemory<byte>(0x552014, 0xFE);
 
 	if (PVZ::Memory::localExecute)
 		PVZ::Memory::Execute((byte*)(PVZ::Memory::Variable + 16), 84);
 	else
 		PVZ::Memory::CreateThread(PVZ::Memory::Variable + 16);
 
-	PVZ::Memory::WriteMemoryUnsafe<byte>(0x552014, 0xDB);
+	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
 	return PVZ::Projectile(PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable));
 }
 
