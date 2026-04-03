@@ -24,6 +24,9 @@
 #include "Classes/ResourceManager.hpp"
 
 #include "Classes/GameButton.hpp"
+
+#include "include/Effects/EffectSystem.hpp"
+
 #include "Widgets/ButtonWidget.hpp"
 #include "Widgets/Dialog.hpp"
 #include "include/Widgets/GameSelector.hpp"
