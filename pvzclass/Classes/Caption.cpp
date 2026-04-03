@@ -17,5 +17,5 @@ void PVZ::Caption::GetText(char str[])
 
 void PVZ::Caption::SetText(const char str[])
 {
-	Memory::WriteArray<const char>(BaseAddress + 4, str, 0x80);
+	Memory::WriteArrayUnsafe<const char>(BaseAddress + 4, str, 0x80);
 }

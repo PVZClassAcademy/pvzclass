@@ -15,7 +15,7 @@ int PVZ::Icetrace::GetX(int route)
 void PVZ::Icetrace::SetX(int route, int x)
 {
 	if (route >= 0 && route < 6)
-		Memory::WriteMemory<int>(BaseAddress + route * 4, x);
+		Memory::WriteMemoryUnsafe<int>(BaseAddress + route * 4, x);
 }
 
 int PVZ::Icetrace::GetDisappearCountdown(int route)
@@ -28,6 +28,6 @@ int PVZ::Icetrace::GetDisappearCountdown(int route)
 void PVZ::Icetrace::SetDisappearCountdown(int route, int cs)
 {
 	if (route >= 0 && route < 6)
-		Memory::WriteMemory<int>(BaseAddress + 0x18 + route * 4, cs);
+		Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x18 + route * 4, cs);
 }
 

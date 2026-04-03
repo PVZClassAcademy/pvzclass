@@ -32,8 +32,8 @@ void PVZ::Wave::SetAll(ZombieType::ZombieType* ztypes, size_t length)
 {
 	int len = min<size_t>(length, 50);
 	for (int i = 0; i < len; i++)
-		Memory::WriteMemory<ZombieType::ZombieType>(BaseAddress + i * 4, ztypes[i]);
-	if (len < 50)Memory::WriteMemory<ZombieType::ZombieType>(BaseAddress + len * 4, ZombieType::None);
+		Memory::WriteMemoryUnsafe<ZombieType::ZombieType>(BaseAddress + i * 4, ztypes[i]);
+	if (len < 50)Memory::WriteMemoryUnsafe<ZombieType::ZombieType>(BaseAddress + len * 4, ZombieType::None);
 }
 
 ZombieType::ZombieType PVZ::Wave::Get(int index)
@@ -46,7 +46,7 @@ ZombieType::ZombieType PVZ::Wave::Get(int index)
 void PVZ::Wave::Set(int index, ZombieType::ZombieType ztype)
 {
 	if (index >= 0 && index < Count)
-		Memory::WriteMemory<ZombieType::ZombieType>(BaseAddress + index * 4, ztype);
+		Memory::WriteMemoryUnsafe<ZombieType::ZombieType>(BaseAddress + index * 4, ztype);
 }
 
 void PVZ::Wave::Del(int index)
@@ -67,8 +67,8 @@ void PVZ::Wave::Add(ZombieType::ZombieType ztype)
 	int count = Count;
 	if (count < 50)
 	{
-		Memory::WriteMemory<ZombieType::ZombieType>(BaseAddress + count * 4, ztype);
-		if (count < 49)Memory::WriteMemory<ZombieType::ZombieType>(BaseAddress + (count + 1) * 4, ZombieType::None);
+		Memory::WriteMemoryUnsafe<ZombieType::ZombieType>(BaseAddress + count * 4, ztype);
+		if (count < 49)Memory::WriteMemoryUnsafe<ZombieType::ZombieType>(BaseAddress + (count + 1) * 4, ZombieType::None);
 	}
 }
 
@@ -80,8 +80,8 @@ void PVZ::Wave::AddAll(ZombieType::ZombieType* ztypes, int length)
 		Inall = 50;
 	for (int i = Index; i < Inall; i++)
 	{
-		Memory::WriteMemory<int>(BaseAddress + i * 4, ztypes[i - Index]);
+		Memory::WriteMemoryUnsafe<int>(BaseAddress + i * 4, ztypes[i - Index]);
 	}
 	if (Inall != 50)
-		Memory::WriteMemory<int>(BaseAddress + Inall * 4, ZombieType::None);
+		Memory::WriteMemoryUnsafe<int>(BaseAddress + Inall * 4, ZombieType::None);
 }
