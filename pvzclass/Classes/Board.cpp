@@ -45,7 +45,7 @@ void PVZ::WriteSaveGameContext(PSaveGameContext context, char* buf, int buflen)
 	else
 	{
 		address = PVZ::Memory::AllocMemory(0, buflen);
-		PVZ::Memory::WriteArray<char>(address, buf, buflen);
+		PVZ::Memory::WriteArrayUnsafe<char>(address, buf, buflen);
 	}
 	PVZ::Memory::Execute(AsmBuilder()
 		.push(buflen)
@@ -117,8 +117,8 @@ void PVZ::Board::__set_WaveCount(int value)
 {
 	if (value >= 0 && value <= WaveCount)
 	{
-		Memory::WriteMemory<int>(BaseAddress + 0x5564, value);
-		Memory::WriteMemory<int>(BaseAddress + 0x5610, value * 150 / WaveCount);
+		Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x5564, value);
+		Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x5610, value * 150 / WaveCount);
 	}
 }
 
@@ -129,7 +129,7 @@ SceneType::SceneType PVZ::Board::__get_LevelScene()
 
 void PVZ::Board::__set_LevelScene(SceneType::SceneType value)
 {
-	Memory::WriteMemory<SceneType::SceneType>(BaseAddress + 0x554C, value);
+	Memory::WriteMemoryUnsafe<SceneType::SceneType>(BaseAddress + 0x554C, value);
 	SETARG(__asm__set__LevelScene, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__set__LevelScene));
 }
@@ -271,7 +271,7 @@ byte __asm__Save[] =
 
 bool PVZ::Board::Save(const char* path, int pathlen)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, path, pathlen);
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, path, pathlen);
 	SETARG(__asm__Save, 1) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__Save, 6) = PVZ::Memory::Variable + 600;
 	SETARG(__asm__Save, 25) = BaseAddress;
@@ -294,7 +294,7 @@ byte __asm__Load[] =
 
 bool PVZ::Board::Load(const char* path, int pathlen)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, path, pathlen);
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, path, pathlen);
 	SETARG(__asm__Load, 1) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__Load, 6) = PVZ::Memory::Variable + 600;
 	SETARG(__asm__Load, 25) = BaseAddress;
@@ -304,8 +304,8 @@ bool PVZ::Board::Load(const char* path, int pathlen)
 
 void PVZ::Board::Sync(PSaveGameContext context, bool read)
 {
-	PVZ::Memory::WriteMemory<bool>(context + 0x20, false);
-	PVZ::Memory::WriteMemory<bool>(context + 0x21, read);
+	PVZ::Memory::WriteMemoryUnsafe<bool>(context + 0x20, false);
+	PVZ::Memory::WriteMemoryUnsafe<bool>(context + 0x21, read);
 	PVZ::Memory::Execute(AsmBuilder()
 		.push(BaseAddress)
 		.mov_reg_imm(REG_EAX, context)
@@ -420,19 +420,19 @@ void PVZ::Board::UpdateFog()
 
 void PVZ::Board::Assault(int countdown)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x5574, countdown);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x5574, countdown);
 }
 
 void PVZ::Board::Bell(int countdown)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x5750, countdown);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x5750, countdown);
 }
 
 void PVZ::Board::Earthquake(int horizontalAmplitude, int verticalAmplitude, int duration)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x5540, duration);
-	Memory::WriteMemory<int>(BaseAddress + 0x5544, horizontalAmplitude);
-	Memory::WriteMemory<int>(BaseAddress + 0x5548, verticalAmplitude);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x5540, duration);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x5544, horizontalAmplitude);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x5548, verticalAmplitude);
 }
 
 PVZ::Lawn PVZ::Board::GetLawn()

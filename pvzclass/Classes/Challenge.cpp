@@ -45,7 +45,7 @@ BOOLEAN PVZ::Challenge::HaveCrater(int row, int column)
 void PVZ::Challenge::SetCrater(int row, int column, BOOLEAN b)
 {
 	if (row >= 0 && row < 6 && column >= 0 && column < 9)
-		Memory::WriteMemory<byte>(BaseAddress + 0x14 + 6 * column + row, b);
+		Memory::WriteMemoryUnsafe<byte>(BaseAddress + 0x14 + 6 * column + row, b);
 }
 
 byte __asm__IZSquishBrain[]

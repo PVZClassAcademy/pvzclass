@@ -15,8 +15,8 @@ void PVZ::CardSlot::SeedCard::GetCollision(CollisionBox* collbox)
 
 void PVZ::CardSlot::SeedCard::SetCollision(CollisionBox* collbox)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x10, collbox->Width);
-	Memory::WriteMemory<int>(BaseAddress + 0x14, collbox->Height);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x10, collbox->Width);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x14, collbox->Height);
 }
 
 void PVZ::CardSlot::SeedCard::EnterCoolDown(int duration)
