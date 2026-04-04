@@ -36,7 +36,7 @@ namespace AnimationType {
         case Iceshroom: return "Iceshroom";
         case FootballZombie: return "FootballZombie";
         case NewspaperZombie: return "NewspaperZombie";
-        case Zomboin: return "Zomboin";
+        case Zomboni: return "Zomboni";
         case WaterSpray: return "WaterSpray";
         case Jalapeno: return "Jalapeno";
         case Flame: return "Flame";
@@ -44,7 +44,7 @@ namespace AnimationType {
         case ZombieAsh: return "ZombieAsh";
         case ImpAsh: return "ImpAsh";
         case DiggerAsh: return "DiggerAsh";
-        case ZomboinAsh: return "ZomboinAsh";
+        case ZomboniAsh: return "ZomboniAsh";
         case CatapultAsh: return "CatapultAsh";
         case GargantuarAsh: return "GargantuarAsh";
         case Scaredyshroom: return "Scaredyshroom";

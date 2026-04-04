@@ -144,8 +144,8 @@ const char* SeedType::ToString(SeedType cardt)
 		return "BalloonZombie";
 	case SeedType::ScreenDoorZombie:
 		return "ScreenDoorZombie";
-	case SeedType::Zomboin:
-		return "Zomboin";
+	case SeedType::Zomboni:
+		return "Zomboni";
 	case SeedType::PogoZombie:
 		return "PogoZombie";
 	case SeedType::DancingZombie:

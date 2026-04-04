@@ -30,8 +30,8 @@ const char* ZombieType::ToString(ZombieType zombiet)
 		return "DuckyTubeZombie";
 	case ZombieType::SnorkedZombie:
 		return "SnorkedZombie";
-	case ZombieType::Zomboin:
-		return "Zomboin";
+	case ZombieType::Zomboni:
+		return "Zomboni";
 	case ZombieType::ZombieBobsledTeam:
 		return "ZombieBobsledTeam";
 	case ZombieType::DolphinRiderZombie:
