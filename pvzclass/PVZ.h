@@ -537,6 +537,9 @@ namespace PVZ
 		T_READONLY_PROPERTY(BYTE, IsDead, __get_IsDead, 0x304);
 		/// @brief 识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x308);
+		/// @brief 重载附件中所有内容的颜色。
+		/// @param color 重载的颜色
+		void OverrideColor(Color& color);
 	};
 	class AttachmentID : public BaseClass
 	{
