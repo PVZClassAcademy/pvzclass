@@ -56,8 +56,12 @@ namespace UpperSoundType
 		DolphinEnter,
 		DolphinJump,
 		MineExplode,
-		ZomboinStart,
-		ZomboinPunctured,
+		ZomboniStart,
+		/// @deprecated 请使用 ZomboniStart
+		ZomboinStart = 50,
+		ZomboniPunctured,
+		/// @deprecated 请使用 ZomboniPunctured
+		ZomboinPunctured = 51,
 		Thunder,
 		OutWater,
 		Bowling,

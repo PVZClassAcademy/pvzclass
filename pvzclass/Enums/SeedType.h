@@ -74,7 +74,9 @@ namespace SeedType
 		FootballZombie,
 		BalloonZombie,
 		ScreenDoorZombie,
-		Zomboin,
+		Zomboni,
+		/// @deprecated 请使用 Zomboni
+		Zomboin = 70,
 		PogoZombie,
 		DancingZombie,
 		Gigagargantuar,

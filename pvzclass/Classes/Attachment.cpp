@@ -9,3 +9,18 @@ PVZ::AttachEffect PVZ::Attachment::GetEffect(int index)
 {
 	return AttachEffect(this->GetBaseAddress() + index * 0x30);
 }
+
+void PVZ::Attachment::OverrideColor(PVZ::Color& color)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(color.Alpha)
+		.push(color.Blue)
+		.push(color.Green)
+		.push(color.Red)
+		.push_reg(REG_ESP)
+		.mov_reg_imm(REG_ECX, this->BaseAddress)
+		.invoke(0x404780)
+		.add_reg_imm(REG_ESP, 16)
+		.ret()
+	);
+}

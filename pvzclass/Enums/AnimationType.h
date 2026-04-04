@@ -28,7 +28,7 @@ namespace AnimationType
 		Hypnoshroom,
 		Chomper,
 		Zombie,
-		/// @deprecated
+		/// @deprecated 请使用 Zombie
 		ZombieAccessory = 21,
 		Sun,
 		PotatoMine,
@@ -39,7 +39,9 @@ namespace AnimationType
 		Iceshroom,
 		FootballZombie,
 		NewspaperZombie,
-		Zomboin,
+		Zomboni,
+		/// @deprecated 请使用 Zomboni
+		Zomboin = 31,
 		WaterSpray,
 		Jalapeno,
 		Flame,
@@ -47,7 +49,9 @@ namespace AnimationType
 		ZombieAsh,
 		ImpAsh,
 		DiggerAsh,
-		ZomboinAsh,
+		ZomboniAsh,
+		/// @deprecated 请使用 ZomboniAsh
+		ZomboinAsh = 39,
 		CatapultAsh,
 		GargantuarAsh,
 		Scaredyshroom,
