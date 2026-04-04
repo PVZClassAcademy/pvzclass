@@ -15,6 +15,8 @@ namespace PVZEvent
 	};
 }
 
+#ifdef _X86_
+
 #include <DbgHelp.h>
 #define MAX_NAME_LEN 1024
 
@@ -126,3 +128,5 @@ static void WriteStackTrace(EXCEPTION_POINTERS* lpEP, const char* outputFilename
 	SymCleanup(process);
 	fclose(fp);
 }
+
+#endif // _X86_
