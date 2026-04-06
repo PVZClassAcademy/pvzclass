@@ -558,7 +558,7 @@ namespace PVZ
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
 	};
-	// 鼠标对象(控制层面的鼠标)
+	/// @deprecated 该类将在未来被重命名为 WidgetManager
 	class Mouse : public BaseClass
 	{
 	public:
