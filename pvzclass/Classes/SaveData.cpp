@@ -16,7 +16,7 @@ int PVZ::SaveData::GetChallengeRecord(PVZLevel::PVZLevel mode)
 
 void PVZ::SaveData::SetChallengeRecord(PVZLevel::PVZLevel mode, int val)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x30 + (mode - 1) * 4, val);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x30 + (mode - 1) * 4, val);
 }
 
 int PVZ::SaveData::GetPurchase(StoreItem::StoreItem item)
@@ -26,7 +26,7 @@ int PVZ::SaveData::GetPurchase(StoreItem::StoreItem item)
 
 void PVZ::SaveData::SetPurchase(StoreItem::StoreItem item, int val)
 {
-	Memory::WriteMemory<int>(BaseAddress + 0x1C0 + item * 4, val);
+	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x1C0 + item * 4, val);
 }
 
 BOOLEAN PVZ::SaveData::HavePurpleCard(SeedType::SeedType purplecard)

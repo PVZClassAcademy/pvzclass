@@ -35,7 +35,7 @@ void PVZ::TodParticleSystem::OverrideColor(const char* emitter_name, Color& colo
 	else
 	{
 		tmp_ptr = PVZ::Memory::Variable + 100;
-		PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, emitter_name, std::strlen(emitter_name) + 1);
+		PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, emitter_name, std::strlen(emitter_name) + 1);
 	}
 
 	PVZ::Memory::Execute(AsmBuilder128()
