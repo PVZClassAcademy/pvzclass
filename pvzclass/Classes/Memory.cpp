@@ -102,7 +102,7 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 	else
 	{
 		int Address = AllocMemory();
-		WriteArray<byte>(Address, asmCode, length);
+		WriteArrayUnsafe<byte>(Address, asmCode, length);
 		if (!immediateExecute) WaitPVZ();
 		CreateThread(Address);
 		if (!immediateExecute) ResumePVZ();
@@ -113,11 +113,11 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 
 void PVZ::Memory::WaitPVZ()
 {
-	WriteMemory<BYTE>(Variable + 0x530, 1);
+	WriteMemoryUnsafe<BYTE>(Variable + 0x530, 1);
 	while (ReadMemory<BYTE>(Variable + 0x540) == 0);
 }
 
 void PVZ::Memory::ResumePVZ()
 {
-	WriteMemory<BYTE>(Variable + 0x530, 0);
+	WriteMemoryUnsafe<BYTE>(Variable + 0x530, 0);
 }

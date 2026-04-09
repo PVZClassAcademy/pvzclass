@@ -417,6 +417,7 @@
     <ClInclude Include="include\Events\ZombieConditionEvents.hpp" />
     <ClInclude Include="include\Flags.hpp" />
     <ClInclude Include="include\Events\ImitaterPlantEvent.h" />
+    <ClInclude Include="include\Global.hpp" />
     <ClInclude Include="include\Widgets\GameSelector.hpp" />
     <ClInclude Include="include\Injectors.h" />
     <ClInclude Include="include\Events\PlantCreateEvent.h" />

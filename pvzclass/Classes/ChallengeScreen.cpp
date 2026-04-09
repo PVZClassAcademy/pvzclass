@@ -17,7 +17,7 @@ namespace PVZ
 	}
 	void ChallengeScreen::__set_Page(ChallengePage::ChallengePage value)
 	{
-		Memory::WriteMemory<ChallengePage::ChallengePage>(BaseAddress + 0x1C8, value);
+		Memory::WriteMemoryUnsafe<ChallengePage::ChallengePage>(BaseAddress + 0x1C8, value);
 		byte __asm__ChallScr_UpdateButtons[]
 		{
 			CHALLENGESCREEN_UPDATEBUTTONS(BaseAddress),

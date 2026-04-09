@@ -396,7 +396,7 @@ void PVZ::Zombie::EquipCone(int shield)
 
 void PVZ::Zombie::ReanimShowPrefix(const char* TrackName, int renderGroup)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, TrackName, std::strlen(TrackName) + 1);
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, TrackName, std::strlen(TrackName) + 1);
 	SETARG(__asm__Zombie_ReanimShowPrefix, 1) = BaseAddress;
 	SETARG(__asm__Zombie_ReanimShowPrefix, 6) = renderGroup;
 	SETARG(__asm__Zombie_ReanimShowPrefix, 11) = PVZ::Memory::Variable + 100;
@@ -586,7 +586,7 @@ void PVZ::Zombie::LandFlyer(PVZ::DamageFlags flag)
 }
 void PVZ::Zombie::GetTrackPosition(const char* trackName, float& thePosX, float& thePosY)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, trackName, strlen(trackName));
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, trackName, strlen(trackName));
 	PVZ::Memory::WriteMemoryUnsafe<char>(PVZ::Memory::Variable + 100 + strlen(trackName), '\0');
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EDI,PVZ::Memory::Variable)

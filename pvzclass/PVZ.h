@@ -67,7 +67,9 @@ namespace PVZ
 	/// @note 该函数供 pvzdll 初始化使用。
 	void InitPVZDLL();
 
+	/// @brief 初始化 PVZ 命名空间
 	void InitPVZ(DWORD pid);
+	/// @brief 消除 PVZ 命名空间初始化的影响
 	void QuitPVZ();
 
 	#pragma region structs
@@ -84,7 +86,7 @@ namespace PVZ
 
 	#pragma region classes
 	/// @brief 所有对应 PVZ 内部对象的类的基类。
-	/// @attention 你不应该直接构造 BaseClass！
+	/// @attention 除非你知道你在做什么，否则你不应该直接构造 BaseClass ！
 	class BaseClass
 	{
 	protected:
@@ -599,6 +601,10 @@ namespace PVZ
 
 	void InitImages();
 	Mouse GetMouse();
+	/// @brief 扩展绘制物件数组
+	/// @param num 调整后的绘制物件数组元素数目上限
+	/// @warning num 应当不低于 2049 。
+	void ExtendRenderItem(uint32_t num);
 
 	#pragma endregion
 
