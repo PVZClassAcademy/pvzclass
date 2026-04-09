@@ -4,5 +4,5 @@
 namespace PVZ
 {
 	/// @warning 请勿在程序资源文件涉及非 ASCII 字符时改变此变量的值。
-	auto IsLocaleChanged = PVZ::BaseClass(0x6A66F4);
+	inline auto IsLocaleChanged = PVZ::BaseClass(0x6A66F4);
 }
