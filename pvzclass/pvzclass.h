@@ -3,6 +3,7 @@
 #include "PVZ.h"
 #include "include/Const.h"
 #include "Classes.hpp"
+#include "include/Global.hpp"
 #include "include/Creators.h"
 #include "include/Injectors.h"
 #include "include/Draw.h"

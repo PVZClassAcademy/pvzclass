@@ -974,5 +974,8 @@
     <ClInclude Include="include\Effects\EffectSystem.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\Global.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
