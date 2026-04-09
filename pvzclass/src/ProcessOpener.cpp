@@ -1,6 +1,5 @@
 ﻿#include "ProcessOpener.h"
 #include <TLHELP32.H>
-#include <direct.h>
 LPCWSTR ProcessOpener::ProcessName = TEXT("PlantsVsZombies.exe");
 LPCWSTR ProcessOpener::WindowTitle = TEXT("Plants vs. Zombies");
 LPCWSTR ProcessOpener::Directory = TEXT(".");
@@ -31,12 +30,17 @@ DWORD ProcessOpener::OpenByWindowTitle(LPCWSTR processName)
 	return pid;
 }
 
+WCHAR FilePathBuf[MAX_PATH + 1];
 DWORD ProcessOpener::OpenByFilePath(LPCWSTR directory, LPCWSTR executeableName)
 {
-	int _ = _wchdir(directory);
 	STARTUPINFO startupInfo = { 0 };
 	PROCESS_INFORMATION processInformation = { 0 };
-	BOOL ret = CreateProcess(executeableName, NULL, NULL, NULL, FALSE, NULL, NULL, NULL, &startupInfo, &processInformation);
+
+	wcscpy_s(FilePathBuf, MAX_PATH, directory);
+	wcscat_s(FilePathBuf, MAX_PATH, L"\\");
+	wcscat_s(FilePathBuf, MAX_PATH, executeableName);
+
+	BOOL ret = CreateProcess(FilePathBuf, NULL, NULL, NULL, FALSE, NULL, NULL, directory, &startupInfo, &processInformation);
 	if (ret)
 	{
 		CloseHandle(processInformation.hProcess);

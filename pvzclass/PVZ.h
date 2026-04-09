@@ -558,7 +558,7 @@ namespace PVZ
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
 	};
-	// 鼠标对象(控制层面的鼠标)
+	/// @deprecated 该类将在未来被重命名为 WidgetManager
 	class Mouse : public BaseClass
 	{
 	public:
@@ -567,9 +567,11 @@ namespace PVZ
 		INT_PROPERTY(X, __get_X, __set_X, 0xE0);
 		INT_PROPERTY(Y, __get_Y, __set_Y, 0xE4);
 		T_READONLY_PROPERTY(MouseClickState::MouseClickState, ClickState, __get_ClickState, 0xE8);
-		void WMClick(short x, short y);
+		/// @deprecated 即将被移除
+		[[deprecated]] void WMClick(short x, short y);
 		void GameClick(int x, int y);
-		void MoveTo(int x, int y);
+		/// @deprecated 即将被移除
+		[[deprecated]] void MoveTo(int x, int y);
 	};
 	class GardenPlant : public BaseClass
 	{
