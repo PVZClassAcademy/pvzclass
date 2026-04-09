@@ -153,6 +153,11 @@ PVZ::Mouse PVZ::GetMouse()
 	return Mouse(Memory::ReadPointer(0x6A9EC0, 0x320));
 }
 
+void PVZ::ExtendRenderItem(uint32_t num)
+{
+	PVZ::Memory::WriteMemory<uint32_t>(0x416887, num * 12);
+}
+
 uint8_t __asm__MakeString[]
 {
 	PUSHDWORD(0),
