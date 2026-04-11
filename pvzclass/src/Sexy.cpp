@@ -3,32 +3,32 @@
 PVZ::Sexy::PButtonListener PVZ::Sexy::MakeButtonListener(ButtonListener* listener)
 {
 	int address = PVZ::Memory::AllocMemory(0, 32);
-	PVZ::Memory::WriteMemory<int>(address, address + 4);
-	PVZ::Memory::WriteMemory<ButtonListener>(address + 4, *listener);
+	PVZ::Memory::WriteMemoryUnsafe<int>(address, address + 4);
+	PVZ::Memory::WriteMemoryUnsafe<ButtonListener>(address + 4, *listener);
 	return address;
 }
 
 PVZ::Sexy::PEditListener PVZ::Sexy::MakeEditListener(EditListener* listener)
 {
 	int address = PVZ::Memory::AllocMemory(0, 20);
-	PVZ::Memory::WriteMemory<int>(address, address + 4);
-	PVZ::Memory::WriteMemory<EditListener>(address + 4, *listener);
+	PVZ::Memory::WriteMemoryUnsafe<int>(address, address + 4);
+	PVZ::Memory::WriteMemoryUnsafe<EditListener>(address + 4, *listener);
 	return address;
 }
 
 PVZ::Sexy::PCheckboxListener PVZ::Sexy::MakeCheckboxListener(CheckboxListener* listener)
 {
 	int address = PVZ::Memory::AllocMemory(0, 8);
-	PVZ::Memory::WriteMemory<int>(address, address + 4);
-	PVZ::Memory::WriteMemory<CheckboxListener>(address + 4, *listener);
+	PVZ::Memory::WriteMemoryUnsafe<int>(address, address + 4);
+	PVZ::Memory::WriteMemoryUnsafe<CheckboxListener>(address + 4, *listener);
 	return address;
 }
 
 PVZ::Sexy::PListListener PVZ::Sexy::MakeListListener(ListListener* listener)
 {
 	int address = PVZ::Memory::AllocMemory(0, 16);
-	PVZ::Memory::WriteMemory<int>(address, address + 4);
-	PVZ::Memory::WriteMemory<ListListener>(address + 4, *listener);
+	PVZ::Memory::WriteMemoryUnsafe<int>(address, address + 4);
+	PVZ::Memory::WriteMemoryUnsafe<ListListener>(address + 4, *listener);
 	return address;
 }
 
@@ -230,17 +230,17 @@ int PVZ::Sexy::AddListLine(PList list, PVZ::PVZString line, bool alphabetical)
 
 void PVZ::Sexy::SetListLineHeight(PList list, int height)
 {
-	PVZ::Memory::WriteMemory<int>(list + 0xEC, height);
+	PVZ::Memory::WriteMemoryUnsafe<int>(list + 0xEC, height);
 }
 
 void PVZ::Sexy::SetListJustify(PList list, int justify)
 {
-	PVZ::Memory::WriteMemory<int>(list + 0x98, justify);
+	PVZ::Memory::WriteMemoryUnsafe<int>(list + 0x98, justify);
 }
 
 void PVZ::Sexy::SetListSelected(PList list, int id)
 {
-	PVZ::Memory::WriteMemory<int>(list + 0xD4, id);
+	PVZ::Memory::WriteMemoryUnsafe<int>(list + 0xD4, id);
 }
 
 int PVZ::Sexy::GetListSelected(PList list)

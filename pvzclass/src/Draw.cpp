@@ -159,7 +159,7 @@ void PVZ::Graphics::DrawImage(PVZ::Image image, int x, int y)
 
 void PVZ::Graphics::DrawLine(int start_x, int start_y, int end_x, int end_y)
 {
-	PVZ::Memory::WriteMemory<double>(PVZ::Memory::Variable, start_y);
+	PVZ::Memory::WriteMemoryUnsafe<double>(PVZ::Memory::Variable, start_y);
 	PVZ::Memory::WriteMemory<DWORD>(0x5870A4, PVZ::Memory::Variable);
 	PVZ::Memory::Execute(AsmBuilder()
 		.push(end_y)
