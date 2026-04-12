@@ -373,7 +373,7 @@ inline void AttachmentOverflowGuard(BOOLEAN b = true)
 {
 	if (b)
 	{
-		BYTE code[] = { JMP(0x39), NOP};
+		BYTE code[] = { JMP(0x39), NOP };
 		PVZ::Memory::WriteArray<BYTE>(0x405587, STRING(code));
 
 		BYTE code2[] =
@@ -382,14 +382,14 @@ inline void AttachmentOverflowGuard(BOOLEAN b = true)
 			JL(2),
 			POP_EUX(REG_ESI),
 			RET,
-			0x8D, 0x4C, 0x40,
+			0x8D, 0x0C, 0x40,
 			JMP(0xBC)
 		};
 		PVZ::Memory::WriteArray<BYTE>(0x4055C2, STRING(code2));
 	}
 	else
 	{
-		BYTE code[] = { 0x8D, 0x4C, 0x40 };
+		BYTE code[] = { 0x8D, 0x0C, 0x40 };
 		PVZ::Memory::WriteArray<BYTE>(0x405587, STRING(code));
 	}
 }
