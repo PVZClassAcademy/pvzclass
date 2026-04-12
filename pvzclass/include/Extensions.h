@@ -379,13 +379,13 @@ inline void AttachmentOverflowGuard(BOOLEAN b = true)
 		BYTE code2[] =
 		{
 			CMP_EUX(REG_EAX, 16),
-			JNL(2),
+			JL(2),
 			POP_EUX(REG_ESI),
 			RET,
 			0x8D, 0x4C, 0x40,
 			JMP(0xBC)
 		};
-		PVZ::Memory::WriteArray<BYTE>(0x4055C2, STRING(code));
+		PVZ::Memory::WriteArray<BYTE>(0x4055C2, STRING(code2));
 	}
 	else
 	{
