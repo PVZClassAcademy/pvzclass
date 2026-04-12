@@ -313,6 +313,9 @@ byte __asm__Froze[]
 
 void PVZ::Zombie::Froze(int countdown = 300)
 {
+	if (countdown == 0)
+		return;
+
 	Memory::WriteMemory<byte>(0x532493, 0);
 	Memory::WriteMemory<byte>(0x5319E5, 112);//无视魅惑
 	int temp = FrozenCountdown, temp2 = DecelerateCountdown;
@@ -321,6 +324,10 @@ void PVZ::Zombie::Froze(int countdown = 300)
 	Memory::WriteMemory<byte>(0x532493, 20);
 	Memory::WriteMemory<byte>(0x5319E5, 117);
 	DecelerateCountdown = temp2;
+
+	if (this->FrozenCountdown == 0 && temp == 0)
+		return;
+
 	FrozenCountdown = max(temp, countdown);
 }
 

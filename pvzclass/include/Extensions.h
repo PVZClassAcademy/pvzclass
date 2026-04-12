@@ -330,7 +330,7 @@ inline void DisableGiantWallNutScale(BOOLEAN b = true)
 inline void ConvertSubClass2Flag(bool b = true)
 {
 	MEMMOD_SHORT(0x4633EE, 0x47F6, 0x7F83);	
-    MEMMOD_BYTE(0x4633F2, 0x74, 0x75);
+	MEMMOD_BYTE(0x4633F2, 0x74, 0x75);
 }
 
 /// @brief 禁用音乐接口更新的默认调用。\n
@@ -365,4 +365,31 @@ inline void ZombieAlwaysDive(BOOLEAN b = true)
 {
 	MEMMOD_INT(0x526742, 40, 700);
 	MEMMOD_INT(0x526212, 40, 700);
+}
+
+/// @brief 添加防止附件的元素数溢出的保护代码
+/// @param b 是否开启此功能
+inline void AttachmentOverflowGuard(BOOLEAN b = true)
+{
+	if (b)
+	{
+		BYTE code[] = { JMP(0x39), NOP};
+		PVZ::Memory::WriteArray<BYTE>(0x405587, STRING(code));
+
+		BYTE code2[] =
+		{
+			CMP_EUX(REG_EAX, 16),
+			JNL(2),
+			POP_EUX(REG_ESI),
+			RET,
+			0x8D, 0x4C, 0x40,
+			JMP(0xBC)
+		};
+		PVZ::Memory::WriteArray<BYTE>(0x4055C2, STRING(code));
+	}
+	else
+	{
+		BYTE code[] = { 0x8D, 0x4C, 0x40 };
+		PVZ::Memory::WriteArray<BYTE>(0x405587, STRING(code));
+	}
 }

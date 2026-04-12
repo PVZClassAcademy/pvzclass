@@ -153,14 +153,14 @@ void Creator::AsmInit()
 	SETARG(__asm__CreateProjectile2, 65) = PVZ::Memory::Variable + 12;
 	SETARG(__asm__CreateProjectile2, 71) = PVZ::Memory::Variable + 4;
 	SETARG(__asm__CreateProjectile2, 79) = PVZ::Memory::Variable;
-	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 16, STRING(__asm__CreateProjectile2));
+	PVZ::Memory::WriteArrayUnsafe<byte>(PVZ::Memory::Variable + 16, STRING(__asm__CreateProjectile2));
 	//protal
 	SETARG(__asm__CreatePortalpieces1, 6) = PVZ::Memory::Variable + 200 - 5 - 0x427071;
 	PVZ::Memory::WriteArray<byte>(0x42706C, STRING(__asm__CreatePortalpieces1));
 	SETARG(__asm__CreatePortalpieces2, 11) = 0x427076 - 5 - (PVZ::Memory::Variable + 210);
-	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 200, STRING(__asm__CreatePortalpieces2));
+	PVZ::Memory::WriteArrayUnsafe<byte>(PVZ::Memory::Variable + 200, STRING(__asm__CreatePortalpieces2));
 	// random
-	PVZ::Memory::WriteArray<byte>(PVZ::Memory::Variable + 225, STRING(__asm__Random));
+	PVZ::Memory::WriteArrayUnsafe<byte>(PVZ::Memory::Variable + 225, STRING(__asm__Random));
 }
 
 byte __asm__Asm__Reset[10]
@@ -416,7 +416,7 @@ byte __asm__CreateCaption[]
 
 void Creator::CreateCaption(const char* str, int length, CaptionStyle::CaptionStyle style, int duration)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, str, length);
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, str, length);
 	PVZ::Memory::WriteMemoryUnsafe<char>(PVZ::Memory::Variable + 100 + length, 0);
 	SETARG(__asm__CreateCaption, 1) = PVZ::Memory::Variable + 100;
 	SETARG(__asm__CreateCaption, 6) = PVZ::Memory::Variable + 600;
@@ -441,7 +441,7 @@ byte __asm__CreateImageCaption[50]
 
 void Creator::CreateImageCaption(const char* str, int length)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, str, length);
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, str, length);
 	SETARG(__asm__CreateImageCaption, 1) = PVZBASEADDRESS;
 	SETARG(__asm__CreateImageCaption, 6) = PVZ::Memory::Variable + 100;
 	PVZ::Memory::Execute(STRING(__asm__CreateImageCaption));

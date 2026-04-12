@@ -55,7 +55,7 @@ namespace PVZ
 		SETARG(__asm__Execute, 9) = Memory::Variable + 0x530;
 		SETARG(__asm__Execute, 18) = Memory::Variable + 0x540;
 		SETARG(__asm__Execute, 31) = 0x415D47 - Memory::Variable - 0x520 - 3;
-		Memory::WriteArray<BYTE>(Memory::Variable + 0x500, STRING(__asm__Execute));
+		Memory::WriteArrayUnsafe<BYTE>(Memory::Variable + 0x500, STRING(__asm__Execute));
 		SETARG(__asm__UpdateHook, 1) = Memory::Variable + 0x500 - 0x415D40 - 5;
 		Memory::WriteArray<BYTE>(0x415D40, STRING(__asm__UpdateHook));
 	}
@@ -123,8 +123,8 @@ bool PVZ::Memory::InjectDll(const char* dllname)
 	SETARG(__asm__InjectDll, 1) = Variable + 0x600;
 	SETARG(__asm__InjectDll, 19) = Variable;
 	int len = strlen(dllname);
-	WriteArray<const char>(Variable + 0x600, dllname, len);
-	WriteMemory<char>(Variable + 0x600 + len, 0);
+	WriteArrayUnsafe<const char>(Variable + 0x600, dllname, len);
+	WriteMemoryUnsafe<char>(Variable + 0x600 + len, 0);
 	DLLAddress = Execute(STRING(__asm__InjectDll));
 	return DLLAddress != 0;
 }
@@ -135,8 +135,8 @@ int PVZ::Memory::GetProcAddress(const char* procname)
 	SETARG(__asm__GetProcAddress, 6) = DLLAddress;
 	SETARG(__asm__GetProcAddress, 24) = Variable;
 	int len = strlen(procname);
-	WriteArray<const char>(Variable + 0x600, procname, len);
-	WriteMemory<char>(Variable + 0x600 + len, 0);
+	WriteArrayUnsafe<const char>(Variable + 0x600, procname, len);
+	WriteMemoryUnsafe<char>(Variable + 0x600 + len, 0);
 	return Execute(STRING(__asm__GetProcAddress));
 }
 
@@ -170,7 +170,7 @@ PVZ::PVZString PVZ::PVZString::Make(const char* str)
 {
 	uint32_t len = strlen(str);
 	uint32_t fromAddress = PVZ::Memory::AllocMemory(0, len + 1);
-	PVZ::Memory::WriteArray<const char>(fromAddress, str, len + 1);
+	PVZ::Memory::WriteArrayUnsafe<const char>(fromAddress, str, len + 1);
 	uint32_t toAddress = PVZ::Memory::AllocMemory(0, 0x1C);
 
 	SETARG(__asm__MakeString, 1) = fromAddress;
@@ -183,7 +183,7 @@ PVZ::PVZString PVZ::PVZString::Make(const char* str)
 
 PVZ::PVZString PVZ::PVZString::Translate(const char* str)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, str, std::strlen(str) + 1);
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, str, std::strlen(str) + 1);
 
 	return PVZ::PVZString{ PVZ::Memory::Execute(AsmBuilder()
 		.push(0)
@@ -249,8 +249,8 @@ optional<double> PVZ::PVZString::ToDouble(PVZ::PVZString str)
 
 void PVZ::PVZString::Concat(const char* src, int len)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
-	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + len, '\0');
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, src, len);
+	PVZ::Memory::WriteMemoryUnsafe<char>(PVZ::Memory::Variable + 100 + len, '\0');
 
 	PVZ::Memory::Execute(AsmBuilder()
 		.push_imm32(len)
@@ -283,8 +283,8 @@ void PVZ::PVZString::Assign(PVZString src, uint32_t len ,uint32_t count, uint32_
 
 void PVZ::PVZString::Assign(const char* src, uint32_t len, uint32_t count)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
-	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + len, '\0');
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, src, len);
+	PVZ::Memory::WriteMemoryUnsafe<char>(PVZ::Memory::Variable + 100 + len, '\0');
 
 	PVZ::Memory::Execute(AsmBuilder()
 		.push_imm32(count)
@@ -296,8 +296,8 @@ void PVZ::PVZString::Assign(const char* src, uint32_t len, uint32_t count)
 
 void PVZ::PVZString::Assign(const char* src, uint32_t len)
 {
-	PVZ::Memory::WriteArray<const char>(PVZ::Memory::Variable + 100, src, len);
-	PVZ::Memory::WriteMemory<char>(PVZ::Memory::Variable + 100 + len, '\0');
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::Variable + 100, src, len);
+	PVZ::Memory::WriteMemoryUnsafe<char>(PVZ::Memory::Variable + 100 + len, '\0');
 
 	PVZ::Memory::Execute(AsmBuilder()
 		.push_imm32(PVZ::Memory::Variable + 100)
