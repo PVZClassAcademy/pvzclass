@@ -46,6 +46,11 @@
 - `PVZ::Memory::StringVariable`，用于承接原本 `PVZ::Memory::Variable` 的作用。
 - `PVZ::InitPVZDLL()`，用于dll的初始化。
 - `PVZEvent::ProjectileDrawTransEvent`
+- `PVZEvent::MagnetShroomAttractAbilityEvent`
+- `PVZ::LawnDialog` 及相关函数。
+- `Memory` 类新增 `WriteArrayUnsafe`。
+- `EffectSystem::Extend()`
+- `AttachOverflowGuard()`
 
 ### 改动内容
 
@@ -58,6 +63,9 @@
 - `ProjectileCollisionEvent` 被拆分为 `PVZEvent::ProjectileCollisionEvent` 和
 - `REG_` 系列宏变为内联常量。
 - 所有从 `ThreeStateEventTemplate` 派生的事件类现在具有 `_ts` 命名后缀（复合事件的成员事件除外）。
+- 重构了 `AsmBuilder`，现在它是 `BaseBuilder` 的派生类，且默认使用定长数组（而不是指针）。
+- `pvzclass.h` 不再默认包含 `iostream`
+- `AttachEffect` 和 `Attachment` 新增若干成员。
 
 ### 修复漏洞
 
@@ -65,6 +73,10 @@
 - 修复僵王冰火球导致绘图偏移的漏洞。
 - 修复 `SpikeRockTakeDamageEvent` 不正常的漏洞。
 - 修复了	 `AnimationType::Wallnut` 被错误命名为 `Wallbut` 的漏洞。
+- 修复了	 `Lawnmower` 被错误命名为 `Lawnmover` 的漏洞。
+- 修复了	 `Zomboni` 被错误命名为 `Zomboin` 的漏洞。
+- 修复了 `ProcessOpener::OpenByFilePath()` 会永久改变工作目录的漏洞。
+- 修复了 `Zombie::Froze()` 无视僵尸不可冻结条件的漏洞。
 
 ### 兼容性
 
