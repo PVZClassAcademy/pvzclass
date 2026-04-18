@@ -166,6 +166,8 @@ PVZ::Projectile PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targeti
 	if (targetid != -1)
 	{
 		Zombie tmp = PVZ::GetByID<Zombie>(targetid);
+		if (!tmp.isValid())
+			tmp = PVZ::Zombie((int)nullptr);
 		SETARG(__asm__Shoot, 5) = tmp.GetBaseAddress();
 	}
 	SETARG(__asm__Shoot, 10) = BaseAddress;
