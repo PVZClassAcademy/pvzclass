@@ -33,9 +33,6 @@ namespace PVZ
 		static HANDLE hThread;
 		/// @brief 主线程 ID
 		static DWORD mainThreadId;
-		/// @brief 主窗口句柄
-		/// @deprecated 即将被移除
-		static HWND mainwindowhandle;
 		/// @brief 如果为 true，则不会等待PVZ进程，立即执行远程代码
 		/// @note 在 localExecute 为 true 时无效。
 		static bool immediateExecute;
