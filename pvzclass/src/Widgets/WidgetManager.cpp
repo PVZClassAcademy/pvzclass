@@ -1,6 +1,6 @@
 #include "Widgets/WidgetManager.hpp"
 
-void PVZ::WidgetManager::GameClick(int x, int y)
+void PVZ::WidgetManager::MouseDown(int x, int y)
 {
 	SETARG(__asm__GameClick, 1) = this->GetBaseAddress();
 	SETARG(__asm__GameClick, 6) = y;
