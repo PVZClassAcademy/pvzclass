@@ -358,7 +358,7 @@ namespace PVZ
 	class WidgetContainer : public BaseClass
 	{
 	public:
-		WidgetContainer(int address) : BaseClass(address) {};
+		WidgetContainer(uint32_t address) : BaseClass(address) {};
 		INT_PROPERTY(ViewX,			__get_ViewX,		__set_ViewX,		0x30);
 		INT_PROPERTY(ViewY,			__get_ViewY,		__set_ViewY,		0x34);
 		INT_PROPERTY(ViewLength,	__get_ViewLength,	__set_ViewLength,	0x38);
@@ -560,21 +560,6 @@ namespace PVZ
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
 	};
-	/// @deprecated 该类将在未来被重命名为 WidgetManager
-	class Mouse : public BaseClass
-	{
-	public:
-		Mouse(int baseaddress) : BaseClass(baseaddress) {};
-		T_READONLY_PROPERTY(BOOLEAN, InGameArea, __get_InGameArea, 0xDC);
-		INT_PROPERTY(X, __get_X, __set_X, 0xE0);
-		INT_PROPERTY(Y, __get_Y, __set_Y, 0xE4);
-		T_READONLY_PROPERTY(MouseClickState::MouseClickState, ClickState, __get_ClickState, 0xE8);
-		/// @deprecated 即将被移除
-		[[deprecated]] void WMClick(short x, short y);
-		void GameClick(int x, int y);
-		/// @deprecated 即将被移除
-		[[deprecated]] void MoveTo(int x, int y);
-	};
 	class GardenPlant : public BaseClass
 	{
 	public:
@@ -600,7 +585,6 @@ namespace PVZ
 	#pragma region methods
 
 	void InitImages();
-	Mouse GetMouse();
 	/// @brief 扩展绘制物件数组
 	/// @param num 调整后的绘制物件数组元素数目上限
 	/// @warning num 应当不低于 2049 。

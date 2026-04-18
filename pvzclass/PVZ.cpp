@@ -148,11 +148,6 @@ int PVZ::Memory::InvokeDllProc(const char* procname)
 	return PVZ::Memory::Execute(STRING(asmcode));
 }
 
-PVZ::Mouse PVZ::GetMouse()
-{
-	return Mouse(Memory::ReadPointer(0x6A9EC0, 0x320));
-}
-
 void PVZ::ExtendRenderItem(uint32_t num)
 {
 	PVZ::Memory::WriteMemory<uint32_t>(0x416887, num * 12);

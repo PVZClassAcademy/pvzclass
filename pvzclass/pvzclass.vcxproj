@@ -180,7 +180,6 @@
     <ClCompile Include="Classes\Matrix3.cpp" />
     <ClCompile Include="Classes\Memory.cpp" />
     <ClCompile Include="Classes\Challenge.cpp" />
-    <ClCompile Include="Classes\Mouse.cpp" />
     <ClCompile Include="Classes\MousePointer.cpp" />
     <ClCompile Include="Classes\Music.cpp" />
     <ClCompile Include="Classes\Plant.cpp" />
@@ -251,6 +250,7 @@
     <ClCompile Include="src\Widgets\GameSelector.cpp" />
     <ClCompile Include="src\Widgets\Dialog.cpp" />
     <ClCompile Include="src\Widgets\Widget.cpp" />
+    <ClCompile Include="src\Widgets\WidgetManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AsmBuilder.hpp" />
@@ -425,6 +425,7 @@
     <ClInclude Include="include\Events\PlantDieEvent.h" />
     <ClInclude Include="Enums\MagnetItemType.h" />
     <ClInclude Include="include\Events\PlantReloadEvent.h" />
+    <ClInclude Include="include\Widgets\WidgetManager.hpp" />
     <ClInclude Include="Memory.hpp" />
     <ClInclude Include="include\ProcessOpener.h" />
     <ClInclude Include="include\Events\PlantShootEvent.h" />

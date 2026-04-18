@@ -258,9 +258,6 @@
     <ClCompile Include="Classes\Challenge.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="Classes\Mouse.cpp">
-      <Filter>源文件\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="Classes\MousePointer.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
@@ -370,6 +367,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="src\Effects\EffectSystem.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Widgets\WidgetManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -975,6 +975,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Global.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Widgets\WidgetManager.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
