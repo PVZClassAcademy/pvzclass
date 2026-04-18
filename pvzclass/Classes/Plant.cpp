@@ -157,10 +157,6 @@ void PVZ::Plant::Update()
 		.ret()
 	);
 }
-PVZ::Projectile PVZ::Plant::Shoot(int targetid)
-{
-	return(this->Shoot(targetid == -1 ? MotionType::None : MotionType::Track, targetid, false));
-}
 
 PVZ::Projectile PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targetid, bool special)
 {
@@ -187,29 +183,6 @@ PVZ::Projectile PVZ::Plant::Shoot(MotionType::MotionType motiontype, int targeti
 			re.TracktargetId = targetid;
 	}
 	return re;
-}
-
-byte __asm__Plant__setAnimation[100]
-{
-	MOV_EAX(0),
-	MOV_ECX(0),
-	INVOKE_DWORD_BYTE_BYTE(0x45FD90,0,0,0),
-	RET,
-};
-
-void PVZ::Plant::SetAnimation(LPCSTR animName, PVZEnum::ReanimLoopType animPlayArg, int imagespeed)
-{
-	int Address = PVZ::Memory::AllocMemory();
-	SETARG(__asm__Plant__setAnimation, 1) = BaseAddress;
-	SETARG(__asm__Plant__setAnimation, 6) = imagespeed;
-	__asm__Plant__setAnimation[13] = animPlayArg;
-	SETARG(__asm__Plant__setAnimation, 15) = Address + 33;
-	lstrcpyA((LPSTR)(__asm__Plant__setAnimation + 33), animName);
-	PVZ::Memory::WriteArrayUnsafe<byte>(Address, STRING(__asm__Plant__setAnimation));
-	PVZ::Memory::WriteMemory<byte>(0x552014, 0xFE);
-	PVZ::Memory::CreateThread(Address);
-	PVZ::Memory::WriteMemory<byte>(0x552014, 0xDB);
-	PVZ::Memory::FreeMemory(Address);
 }
 
 void PVZ::Plant::PlayBodyReanim(const char* track_name, PVZEnum::ReanimLoopType loop_type, int blend_time, float anim_rate)
