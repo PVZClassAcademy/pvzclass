@@ -44,7 +44,6 @@ namespace PVZ
 		Memory::localExecute = false;
 		Memory::processId = pid;
 		Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
-		Memory::mainwindowhandle = Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
 		Memory::Variable = Memory::AllocMemory(4);
 		Memory::StringVariable = Memory::AllocMemory(4);
 		Memory::mainThreadId = Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
@@ -71,7 +70,6 @@ namespace PVZ
 void PVZ::InitPVZDLL()
 {
 	PVZ::Memory::immediateExecute = true;
-	PVZ::Memory::mainwindowhandle = PVZ::Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
 	PVZ::Memory::StringVariable = PVZ::Memory::AllocMemory(4);
 }
@@ -81,7 +79,6 @@ void PVZ::InitPVZNoLock(DWORD pid)
 	Memory::localExecute = false;
 	Memory::processId = pid;
 	Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
-	Memory::mainwindowhandle = Memory::ReadMemory<HWND>(PVZ_BASE + 0x350);
 	Memory::Variable = Memory::AllocMemory(4);
 	Memory::mainThreadId = Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
 	Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, Memory::mainThreadId);
