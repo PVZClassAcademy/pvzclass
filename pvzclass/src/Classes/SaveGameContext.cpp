@@ -61,6 +61,17 @@ void PVZ::SaveGameContext::Write(char* buf, int buflen)
 	);
 }
 
+void PVZ::SaveGameContext::SyncBytes(uint32_t baseaddress, int size)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, size)
+		.mov_reg_imm(REG_EAX, baseaddress)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x4813D0)
+		.ret()
+	);
+}
+
 void PVZ::SaveGameContext::SyncBoard(Board board, bool read)
 {
 	this->Failed = false;

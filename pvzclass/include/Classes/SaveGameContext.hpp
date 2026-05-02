@@ -28,6 +28,12 @@ namespace PVZ
 		/// @param buf 如果 localExecute 为 true，则直接将地址作为参数传入，否则会产生拷贝
 		/// @author Moon404
 		void Write(char* buf, int buflen);
+
+		/// @brief 读模式下会从缓冲区中读取指定长度的内容，写入到基址。写模式下会将字节数和基址起的一段字节写入缓冲区中。
+		/// @note 若读取失败，则会读入默认值 0 。
+		/// @param baseaddress 基址
+		/// @param size 读写的字节数
+		void SyncBytes(uint32_t baseaddress, int size);
 		/// @brief 将游戏内容与 SaveGameContext 同步，可以理解为存入内存的存/读档。
 		/// @param context 需要使用 MakeSaveGameContext 构建
 		/// @param read true 读取内存数据，false 将数据写入内存
