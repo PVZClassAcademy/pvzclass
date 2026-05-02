@@ -205,10 +205,6 @@ namespace PVZ
 		/// @param pathlen path 的长度
 		/// @return 是否载入成功
 		bool Load(const char* path, int pathlen);
-		/// @brief 将游戏内容与 SaveGameContext 同步，可以理解为存入内存的存/读档。
-		/// @param context 需要使用 MakeSaveGameContext 构建
-		/// @param read true 读取内存数据，false 将数据写入内存
-		void Sync(PSaveGameContext context, bool read);
 		/// @brief 计算空的植物，原版用于计算空花盆或者睡莲的数量。
 		/// @return 空的植物的数量
 		int CountEmptyPlants(SeedType::SeedType type);

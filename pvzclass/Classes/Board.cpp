@@ -241,28 +241,6 @@ bool PVZ::Board::Load(const char* path, int pathlen)
 	return PVZ::Memory::Execute(STRING(__asm__Load)) & 1;
 }
 
-void PVZ::Board::Sync(PSaveGameContext context, bool read)
-{
-	PVZ::Memory::WriteMemoryUnsafe<bool>(context + 0x20, false);
-	PVZ::Memory::WriteMemoryUnsafe<bool>(context + 0x21, read);
-	PVZ::Memory::Execute(AsmBuilder()
-		.push(BaseAddress)
-		.mov_reg_imm(REG_EAX, context)
-		.invoke(0x4819D0)
-		.add_reg_imm(REG_ESP, 4)
-		.ret()
-	);
-	if (read)
-	{
-		PVZ::Memory::Execute(AsmBuilder()
-			.mov_reg_imm(REG_EDI, BaseAddress)
-			.invoke(0x481CE0)
-			.ret()
-		);
-		PVZ::GetPVZApp().GameState = PVZGameState::Playing;
-	}
-}
-
 int PVZ::Board::CountEmptyPlants(SeedType::SeedType type)
 {
 	return PVZ::Memory::Execute(AsmBuilder()

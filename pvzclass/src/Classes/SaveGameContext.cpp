@@ -60,3 +60,25 @@ void PVZ::SaveGameContext::Write(char* buf, int buflen)
 		.ret()
 	);
 }
+
+void PVZ::SaveGameContext::SyncBoard(Board board, bool read)
+{
+	this->Failed = false;
+	this->Reading = read;
+	PVZ::Memory::Execute(AsmBuilder()
+		.push(board.GetBaseAddress())
+		.mov_reg_imm(REG_EAX, BaseAddress)
+		.invoke(0x4819D0)
+		.add_reg_imm(REG_ESP, 4)
+		.ret()
+	);
+	if (read)
+	{
+		PVZ::Memory::Execute(AsmBuilder()
+			.mov_reg_imm(REG_EDI, board.GetBaseAddress())
+			.invoke(0x481CE0)
+			.ret()
+		);
+		PVZ::GetPVZApp().GameState = PVZGameState::Playing;
+	}
+}
