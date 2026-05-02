@@ -10,7 +10,9 @@ namespace PVZ
 	public:
 		SaveGameContext(uint32_t address) : PVZ::BaseClass(address) {};
 
+		/// @brief 是否出现存读档同步失败
 		T_SIMPLE_PROPERTY(bool, Failed, 0x20);
+		/// @brief 是否处于读模式。若为 false，则处于写模式
 		T_SIMPLE_PROPERTY(bool, Reading, 0x21);
 
 		/// @brief 构建空白上下文
