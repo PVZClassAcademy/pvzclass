@@ -277,6 +277,7 @@
     <ClInclude Include="Classes\ZenGarden.hpp" />
     <ClInclude Include="deprecated.hpp" />
     <ClInclude Include="Enums\FoleyType.h" />
+    <ClInclude Include="include\Classes\SaveGameContext.hpp" />
     <ClInclude Include="include\Effects\EffectSystem.hpp" />
     <ClInclude Include="include\Events\BoardUpdateEvent.h" />
     <ClInclude Include="include\Events\BossBungeeSpawnEvent.h" />
