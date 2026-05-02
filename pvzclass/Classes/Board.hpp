@@ -40,7 +40,8 @@ namespace PVZ
 		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
 		/// @note 额外的空间未经初始化，使用前请设法初始化。
 		/// @param MemSize 更改后的大小。
-		static void SetMemSize(int NewSize);
+		/// @oaran sync 扩展的空间是否在存读档时按默认方式处理
+		static void SetMemSize(int NewSize, bool sync = true);
 
 		PVZApp GetPVZApp();
 		/// @brief 场上僵尸数量

@@ -14,12 +14,13 @@ PVZ::Board PVZ::GetBoard()
 	return (address == 0 ? INVALID_BASEADDRESS : Board(address));
 }
 
-void PVZ::Board::SetMemSize(int NewSize)
+void PVZ::Board::SetMemSize(int NewSize, bool sync)
 {
 	if (NewSize < 0x57B0)
 		return;
 	PVZ::Memory::WriteMemory<int>(0x44F60F, NewSize);
-	PVZ::Memory::WriteMemory<int>(0x4819E1, NewSize - 0x164);
+	if (sync)
+		PVZ::Memory::WriteMemory<int>(0x4819E1, NewSize - 0x164);
 }
 
 PVZ::PVZApp PVZ::Board::GetPVZApp()
