@@ -3,12 +3,29 @@
 
 namespace PVZ
 {
+	/// @brief 游戏存档上下文，用于缓存存读档的信息
 	class SaveGameContext : public BaseClass
 	{
 	public:
 		SaveGameContext(uint32_t address) : PVZ::BaseClass(address) {};
 
-		T_READONLY_PROPERTY(bool, Failed, __get_Failed, 0x20);
-		T_READONLY_PROPERTY(bool, Reading, __get_Reading, 0x21);
+		T_SIMPLE_PROPERTY(bool, Failed, 0x20);
+		T_SIMPLE_PROPERTY(bool, Reading, 0x21);
+
+		/// @brief 构建空白上下文
+		/// @author Moon404
+		static SaveGameContext Make();
+		/// @brief 释放该上下文在 PVZ 占用的内存空间
+		/// @attention 只有通过 Make 创建的上下文才应该使用该函数销毁。
+		/// @author Moon404
+		void Free();
+		/// @brief 读取SaveGameContext
+		/// @param buf 如果 localExecute 为 true，则直接赋值为内存地址，否则会拷贝到 buf
+		/// @author Moon404
+		int Read(char* buf, int buflen);
+		/// @brief 写入SaveGameContext
+		/// @param buf 如果 localExecute 为 true，则直接将地址作为参数传入，否则会产生拷贝
+		/// @author Moon404
+		void Write(char* buf, int buflen);
 	};
 }

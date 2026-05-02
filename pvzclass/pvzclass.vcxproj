@@ -195,6 +195,7 @@
     <ClCompile Include="Classes\TrackInstance.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Enums\AnimationType.cpp" />
+    <ClCompile Include="src\Classes\SaveGameContext.cpp" />
     <ClCompile Include="src\Effects\EffectSystem.cpp" />
     <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp" />
     <ClCompile Include="src\Creators.cpp" />
