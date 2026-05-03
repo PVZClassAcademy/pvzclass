@@ -986,5 +986,8 @@
     <ClInclude Include="include\Classes\SaveGameContext.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\SyncBoardAfterEvent.hpp">
+      <Filter>头文件\Events\Board</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

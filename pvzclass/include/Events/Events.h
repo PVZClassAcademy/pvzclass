@@ -54,6 +54,7 @@
 #include "BoardCustomTooltipEvent.hpp"
 #include "BoardInitAfterEvent.hpp"
 #include "BoardKeyDownEvent.hpp"
+#include "SyncBoardAfterEvent.hpp"
 #include "CanPlantAtEvents.hpp"
 #include "CalcSunCostEvent.hpp"
 #include "ChallengeInitAfterEvent.hpp"
