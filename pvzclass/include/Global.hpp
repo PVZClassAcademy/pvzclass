@@ -11,5 +11,8 @@ namespace PVZ
 	public:
 		static Image IMAGE_BLANK;
 		static void InitImages();
+		/// @brief 加载指定文件中的字符串（同 LawnString）
+		/// @param str 文件名
+		static void LoadStringList(const char* str);
 	};
 }
