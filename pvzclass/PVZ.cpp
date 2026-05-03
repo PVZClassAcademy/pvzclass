@@ -4,8 +4,6 @@
 using std::optional;
 using std::nullopt;
 
-PVZ::Image* PVZ::Resource::IMAGE_BLANK = nullptr;
-
 /*
 	0x530: active 为1时阻塞游戏更新，执行完Execute之后改为0
 	0x540: enable 为1时代表可以执行Execute
@@ -33,11 +31,6 @@ byte __asm__Revert_UpdateHook[]
 
 namespace PVZ
 {
-	// 在使用 Resource 类的静态成员前，应当先调用此函数。
-	void InitImages()
-	{
-		PVZ::Resource::IMAGE_BLANK = new Image(Memory::ReadMemory<DWORD>(0x6A77BC));
-	}
 
 	void InitPVZ(DWORD pid)
 	{

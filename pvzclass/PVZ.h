@@ -583,22 +583,10 @@ namespace PVZ
 	#pragma endregion
 
 	#pragma region methods
-
-	void InitImages();
 	/// @brief 扩展绘制物件数组
 	/// @param num 调整后的绘制物件数组元素数目上限
 	/// @warning num 应当不低于 2049 。
 	void ExtendRenderItem(uint32_t num);
-
-	#pragma endregion
-
-	#pragma region Images
-
-	class Resource
-	{
-	public:
-		static Image* IMAGE_BLANK;
-	};
 
 	#pragma endregion
 };
