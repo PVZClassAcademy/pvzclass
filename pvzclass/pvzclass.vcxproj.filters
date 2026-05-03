@@ -153,9 +153,6 @@
     <ClCompile Include="Enums\PlantState.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Enums\PlantEffectType.cpp">
-      <Filter>源文件\Enums</Filter>
-    </ClCompile>
     <ClCompile Include="Enums\MusicType.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
@@ -447,9 +444,6 @@
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\PlantState.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\PlantEffectType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="include\Const.h">
