@@ -33,7 +33,6 @@ namespace Creator
 #define CHARSTRTOSTRING INVOKE(0x404450)
 #define CREATECAPTION INVOKE(0x459010)
 #define CREATEIMAGECAPTION INVOKE(0x40CA10)
-#define CREATEPLANTEFFECT INVOKE_DWORD(0x4666A0,0)
 #define CREATEEXPLOTION INVOKE_DWORD_BYTE_DWORD_DWORD_DWORD_BYTE_BYTE_BYTE(0x41D8A0,0,0,0,0,0,0,0,0)
 #define _CREATEEFFECT INVOKE_DWORD_DWORD_DWORD_DWORD(0x518A70,0,0,0x61A80,0)
 #define CREATEUPPERSOUND INVOKE_DWORD(0x4560C0,0)
@@ -192,9 +191,6 @@ namespace Creator
 	/// @param str 文字内容
 	/// @param length 字符串长度
 	void CreateImageCaption(const char* str, int length);
-
-	/// @deprecated
-	void CreatePlantEffect(PlantEffectType::PlantEffectType type, int x, int y);
 
 	/// @brief 在指定位置生成爆炸
 	/// @param x 爆炸中心 X 坐标

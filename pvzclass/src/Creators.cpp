@@ -447,26 +447,6 @@ void Creator::CreateImageCaption(const char* str, int length)
 	PVZ::Memory::Execute(STRING(__asm__CreateImageCaption));
 }
 
-byte __asm__CreatePlantEffect[19]
-{
-	CREATEPLANTEFFECT,
-	RET,
-};
-
-void Creator::CreatePlantEffect(PlantEffectType::PlantEffectType type, int x, int y)
-{
-	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100, PVZ_BASE);
-	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 104, PVZBASEADDRESS);
-	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100 + 0x24, type);
-	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 108, x + 50);
-	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100 + 0xC, y + 50);
-	xytorc(&x, &y);
-	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100 + 0x1C, x);
-	PVZ::Memory::WriteMemoryUnsafe<int>(PVZ::Memory::Variable + 100 + 0x28, y);
-	SETARG(__asm__CreatePlantEffect, 1) = PVZ::Memory::Variable + 100;
-	PVZ::Memory::Execute(STRING(__asm__CreatePlantEffect));
-}
-
 byte __asm__CreateExplosion[42]
 {
 	CREATEEXPLOTION,

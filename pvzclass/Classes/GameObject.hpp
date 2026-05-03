@@ -610,6 +610,13 @@ namespace PVZ
 		/// @param index 编号
 		/// @note 不保证以此法获得的对象未被移除
 		static PVZ::Projectile GetByIndex(uint32_t index);
+		/// @brief 调整该类在 PVZ 中对象的大小。
+		/// @note 请在派生类中调用这个函数。
+		/// @note 该函数会自动调整 MemSize。
+		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
+		/// @param MemSize 更改后的大小。
+		/// @param NewCount 调整后子弹上限数
+		static void SetMemSize(int NewSize, int NewCount);
 		/// @brief 实际 X 坐标
 		T_PROPERTY(FLOAT, X, __get_X, __set_X, 0x30);
 		/// @brief 子弹本体的 Y 坐标

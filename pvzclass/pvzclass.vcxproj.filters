@@ -153,9 +153,6 @@
     <ClCompile Include="Enums\PlantState.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
-    <ClCompile Include="Enums\PlantEffectType.cpp">
-      <Filter>源文件\Enums</Filter>
-    </ClCompile>
     <ClCompile Include="Enums\MusicType.cpp">
       <Filter>源文件\Enums</Filter>
     </ClCompile>
@@ -401,9 +398,6 @@
     <ClInclude Include="pvzclass.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\Injectors.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -450,9 +444,6 @@
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="Enums\PlantState.h">
-      <Filter>头文件\Enums</Filter>
-    </ClInclude>
-    <ClInclude Include="Enums\PlantEffectType.h">
       <Filter>头文件\Enums</Filter>
     </ClInclude>
     <ClInclude Include="include\Const.h">
@@ -922,9 +913,6 @@
     </ClInclude>
     <ClInclude Include="include\Events\DrawObjectEvents.hpp">
       <Filter>头文件\Events\Draw</Filter>
-    </ClInclude>
-    <ClInclude Include="deprecated.hpp">
-      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Widgets\GameSelector.hpp">
       <Filter>头文件\Widgets</Filter>
