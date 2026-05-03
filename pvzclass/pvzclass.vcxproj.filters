@@ -372,6 +372,9 @@
     <ClCompile Include="src\Widgets\WidgetManager.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Classes\SaveGameContext.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ProcessOpener.h">
@@ -978,6 +981,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Widgets\WidgetManager.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Classes\SaveGameContext.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

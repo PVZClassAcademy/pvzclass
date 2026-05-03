@@ -195,6 +195,7 @@
     <ClCompile Include="Classes\TrackInstance.cpp" />
     <ClCompile Include="Classes\ZenGarden.cpp" />
     <ClCompile Include="Enums\AnimationType.cpp" />
+    <ClCompile Include="src\Classes\SaveGameContext.cpp" />
     <ClCompile Include="src\Effects\EffectSystem.cpp" />
     <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp" />
     <ClCompile Include="src\Creators.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="Classes\ZenGarden.hpp" />
     <ClInclude Include="deprecated.hpp" />
     <ClInclude Include="Enums\FoleyType.h" />
+    <ClInclude Include="include\Classes\SaveGameContext.hpp" />
     <ClInclude Include="include\Effects\EffectSystem.hpp" />
     <ClInclude Include="include\Events\BoardUpdateEvent.h" />
     <ClInclude Include="include\Events\BossBungeeSpawnEvent.h" />

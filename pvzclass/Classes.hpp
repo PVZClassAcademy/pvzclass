@@ -25,6 +25,8 @@
 
 #include "Classes/GameButton.hpp"
 
+#include "include/Classes/SaveGameContext.hpp"
+
 #include "include/Effects/EffectSystem.hpp"
 
 #include "Widgets/ButtonWidget.hpp"

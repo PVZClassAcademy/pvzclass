@@ -7,7 +7,6 @@ namespace PVZ
 	class Plant;
 	class Projectile;
 	class Coin;
-	typedef DWORD PSaveGameContext;
 
 	/// @brief 包含大部分关卡内部数据和对象的类	
 	class Board : public Widget
@@ -41,7 +40,8 @@ namespace PVZ
 		/// @note 调用该函数后，新生成的存档与原版存档不兼容，请注意清理。
 		/// @note 额外的空间未经初始化，使用前请设法初始化。
 		/// @param MemSize 更改后的大小。
-		static void SetMemSize(int NewSize);
+		/// @oaran sync 扩展的空间是否在存读档时按默认方式处理
+		static void SetMemSize(int NewSize, bool sync = true);
 
 		PVZApp GetPVZApp();
 		/// @brief 场上僵尸数量
@@ -206,10 +206,6 @@ namespace PVZ
 		/// @param pathlen path 的长度
 		/// @return 是否载入成功
 		bool Load(const char* path, int pathlen);
-		/// @brief 将游戏内容与 SaveGameContext 同步，可以理解为存入内存的存/读档。
-		/// @param context 需要使用 MakeSaveGameContext 构建
-		/// @param read true 读取内存数据，false 将数据写入内存
-		void Sync(PSaveGameContext context, bool read);
 		/// @brief 计算空的植物，原版用于计算空花盆或者睡莲的数量。
 		/// @return 空的植物的数量
 		int CountEmptyPlants(SeedType::SeedType type);
@@ -425,14 +421,4 @@ namespace PVZ
 	};
 
 	Board GetBoard();
-	/// @brief 构建SaveGameContext
-	PSaveGameContext MakeSaveGameContext();
-	/// @brief 销毁SaveGameContext
-	void FreeSaveGameContext(PSaveGameContext context);
-	/// @brief 写入SaveGameContext
-	/// @param buf 如果 localExecute 为 true，则直接将地址作为参数传入，否则会产生拷贝
-	void WriteSaveGameContext(PSaveGameContext context, char* buf, int buflen);
-	/// @brief 读取SaveGameContext
-	/// @param buf 如果 localExecute 为 true，则直接赋值为内存地址，否则会拷贝到 buf
-	int ReadSaveGameContext(PSaveGameContext context, char*& buf);
 }
