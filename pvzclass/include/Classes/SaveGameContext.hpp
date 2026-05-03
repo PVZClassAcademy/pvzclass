@@ -25,7 +25,7 @@ namespace PVZ
 		/// @brief 读取SaveGameContext
 		/// @param buf 如果 localExecute 为 true，则直接赋值为内存地址，否则会拷贝到 buf
 		/// @author Moon404
-		int Read(char* buf, int buflen);
+		int Read(char* buf);
 		/// @brief 写入SaveGameContext
 		/// @param buf 如果 localExecute 为 true，则直接将地址作为参数传入，否则会产生拷贝
 		/// @author Moon404

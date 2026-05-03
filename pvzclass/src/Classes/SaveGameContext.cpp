@@ -21,7 +21,7 @@ void PVZ::SaveGameContext::Free()
 	);
 }
 
-int PVZ::SaveGameContext::Read(char* buf, int buflen)
+int PVZ::SaveGameContext::Read(char* buf)
 {
 	int address = PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_ESI, GetBaseAddress())
