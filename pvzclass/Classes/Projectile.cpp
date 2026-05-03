@@ -6,6 +6,46 @@ PVZ::Projectile PVZ::Projectile::GetByIndex(uint32_t index)
 {
 	return PVZ::Projectile(Memory::ReadMemory<int>(PVZBASEADDRESS + 0x0C8) + index * MemSize);
 }
+
+void PVZ::Projectile::SetMemSize(int NewSize, int NewCount)
+{
+	if (NewSize < 0x94)
+		return;
+	MemSize = NewSize;
+
+	Memory::WriteMemory<int>(0x407D04, NewSize * NewCount);
+
+	byte __asm__Mem1[] = { ADD_EAX_DWORD(NewSize) };
+	byte __asm__Mem2[] = { ADD_EUX_DWORD(REG_ESI, NewSize) };
+	byte __asm__Mem3[] = { ADD_EUX_DWORD(REG_EDI, NewSize) };
+	byte __asm__Mem4[] = { IMUL_EUX_EVX_DWORD(REG_EAX, REG_EAX, NewSize) };
+	byte __asm__Mem5[] = { IMUL_EUX_EVX_DWORD(REG_ECX, REG_ECX, NewSize) };
+	byte __asm__Mem6[] = { IMUL_EUX_EVX_DWORD(REG_ESI, REG_ESI, NewSize) };
+	byte __asm__Mem7[] = { PUSHDWORD(NewSize - 4) };
+
+	Memory::WriteArray<byte>(0x41BC28, STRING(__asm__Mem3));
+	Memory::WriteArray<byte>(0x41BC3A, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0x41BC4E, STRING(__asm__Mem3));
+
+	Memory::WriteArray<byte>(0x41C9C4, STRING(__asm__Mem1));
+	Memory::WriteArray<byte>(0x41C9CF, STRING(__asm__Mem5));
+	Memory::WriteArray<byte>(0x41C9E8, STRING(__asm__Mem1));
+
+	Memory::WriteArray<byte>(0X41DF7C, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0X41DF8E, STRING(__asm__Mem6));
+	Memory::WriteArray<byte>(0X41DF96, STRING(__asm__Mem7));
+
+	Memory::WriteArray<byte>(0X41E60E, STRING(__asm__Mem2));
+	Memory::WriteArray<byte>(0X41E617, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0X41E632, STRING(__asm__Mem5));
+	Memory::WriteArray<byte>(0X41E63A, STRING(__asm__Mem2));
+	Memory::WriteArray<byte>(0X481DA3, STRING(__asm__Mem1));
+
+	Memory::WriteArray<byte>(0X481DAE, STRING(__asm__Mem5));
+	Memory::WriteArray<byte>(0X481DC8, STRING(__asm__Mem1));
+	Memory::WriteArray<byte>(0X48244C, STRING(__asm__Mem4));
+}
+
 byte __asm__Projectile_CheckForCollision[]
 {
 	PUSHDWORD(0),
