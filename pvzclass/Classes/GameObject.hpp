@@ -89,21 +89,6 @@ namespace PVZ
 		/// @param NewCount 调整后僵尸上限数
 		static void SetMemSize(int NewSize, int NewCount);
 
-		/// @deprecated
-		struct AccessoriesType1
-		{
-			HelmType::HelmType Type;
-			int Hp;
-			int MaxHp;
-		};
-		/// @deprecated
-		struct AccessoriesType2
-		{
-			ShieldType::ShieldType Type;
-			int Hp;
-			int MaxHp;
-		};
-
 		/// @brief 僵尸类型
 		T_PROPERTY(ZombieType::ZombieType, Type, __get_Type, __set_Type, 0x24);
 		/// @brief 僵尸状态
@@ -375,19 +360,6 @@ namespace PVZ
 		void ShowDoorArms(bool shown = true);
 		/// @brief 根据盾的类型设置相应动画轨道的绘制分组。
 		void AttachShield();
-
-		/// @deprecated
-		void GetBodyHp(int* hp, int* maxhp);
-		/// @deprecated
-		void SetBodyHp(int hp, int maxhp);
-		/// @deprecated
-		AccessoriesType1 GetAccessoriesType1();
-		/// @deprecated
-		void SetAccessoriesType1(AccessoriesType1 acctype1);
-		/// @deprecated
-		AccessoriesType2 GetAccessoriesType2();
-		/// @deprecated
-		void SetAccessoriesType2(AccessoriesType2 acctype2);
 	};
 	/// @brief 植物
 	class Plant : public GameObject
