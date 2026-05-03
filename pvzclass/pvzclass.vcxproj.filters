@@ -401,9 +401,6 @@
     <ClInclude Include="pvzclass.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="include\Injectors.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -922,9 +919,6 @@
     </ClInclude>
     <ClInclude Include="include\Events\DrawObjectEvents.hpp">
       <Filter>头文件\Events\Draw</Filter>
-    </ClInclude>
-    <ClInclude Include="deprecated.hpp">
-      <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Widgets\GameSelector.hpp">
       <Filter>头文件\Widgets</Filter>

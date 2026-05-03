@@ -29,9 +29,7 @@
 │ └──*.cpp \\ 对应 include 中对应头文件的源代码文件
 ├──Enums.h \\ 包含枚举类型
 ├──pvzclass.h \\ pvzclass 核心头文件（不含事件）
-├──pvzevent.hpp \\ pvzclass 事件系统头文件
-├──deprecated.hpp \\ 包含 pvzclass 中已弃用内容的头文件。不包含于 pvzclass.h 中，需要单独包含。
-└──utils.h \\ 包含部分特殊功能的头文件。已弃用。
+└──pvzevent.hpp \\ pvzclass 事件系统头文件
 
 ┌pvzdll \\ 基于 pvzclass 的动态链接库样例
 └──pch.h \\ 预编译头

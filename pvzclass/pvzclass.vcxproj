@@ -277,7 +277,6 @@
     <ClInclude Include="Classes\SeedChooserScreen.hpp" />
     <ClInclude Include="Classes\TodParticleSystem.hpp" />
     <ClInclude Include="Classes\ZenGarden.hpp" />
-    <ClInclude Include="deprecated.hpp" />
     <ClInclude Include="Enums\FoleyType.h" />
     <ClInclude Include="include\Classes\SaveGameContext.hpp" />
     <ClInclude Include="include\Effects\EffectSystem.hpp" />
@@ -448,7 +447,6 @@
     <ClInclude Include="include\Events\UpdateGameObjectsEvent.h" />
     <ClInclude Include="include\Sexy.h" />
     <ClInclude Include="pvzevent.hpp" />
-    <ClInclude Include="utils.h" />
     <ClInclude Include="include\Events\ZombieBlastEvent.h" />
     <ClInclude Include="include\Events\ZombieButterEvent.h" />
     <ClInclude Include="include\Events\ZombieDecelerateEvent.h" />
