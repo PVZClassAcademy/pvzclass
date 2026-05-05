@@ -120,39 +120,6 @@ void PVZ::Zombie::SetAttackCollision(CollisionBox* collbox)
 	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xA8, collbox->Height);
 }
 
-PVZ::Zombie::AccessoriesType1 PVZ::Zombie::GetAccessoriesType1()
-{
-	AccessoriesType1 acctype1;
-	acctype1.Type = Memory::ReadMemory<HelmType::HelmType>(BaseAddress + 0xC4);
-	acctype1.Hp = Memory::ReadMemory<int>(BaseAddress + 0xD0);
-	acctype1.MaxHp = Memory::ReadMemory<int>(BaseAddress + 0xD4);
-	return acctype1;
-}
-
-void PVZ::Zombie::SetAccessoriesType1(AccessoriesType1 acctype1)
-{
-	Memory::WriteMemoryUnsafe<HelmType::HelmType>(BaseAddress + 0xC4, acctype1.Type);
-	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xD0, acctype1.Hp);
-	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xD4, acctype1.MaxHp);
-}
-
-PVZ::Zombie::AccessoriesType2 PVZ::Zombie::GetAccessoriesType2()
-{
-	AccessoriesType2 acctype2;
-	acctype2.Type = Memory::ReadMemory<ShieldType::ShieldType>(BaseAddress + 0xD8);
-	acctype2.Hp = Memory::ReadMemory<int>(BaseAddress + 0xDC);
-	acctype2.MaxHp = Memory::ReadMemory<int>(BaseAddress + 0xE0);
-	return acctype2;
-}
-
-void PVZ::Zombie::SetAccessoriesType2(AccessoriesType2 acctype2)
-{
-	Memory::WriteMemoryUnsafe<ShieldType::ShieldType>(BaseAddress + 0xD8, acctype2.Type);
-	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xDC, acctype2.Hp);
-	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xE0, acctype2.MaxHp);
-
-}
-
 AsmBuilder ShowDoorArms_builder = AsmBuilder();
 void PVZ::Zombie::ShowDoorArms(bool shown)
 {
@@ -172,18 +139,6 @@ void PVZ::Zombie::AttachShield()
 		.invoke(0x533000)
 		.ret()
 	);
-}
-
-void PVZ::Zombie::GetBodyHp(int* hp, int* maxhp)
-{
-	*hp = Memory::ReadMemory<int>(BaseAddress + 0xC8);
-	*maxhp = Memory::ReadMemory<int>(BaseAddress + 0xCC);
-}
-
-void PVZ::Zombie::SetBodyHp(int hp, int maxhp)
-{
-	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xC8, hp);
-	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0xCC, maxhp);
 }
 
 PVZ::Animation PVZ::Zombie::GetAnimation()
@@ -387,18 +342,22 @@ void PVZ::Zombie::PlayZombieReanimation(DWORD animAddress, PVZEnum::ReanimLoopTy
 
 void PVZ::Zombie::EquipBucket(int shield)
 {
-	if (this->GetAccessoriesType1().Type)
+	if (this->HelmType)
 		return;
 	this->GetAnimation().AssignRenderGroupToPrefix("anim_bucket", 0);
-	this->SetAccessoriesType1({ HelmType::Bucket, shield, shield });
+	this->HelmType = HelmType::Bucket;
+	this->HelmHealth = shield;
+	this->HelmMaxHealth = shield;
 }
 
 void PVZ::Zombie::EquipCone(int shield)
 {
-	if (this->GetAccessoriesType1().Type)
+	if (this->HelmType)
 		return;
 	this->GetAnimation().AssignRenderGroupToPrefix("anim_cone", 0);
-	this->SetAccessoriesType1({ HelmType::RoadCone, shield, shield });
+	this->HelmType = HelmType::RoadCone;
+	this->HelmHealth = shield;
+	this->HelmMaxHealth = shield;
 }
 
 void PVZ::Zombie::ReanimShowPrefix(const char* TrackName, int renderGroup)

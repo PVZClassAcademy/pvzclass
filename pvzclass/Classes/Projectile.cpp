@@ -13,7 +13,7 @@ void PVZ::Projectile::SetMemSize(int NewSize, int NewCount)
 		return;
 	MemSize = NewSize;
 
-	Memory::WriteMemory<int>(0x407D04, NewSize * NewCount);
+	Memory::WriteMemory<int>(0x407D05, NewSize * NewCount);
 
 	byte __asm__Mem1[] = { ADD_EAX_DWORD(NewSize) };
 	byte __asm__Mem2[] = { ADD_EUX_DWORD(REG_ESI, NewSize) };
