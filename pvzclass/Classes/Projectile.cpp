@@ -43,7 +43,7 @@ void PVZ::Projectile::SetMemSize(int NewSize, int NewCount)
 
 	Memory::WriteArray<byte>(0X481DAE, STRING(__asm__Mem5));
 	Memory::WriteArray<byte>(0X481DC8, STRING(__asm__Mem1));
-	Memory::WriteArray<byte>(0X48244C, STRING(__asm__Mem4));
+	Memory::WriteArray<byte>(0X48244C, STRING(__asm__Mem6));
 }
 
 byte __asm__Projectile_CheckForCollision[]
