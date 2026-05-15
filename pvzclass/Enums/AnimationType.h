@@ -10,8 +10,6 @@ namespace AnimationType
 		FinalWave,
 		Peashooter,
 		Wallnut,
-		/// @deprecated use Wallnut
-		Wallbut = 5,
 		LilyPad,
 		Sunflower,
 		LawnMower,
@@ -28,8 +26,6 @@ namespace AnimationType
 		Hypnoshroom,
 		Chomper,
 		Zombie,
-		/// @deprecated 请使用 Zombie
-		ZombieAccessory = 21,
 		Sun,
 		PotatoMine,
 		Spickweed,
@@ -40,8 +36,6 @@ namespace AnimationType
 		FootballZombie,
 		NewspaperZombie,
 		Zomboni,
-		/// @deprecated 请使用 Zomboni
-		Zomboin = 31,
 		WaterSpray,
 		Jalapeno,
 		Flame,
@@ -50,8 +44,6 @@ namespace AnimationType
 		ImpAsh,
 		DiggerAsh,
 		ZomboniAsh,
-		/// @deprecated 请使用 ZomboniAsh
-		ZomboinAsh = 39,
 		CatapultAsh,
 		GargantuarAsh,
 		Scaredyshroom,
@@ -103,8 +95,7 @@ namespace AnimationType
 		WinterMelon,
 		TwinSunflower,
 		PoolCleaner,
-		RoofLawnmover [[deprecated]],
-		RoofLawnmower = 91,
+		RoofLawnmower,
 		FirePea,
 		Imitater,
 		ZombieYeti,

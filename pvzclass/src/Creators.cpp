@@ -224,10 +224,6 @@ byte __asm__ResetLawnmower[19]
 	RET,
 };
 
-void Creator::ResetLawnmover()
-{
-	Creator::ResetLawnmowers();
-}
 void Creator::ResetLawnmowers()
 {
 	PVZ::Memory::AllAccess(0x679BF8);
@@ -466,11 +462,6 @@ void Creator::CreateExplosion(int x, int y, int radius, BOOLEAN cinder, byte bou
 	__asm__CreateExplosion[22] = x;
 	SETARG(__asm__CreateExplosion, 24) = PVZBASEADDRESS;
 	PVZ::Memory::Execute(STRING(__asm__CreateExplosion));
-}
-
-void Creator::CreateEffect(EffectType::EffectType type, float x, float y)
-{
-	PVZ::CreateParticleSystem(x, y, 0x618A0, type);
 }
 
 byte __asm__CreateSampleSound[24]

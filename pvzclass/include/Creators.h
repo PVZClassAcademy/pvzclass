@@ -97,8 +97,6 @@ namespace Creator
 	/// @return 生成的物品
 	PVZ::Coin CreateCoin(CoinType::CoinType type, int x, int y, CoinMotionType::CoinMotionType motion);
 
-	/// @deprecated 请使用ResetLawnmowers
-	[[deprecated]] void ResetLawnmover();
 	/// @brief 移除场上已有的除草机，然后初始化本关的除草机。
 	void ResetLawnmowers();
 	/// @brief 生成一个空的场地物件
@@ -200,9 +198,6 @@ namespace Creator
 	/// @param bound 最大行差
 	/// @param fromjackzombie 爆炸是否伤害魅惑僵尸
 	void CreateExplosion(int x, int y, int radius, BOOLEAN cinder = true, byte bound = 5, BOOLEAN fromjackzombie = false);
-
-	/// @deprecated
-	void CreateEffect(EffectType::EffectType type, float x, float y);
 
 	/// @brief 播放 Sample 型音效
 	/// @param sound 音效类型
