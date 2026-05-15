@@ -62,7 +62,7 @@
 - 所有参数名为 `indexoraddress` 或 `idoraddress` 的构造函数不再具有按编号构造的功能。
   - 此功能由对应类的 `GetByIndex()` 承接。
 - 调整了 `Animation::AssignRenderGroupToPrefix()` 的参数顺序。
-- `ProjectileCollisionEvent` 被拆分为 `PVZEvent::ProjectileCollisionEvent` 和
+- `ProjectileCollisionEvent` 被拆分为 `PVZEvent::ProjectileCollisionEvent` 和 `PVZEvent::ProjectileHitPlantPriorityEvent_ts`
 - `REG_` 系列宏变为内联常量。
 - 所有从 `ThreeStateEventTemplate` 派生的事件类现在具有 `_ts` 命名后缀（复合事件的成员事件除外）。
 - 重构了 `AsmBuilder`，现在它是 `BaseBuilder` 的派生类，且默认使用定长数组（而不是指针）。
@@ -84,7 +84,7 @@
 - 修复了	 `Zomboni` 被错误命名为 `Zomboin` 的漏洞。
 - 修复了 `ProcessOpener::OpenByFilePath()` 会永久改变工作目录的漏洞。
 - 修复了 `Zombie::Froze()` 无视僵尸不可冻结条件的漏洞。
-- 修复了 `Lawnmower` 和 `Zomboni` 长期存在拼写错误的漏洞。
+- 修复了 `AnimationType::Wallnut` 长期存在拼写错误的漏洞。
 
 ### 兼容性
 
