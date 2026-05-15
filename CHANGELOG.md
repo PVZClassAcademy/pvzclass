@@ -51,6 +51,8 @@
 - `Memory` 类新增 `WriteArrayUnsafe`。
 - `EffectSystem::Extend()`
 - `AttachOverflowGuard()`
+- `PVZ::Board::SetMemSize()` 现在可以设定扩展的空间是否进行自动初始化。
+- `PVZ::Projectile` 支持
 
 ### 改动内容
 
@@ -66,6 +68,11 @@
 - 重构了 `AsmBuilder`，现在它是 `BaseBuilder` 的派生类，且默认使用定长数组（而不是指针）。
 - `pvzclass.h` 不再默认包含 `iostream`
 - `AttachEffect` 和 `Attachment` 新增若干成员。
+- `PVZ::Mouse` 被重新整合为 `PVZ::WidgetManager`。
+- 移除了 `PVZ::Memory::mainwindowhandle`。
+- 将 `PSaveGameContext` 及其相关函数重整为 `PVZ::SaveGameContext`。
+- 重新整理了 `PVZ::Resource`。
+- 移除了大量废弃代码。
 
 ### 修复漏洞
 
@@ -77,6 +84,7 @@
 - 修复了	 `Zomboni` 被错误命名为 `Zomboin` 的漏洞。
 - 修复了 `ProcessOpener::OpenByFilePath()` 会永久改变工作目录的漏洞。
 - 修复了 `Zombie::Froze()` 无视僵尸不可冻结条件的漏洞。
+- 修复了 `Lawnmower` 和 `Zomboni` 长期存在拼写错误的漏洞。
 
 ### 兼容性
 
