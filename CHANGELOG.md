@@ -43,6 +43,7 @@
 - `PVZ::Projectile` 新增一系列成员。
 - `PVZ::GameButton`
 - `PVZ::Array`
+- `SIMPLE_PROPERTY` 系列宏
 - `PVZ::Memory::StringVariable`，用于承接原本 `PVZ::Memory::Variable` 的作用。
 - `PVZ::InitPVZDLL()`，用于dll的初始化。
 - `PVZEvent::ProjectileDrawTransEvent`
@@ -52,7 +53,7 @@
 - `EffectSystem::Extend()`
 - `AttachOverflowGuard()`
 - `PVZ::Board::SetMemSize()` 现在可以设定扩展的空间是否进行自动初始化。
-- `PVZ::Projectile` 支持
+- `PVZ::Projectile` 支持 `SetMemSize()`
 
 ### 改动内容
 
@@ -90,7 +91,7 @@
 
 **不兼容** 2.x 版本。
 
-迁移至 3.0 版本时，请参照[迁移指南](../docs/3.0迁移指南.md)调整代码。
+迁移至 3.0 版本时，请参照[迁移指南](./docs/3.0迁移指南.md)调整代码。
 
 ## 2.7.1
 
