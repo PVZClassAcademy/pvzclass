@@ -264,6 +264,8 @@ inline void DisableIceLevelFailSound(BOOLEAN b = true)
 /// @param b 是否开启此功能
 inline void DisableBoardDraw(BOOLEAN b = true)
 {
+	MEMMOD_BYTE(0x41AE26, NOP, PUSH_EDI);
+	MEMMOD_BYTE(0x41AE27, NOP, PUSH_ESI);
 	MEMMOD_BYTE(0x41AE33, 0x0F, 0xE8);
 	MEMMOD_INT(0x41AE34, 0x441F, 0xFFFFBA48);
 }
