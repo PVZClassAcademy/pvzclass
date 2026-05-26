@@ -310,6 +310,16 @@ namespace PVZ
 		/// @param default_val 获取失败时的默认值 
 		/// @return 获取的属性
 		PVZ::PVZString GetString(PVZ::PVZString id, PVZ::PVZString default_val);
+		/// @brief 将属性 ID 及其对应的值写入配置属性容器中
+		/// @note 若属性 ID 已经有对应的值，则原本的值会被覆盖。
+		/// @param id 属性 ID
+		/// @param value 值
+		void SetBoolean(PVZ::PVZString id, bool value);
+		/// @brief 将属性 ID 及其对应的值写入配置属性容器中
+		/// @note 若属性 ID 已经有对应的值，则原本的值会被覆盖。
+		/// @param id 属性 ID
+		/// @param value 值
+		void SetInteger(PVZ::PVZString id, int value);
 		/// @brief 加载属性文件
 		/// @param file_name 文件名
 		/// @param check_sig 是否检查签名文件

@@ -395,6 +395,28 @@ PVZ::PVZString PVZ::PVZApp::GetString(PVZ::PVZString id, PVZ::PVZString default_
 	) };
 }
 
+void PVZ::PVZApp::SetBoolean(PVZ::PVZString id, bool value)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(value)
+		.push_imm32(id.GetBaseAddress())
+		.push_imm32(this->BaseAddress)
+		.invoke(0x552B00)
+		.ret()
+	);
+}
+
+void PVZ::PVZApp::SetInteger(PVZ::PVZString id, int value)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(value)
+		.push_imm32(id.GetBaseAddress())
+		.push_imm32(this->BaseAddress)
+		.invoke(0x552BC0)
+		.ret()
+	);
+}
+
 bool PVZ::PVZApp::LoadProperties(PVZ::PVZString file_name, bool check_sig)
 {
 	return PVZ::Memory::Execute(AsmBuilder()
