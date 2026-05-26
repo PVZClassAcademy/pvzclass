@@ -30,7 +30,7 @@ void PVZ::Wave::GetAll(ZombieType::ZombieType* ztypes)
 
 void PVZ::Wave::SetAll(ZombieType::ZombieType* ztypes, size_t length)
 {
-	int len = min<size_t>(length, 50);
+	int len = min(int(length), 50);
 	for (int i = 0; i < len; i++)
 		Memory::WriteMemoryUnsafe<ZombieType::ZombieType>(BaseAddress + i * 4, ztypes[i]);
 	if (len < 50)Memory::WriteMemoryUnsafe<ZombieType::ZombieType>(BaseAddress + len * 4, ZombieType::None);
