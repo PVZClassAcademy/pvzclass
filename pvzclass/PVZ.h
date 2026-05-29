@@ -171,7 +171,7 @@ namespace PVZ
 		Rect Intersection(const Rect& rect) const;
 		/// @brief 判断矩形是否非空
 		/// @return 矩形非空
-		inline bool IsVaild()
+		inline bool IsValid()
 		{
 			return this->X | this->Y | this->Width | this->Height;
 		}
