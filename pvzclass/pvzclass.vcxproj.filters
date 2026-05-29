@@ -360,9 +360,6 @@
     <ClCompile Include="Enums\AnimationType.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Effects\EffectSystem.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -374,6 +371,9 @@
     </ClCompile>
     <ClCompile Include="src\Global.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp">
+      <Filter>头文件\Events\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

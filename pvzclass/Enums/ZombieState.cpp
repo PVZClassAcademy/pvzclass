@@ -1,4 +1,4 @@
-﻿#include "ZombieState.h"
+#include "ZombieState.h"
 
 const char* ZombieState::ToString(ZombieState state)
 {
@@ -50,8 +50,8 @@ const char* ZombieState::ToString(ZombieState state)
 		return "POGO_JUMP_ACROSS";
 	case NEWSPAPER_WALKING:
 		return "NEWSPAPER_WALKING";
-	case NEWSPAPER_DESTORYED:
-		return "NEWSPAPER_DESTORYED";
+	case NEWSPAPER_DESTROYED:
+		return "NEWSPAPER_DESTROYED";
 	case NEWSPAPER_RUNNING:
 		return "NEWSPAPER_RUNNING";
 	case DIGGER_DIG:
