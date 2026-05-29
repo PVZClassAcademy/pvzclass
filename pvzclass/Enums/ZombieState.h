@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <string>
 
@@ -29,7 +29,7 @@ namespace ZombieState
 		POGO_IDLE_BEFORE_TARGET = 0x15,
 		POGO_JUMP_ACROSS = 0x1B,
 		NEWSPAPER_WALKING = 0x1D,
-		NEWSPAPER_DESTORYED = 0x1E,
+		NEWSPAPER_DESTROYED = 0x1E,
 		NEWSPAPER_RUNNING = 0x1F,
 		DIGGER_DIG = 0x20,
 		DIGGER_DRILL = 0x21,
