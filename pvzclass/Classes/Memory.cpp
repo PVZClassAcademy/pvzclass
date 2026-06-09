@@ -88,14 +88,14 @@ int PVZ::Memory::Execute(byte asmCode[], int length)
 {
 	if (localExecute)
 	{
-		byte* code = new byte[length + 2];
+		byte* code = (byte*)VirtualAlloc(NULL, length + 2, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
 		code[0] = PUSHAD;
 		memcpy(code + 1, asmCode, length);
 		code[length] = POPAD;
 		code[length + 1] = RET;
 		void (*func)() = (void (*)())code;
 		func();
-		delete[](code);
+		VirtualFree(code, 0, MEM_RELEASE);
 		return ReadMemory<int>(Variable);
 	}
 	else
