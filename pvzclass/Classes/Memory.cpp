@@ -43,7 +43,7 @@ int PVZ::Memory::AllocMemory(int pages, int size)
 	if (localExecute)
 	{
 		BYTE* page = new BYTE[PAGE_SIZE * pages + size];
-		//AllAccess((int)page);
+		AllAccess((int)page);
 		return (int)page;
 	}
 	else
