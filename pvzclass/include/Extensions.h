@@ -64,11 +64,22 @@ inline void EnableVaseBreak(ThreeState::ThreeState state = Enable)
 	}
 }
 
-/// @brief 启用后台运行
+/// @brief 启用后台运行（失去焦点时不暂停）
+/// @note 对最小化无效
+/// @see EnableMinimizeRunning
 /// @param b 是否开启此功能
 inline void EnableBackgroundRunning(BOOLEAN b = true)
 {
-	MEMMOD_BYTE(0x54EBA8, JO, JZ);
+	MEMMOD_BYTE(0x44F46A, JUMP, JNE);
+}
+
+/// @brief 启用最小化后继续运行
+/// @note 仅对默认允许后台运行的模式生效。若有需要，请另行启用后台运行。
+/// @see EnableBackgroundRunning
+/// @param b 是否开启此功能
+inline void EnableMinimizeRunning(BOOLEAN b = true)
+{
+	MEMMOD_BYTE(0x54B992, JO, JNE);
 }
 
 /// @brief 显示隐藏关卡
