@@ -28,12 +28,6 @@
 
 ## 3.0
 
-### 说明
-
-**注意**：该版本目前处于开发阶段。
-
-本章的内容会随着开发版本的更新而更新和完善。
-
 ### 新增内容
 
 - `PVZ::PVZString` 及其相关的一系列函数，用于取代 `Draw::PString`。
@@ -52,6 +46,7 @@
 - `Memory` 类新增 `WriteArrayUnsafe`。
 - `EffectSystem::Extend()`
 - `AttachOverflowGuard()`
+- `EnableMinimizeRunning()`
 - `PVZ::Board::SetMemSize()` 现在可以设定扩展的空间是否进行自动初始化。
 - `PVZ::Projectile` 支持 `SetMemSize()`
 
