@@ -82,6 +82,20 @@ void PVZ::TodParticleSystem::OverrideScale(float scale)
 	);
 }
 
+PVZ::AttachEffect PVZ::TodParticleSystem::AttachTo(PVZ::AttachmentID attachmentID, float OffsetX, float OffsetY)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, this->BaseAddress)
+		.mov_reg_imm(REG_EDI, attachmentID.GetBaseAddress())
+		.push_float(OffsetY)
+		.push_float(OffsetX)
+		.invoke(0x405600)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.add_reg_imm(REG_ESP, 8)
+		.ret()
+	);
+}
+
 std::vector<PVZ::TodParticleSystem> PVZ::GetAllParticleSystem()
 {
 	std::vector<PVZ::TodParticleSystem> particle_syss;
