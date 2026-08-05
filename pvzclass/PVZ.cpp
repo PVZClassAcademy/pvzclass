@@ -306,6 +306,34 @@ const char* PVZ::PVZString::c_str()
 	return result;
 }
 
+std::optional<int> PVZ::PVZString::Find(const char* str, int pos)
+{
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::StringVariable, str, std::strlen(str) + 1);
+
+	int result = PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(pos)
+		.mov_reg_imm(REG_EDX, PVZ::Memory::StringVariable)
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x441970)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+	return result == -1 ? std::optional<int>(result) : std::nullopt;
+}
+
+PVZ::PVZString PVZ::PVZString::Substr(int offset, int count)
+{
+	return PVZ::PVZString(PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(count)
+		.mov_reg_imm(REG_ECX, offset)
+		.mov_reg_imm(REG_EDX, this->GetBaseAddress())
+		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable + 16)
+		.invoke(0x42FB60)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	));
+}
+
 PVZ::PVZString PVZ::TodReplaceString(PVZ::PVZString text, const char* str2find, PVZ::PVZString str2substitute)
 {
 	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::StringVariable, str2find, std::strlen(str2find) + 1);

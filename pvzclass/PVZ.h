@@ -246,6 +246,17 @@ namespace PVZ
 		void Assign(PVZString ptr, uint32_t len, uint32_t count, uint32_t roff);
 		/// @brief 获取c风格字符串
 		const char* c_str();
+		/// @brief 从指定位置开始，查询字符串中第一次出现指定子串的位置
+		/// @param str 待查找的串
+		/// @param pos 起始位置
+		/// @return 由 std::optional 表示的，子串第一次出现的位置。
+		/// @retval nullopt 未找到
+		std::optional<int> Find(const char* str, int pos);
+		/// @brief 获取从指定位置开始一定长度的子串
+		/// @param offset 起始位置
+		/// @param count 长度
+		/// @return 获取的子串
+		PVZString Substr(int offset, int count);
 	};
 
 	class LawnDialog;
