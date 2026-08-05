@@ -246,6 +246,17 @@ namespace PVZ
 		void Assign(PVZString ptr, uint32_t len, uint32_t count, uint32_t roff);
 		/// @brief 获取c风格字符串
 		const char* c_str();
+		/// @brief 从指定位置开始，查询字符串中第一次出现指定子串的位置
+		/// @param str 待查找的串
+		/// @param pos 起始位置
+		/// @return 由 std::optional 表示的，子串第一次出现的位置。
+		/// @retval nullopt 未找到
+		std::optional<int> Find(const char* str, int pos);
+		/// @brief 获取从指定位置开始一定长度的子串
+		/// @param offset 起始位置
+		/// @param count 长度
+		/// @return 获取的子串
+		PVZString Substr(int offset, int count);
 	};
 
 	class LawnDialog;
@@ -490,6 +501,19 @@ namespace PVZ
 	/// @param num 调整后的绘制物件数组元素数目上限
 	/// @warning num 应当不低于 2049 。
 	void ExtendRenderItem(uint32_t num);
+
+	/// @brief 将给定文本中的首次出现的指定子串替换为指定的新串
+	/// @param text 原始文本，会自动调用 Translate() 进行转换
+	/// @param str2find 被替换的字符串
+	/// @param str2substitute 换入的字符串，会自动调用 Translate() 进行转换
+	/// @return 替换完成的字符串
+	PVZString TodReplaceString(PVZString text, const char* str2find, PVZString str2substitute);
+	/// @brief 将给定文本中的首次出现的指定子串替换为指定的数
+	/// @param text 原始文本，会自动调用 Translate() 进行转换
+	/// @param str2find 被替换的字符串
+	/// @param number 换入的数
+	/// @return 替换完成的字符串
+	PVZString TodReplaceNumberString(PVZString text, const char* str2find, int number);
 
 	#pragma endregion
 };
