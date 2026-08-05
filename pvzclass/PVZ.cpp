@@ -306,6 +306,38 @@ const char* PVZ::PVZString::c_str()
 	return result;
 }
 
+PVZ::PVZString PVZ::TodReplaceString(PVZ::PVZString text, const char* str2find, PVZ::PVZString str2substitute)
+{
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::StringVariable, str2find, std::strlen(str2find) + 1);
+
+	return PVZ::PVZString(PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(str2substitute.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, PVZ::Memory::StringVariable)
+		.mov_reg_imm(REG_EDX, text.GetBaseAddress())
+		.push_imm32(PVZ::Memory::Variable + 16)
+		.invoke(0x513660)
+		.add_reg_imm(REG_ESP, 8)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	));
+}
+
+PVZ::PVZString PVZ::TodReplaceNumberString(PVZ::PVZString text, const char* str2find, int number)
+{
+	PVZ::Memory::WriteArrayUnsafe<const char>(PVZ::Memory::StringVariable, str2find, std::strlen(str2find) + 1);
+
+	return PVZ::PVZString(PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(number)
+		.mov_reg_imm(REG_ECX, PVZ::Memory::StringVariable)
+		.mov_reg_imm(REG_EDX, text.GetBaseAddress())
+		.push_imm32(PVZ::Memory::Variable + 16)
+		.invoke(0x513660)
+		.add_reg_imm(REG_ESP, 8)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	));
+}
+
 byte __asm_KillGameSelector[] =
 {
 	MOV_ESI(0),

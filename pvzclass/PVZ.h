@@ -491,5 +491,18 @@ namespace PVZ
 	/// @warning num 应当不低于 2049 。
 	void ExtendRenderItem(uint32_t num);
 
+	/// @brief 将给定文本中的首次出现的指定子串替换为指定的新串
+	/// @param text 原始文本，会自动调用 Translate() 进行转换
+	/// @param str2find 被替换的字符串
+	/// @param str2substitute 换入的字符串，会自动调用 Translate() 进行转换
+	/// @return 替换完成的字符串
+	PVZString TodReplaceString(PVZString text, const char* str2find, PVZString str2substitute);
+	/// @brief 将给定文本中的首次出现的指定子串替换为指定的数
+	/// @param text 原始文本，会自动调用 Translate() 进行转换
+	/// @param str2find 被替换的字符串
+	/// @param number 换入的数
+	/// @return 替换完成的字符串
+	PVZString TodReplaceNumberString(PVZString text, const char* str2find, int number);
+
 	#pragma endregion
 };
