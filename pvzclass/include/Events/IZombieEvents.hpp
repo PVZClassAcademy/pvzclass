@@ -279,4 +279,32 @@ namespace PVZEvent
 		IZSunConditionEvent(const char* name) : DiversionEventTemplate() { Init(name); };
 		IZSunConditionEvent() : IZSunConditionEvent("IsSunSuffcient") {};
 	};
+
+	/// @brief 僵尸索敌 IZ 脑子事件
+	/// @param 触发事件的 Zombie，Zombie 经计算偏移后的 X 坐标
+	/// @return 僵尸的目标 IZBrain
+	/// @note 事件结算后，仍会根据脑子是否被压扁判断是否可被吃
+	class ZombieFindIZBrainEvent : public DLLEvent
+	{
+	public:
+		ZombieFindIZBrainEvent() : ZombieFindIZBrainEvent("onZombieFindIZBrain") {};
+		ZombieFindIZBrainEvent(const char* name) : ZombieFindIZBrainEvent(PVZ::Memory::GetProcAddress(name)) {};
+		ZombieFindIZBrainEvent(uint32_t address)
+		{
+			hookAddress = 0x42B870;
+			rawlen = 5;
+			BYTE code[] = {
+				PUSH_EAX,
+				PUSH_ESP,
+				CALC_PTR_ESP_V(CALC_ADD, 0x24),
+				PUSH_EBX,
+				INVOKE(address),
+				ADD_ESP(12),
+
+				MOV_ECX(0x42B888),
+				JMP_REG32(REG_ECX)
+			};
+			start(STRING(code));
+		};
+	};
 }
