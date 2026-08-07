@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LawnMowerState
+namespace PVZEnum
 {
     enum LawnMowerState
     {

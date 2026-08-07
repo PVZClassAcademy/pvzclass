@@ -1,6 +1,6 @@
 #include "LawnmowerType.h"
 
-const char* LawnMowerType::ToString(LawnMowerType lawnmowert)
+const char* PVZEnum::ToString(PVZEnum::LawnMowerType lawnmowert)
 {
 	switch (lawnmowert)
 	{
