@@ -43,13 +43,13 @@ namespace PVZ
 		/// @brief 被碾压倒计时
 		INT_PROPERTY(SquishedCounter, __get_SquishedCounter, __set_SquishedCounter, 0x28);
 		/// @brief 除草机状态
-		T_PROPERTY(LawnMowerState::LawnMowerState, State, __get_State, __set_State, 0x2C);
+		T_PROPERTY(PVZEnum::LawnMowerState, State, __get_State, __set_State, 0x2C);
 		/// @brief 是否已消失
 		T_PROPERTY(BOOLEAN, NotExist, __get_NotExist, __set_NotExist, 0x30);
 		/// @brief 是否可见
 		T_PROPERTY(BOOLEAN, Visible, __get_Visible, __set_Visible, 0x31);
 		/// @brief 除草机类型
-		T_PROPERTY(LawnMowerType::LawnMowerType, Type, __get_Type, __set_Type, 0x34);
+		T_PROPERTY(PVZEnum::LawnMowerType, Type, __get_Type, __set_Type, 0x34);
 		/// @brief Y 坐标偏移量
 		T_PROPERTY(FLOAT, YOffset, __get_YOffset, __set_YOffset, 0x38);
 		/// @brief 高度状态

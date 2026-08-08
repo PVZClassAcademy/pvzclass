@@ -1,6 +1,6 @@
 #include "LawnmowerState.h"
 
-const char* LawnMowerState::ToString(LawnMowerState lawnmowert)
+const char* PVZEnum::ToString(PVZEnum::LawnMowerState lawnmowert)
 {
 	switch (lawnmowert)
 	{

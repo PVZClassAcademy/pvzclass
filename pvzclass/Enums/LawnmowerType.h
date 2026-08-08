@@ -1,6 +1,6 @@
 #pragma once
 
-namespace LawnMowerType
+namespace PVZEnum
 {
     enum LawnMowerType
     {
