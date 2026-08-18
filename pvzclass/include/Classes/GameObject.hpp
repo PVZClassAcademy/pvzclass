@@ -563,7 +563,9 @@ namespace PVZ
 		/// @brief 识别 ID.
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xD4);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		/// @brief 收集该物品
 		void Collect();
+		/// @brief 移除该物品
 		void Die();
 		/// @brief 若该物品为钱币、阳光等过关时自动收集的资源，则将其收集。
 		void TryAutoCollect();
