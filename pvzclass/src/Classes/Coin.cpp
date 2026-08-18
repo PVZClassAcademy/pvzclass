@@ -51,6 +51,15 @@ void PVZ::Coin::Die()
 	Memory::Execute(STRING(__asm__Coin_die));
 }
 
+void PVZ::Coin::ScoreCoin()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, this->BaseAddress)
+		.invoke(0x4309D0)
+		.ret()
+	);
+}
+
 void PVZ::Coin::TryAutoCollect()
 {
 	PVZ::Memory::Execute(AsmBuilder()
