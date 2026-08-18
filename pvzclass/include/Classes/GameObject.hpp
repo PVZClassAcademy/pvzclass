@@ -567,6 +567,9 @@ namespace PVZ
 		void Collect();
 		/// @brief 移除该物品
 		void Die();
+		/// @brief 判断该物品是否为过关奖励
+		/// @return 是否为过关奖励
+		bool IsLevelAward();
 		/// @brief 立刻令物品收取完成，并令物品消失
 		void ScoreCoin();
 		/// @brief 若该物品为钱币、阳光等过关时自动收集的资源，则将其收集。
