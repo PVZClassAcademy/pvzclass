@@ -565,6 +565,8 @@ namespace PVZ
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
 		void Collect();
 		void Die();
+		/// @brief 若该物品为钱币、阳光等过关时自动收集的资源，则将其收集。
+		void TryAutoCollect();
 	};
 	/// @brief 子弹
 	class Projectile : public GameObject

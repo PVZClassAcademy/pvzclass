@@ -50,3 +50,12 @@ void PVZ::Coin::Die()
 	SETARG(__asm__Coin_die, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__Coin_die));
 }
+
+void PVZ::Coin::TryAutoCollect()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, this->BaseAddress)
+		.invoke(0x432000)
+		.ret()
+	);
+}
