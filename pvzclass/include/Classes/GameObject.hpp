@@ -569,6 +569,10 @@ namespace PVZ
 		void Die();
 		/// @brief 判断该物品是否需要提示收集的箭头
 		bool CoinGetsBouncyArrow();
+		/// @brief 从原物品中扇形飞出若干物品
+		/// @param type 飞出物品的类型
+		/// @param count 物品数量
+		void FanOutCoins(CoinType::CoinType type, int count);
 		/// @brief 判断该物品是否为过关奖励
 		/// @return 是否为过关奖励
 		bool IsLevelAward();

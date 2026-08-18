@@ -61,6 +61,17 @@ bool PVZ::Coin::CoinGetsBouncyArrow()
 	) & 0x0FF;
 }
 
+void PVZ::Coin::FanOutCoins(CoinType::CoinType type, int count)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(count)
+		.push_imm32(type)
+		.mov_reg_imm(REG_EDI, this->BaseAddress)
+		.invoke(0x431F30)
+		.ret()
+	);
+}
+
 bool PVZ::Coin::IsLevelAward()
 {
 	return PVZ::Memory::Execute(AsmBuilder()
