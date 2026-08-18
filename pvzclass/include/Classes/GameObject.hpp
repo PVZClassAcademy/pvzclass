@@ -563,8 +563,38 @@ namespace PVZ
 		/// @brief 识别 ID.
 		INT_READONLY_PROPERTY(Id, __get_Id, 0xD4);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		/// @brief 收集该物品
 		void Collect();
+		/// @brief 移除该物品
 		void Die();
+		/// @brief 判断该物品是否需要提示收集的箭头
+		bool CoinGetsBouncyArrow();
+		/// @brief 从原物品中扇形飞出若干物品
+		/// @param type 飞出物品的类型
+		/// @param count 物品数量
+		void FanOutCoins(CoinType::CoinType type, int count);
+		/// @brief 获取物品颜色
+		/// @return 物品的颜色
+		Color GetColor();
+		/// @brief 获取物品消失时间
+		/// @return 物品消失前最长存在时间
+		bool GetDisappearTime();
+		/// @brief 获取本关过关后掉落的植物卡片类型。
+		/// @note 若过关掉落物不是植物卡片，会返回 None
+		/// @return 植物卡片类型
+		SeedType::SeedType GetFinalSeedPacketType();
+		/// @brief 判断鼠标点选指定位置时，是否能点到物品
+		/// @param X X 坐标
+		/// @param Y Y 坐标
+		/// @return 指定位置是否在物品上
+		bool MouseHitTest(int X, int Y);
+		/// @brief 判断该物品是否为过关奖励
+		/// @return 是否为过关奖励
+		bool IsLevelAward();
+		/// @brief 立刻令物品收取完成，并令物品消失
+		void ScoreCoin();
+		/// @brief 若该物品为钱币、阳光等过关时自动收集的资源，则将其收集。
+		void TryAutoCollect();
 	};
 	/// @brief 子弹
 	class Projectile : public GameObject
