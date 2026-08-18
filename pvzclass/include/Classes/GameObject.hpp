@@ -567,6 +567,8 @@ namespace PVZ
 		void Collect();
 		/// @brief 移除该物品
 		void Die();
+		/// @brief 判断该物品是否需要提示收集的箭头
+		bool CoinGetsBouncyArrow();
 		/// @brief 判断该物品是否为过关奖励
 		/// @return 是否为过关奖励
 		bool IsLevelAward();

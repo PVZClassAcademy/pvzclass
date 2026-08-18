@@ -51,6 +51,16 @@ void PVZ::Coin::Die()
 	Memory::Execute(STRING(__asm__Coin_die));
 }
 
+bool PVZ::Coin::CoinGetsBouncyArrow()
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, this->BaseAddress)
+		.invoke(0x432FE0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+}
+
 bool PVZ::Coin::IsLevelAward()
 {
 	return PVZ::Memory::Execute(AsmBuilder()
