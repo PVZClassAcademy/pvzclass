@@ -573,6 +573,21 @@ namespace PVZ
 		/// @param type 飞出物品的类型
 		/// @param count 物品数量
 		void FanOutCoins(CoinType::CoinType type, int count);
+		/// @brief 获取物品颜色
+		/// @return 物品的颜色
+		Color GetColor();
+		/// @brief 获取物品消失时间
+		/// @return 物品消失前最长存在时间
+		bool GetDisappearTime();
+		/// @brief 获取本关过关后掉落的植物卡片类型。
+		/// @note 若过关掉落物不是植物卡片，会返回 None
+		/// @return 植物卡片类型
+		SeedType::SeedType GetFinalSeedPacketType();
+		/// @brief 判断鼠标点选指定位置时，是否能点到物品
+		/// @param X X 坐标
+		/// @param Y Y 坐标
+		/// @return 指定位置是否在物品上
+		bool MouseHitTest(int X, int Y);
 		/// @brief 判断该物品是否为过关奖励
 		/// @return 是否为过关奖励
 		bool IsLevelAward();

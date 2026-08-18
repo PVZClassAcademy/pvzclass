@@ -72,6 +72,52 @@ void PVZ::Coin::FanOutCoins(CoinType::CoinType type, int count)
 	);
 }
 
+PVZ::Color PVZ::Coin::GetColor()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, PVZ::Memory::Variable)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x4316F0)
+		.ret()
+	);
+
+	return Color{ PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable), PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 4),
+		PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 8), PVZ::Memory::ReadMemory<int>(PVZ::Memory::Variable + 12) };
+}
+
+bool PVZ::Coin::GetDisappearTime()
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, this->BaseAddress)
+		.invoke(0x433050)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+}
+
+SeedType::SeedType PVZ::Coin::GetFinalSeedPacketType()
+{
+	return SeedType::SeedType(PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, this->BaseAddress)
+		.invoke(0x4317D0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	));
+}
+
+bool PVZ::Coin::MouseHitTest(int X, int Y)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(PVZ::Memory::Variable)
+		.push_imm32(Y)
+		.push_imm32(X)
+		.mov_reg_imm(REG_EDX, this->BaseAddress)
+		.invoke(0x432E20)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	) & 0x0FF;
+}
+
 bool PVZ::Coin::IsLevelAward()
 {
 	return PVZ::Memory::Execute(AsmBuilder()
