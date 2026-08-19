@@ -38,7 +38,7 @@ namespace PVZ
 		Memory::processId = pid;
 		Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
 		Memory::Variable = Memory::AllocMemory(4);
-		Memory::StringVariable = Memory::AllocMemory(4);
+		Memory::StringVariable = Memory::AllocMemoryUnsafe(4);
 		Memory::mainThreadId = Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
 		Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, Memory::mainThreadId);
 
@@ -64,7 +64,7 @@ void PVZ::InitPVZDLL()
 {
 	PVZ::Memory::immediateExecute = true;
 	PVZ::Memory::Variable = PVZ::Memory::AllocMemory(4);
-	PVZ::Memory::StringVariable = PVZ::Memory::AllocMemory(4);
+	PVZ::Memory::StringVariable = PVZ::Memory::AllocMemoryUnsafe(4);
 }
 
 void PVZ::InitPVZNoLock(DWORD pid)
@@ -73,7 +73,7 @@ void PVZ::InitPVZNoLock(DWORD pid)
 	Memory::processId = pid;
 	Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
 	Memory::Variable = Memory::AllocMemory(4);
-	Memory::StringVariable = Memory::AllocMemory(4);
+	Memory::StringVariable = Memory::AllocMemoryUnsafe(4);
 	Memory::mainThreadId = Memory::ReadMemory<DWORD>(PVZ_BASE + 0x33C);
 	Memory::hThread = OpenThread(THREAD_ALL_ACCESS, true, Memory::mainThreadId);
 }
@@ -155,9 +155,9 @@ uint8_t __asm__MakeString[]
 PVZ::PVZString PVZ::PVZString::Make(const char* str) 
 {
 	uint32_t len = strlen(str);
-	uint32_t fromAddress = PVZ::Memory::AllocMemory(0, len + 1);
+	uint32_t fromAddress = PVZ::Memory::AllocMemoryUnsafe(0, len + 1);
 	PVZ::Memory::WriteArrayUnsafe<const char>(fromAddress, str, len + 1);
-	uint32_t toAddress = PVZ::Memory::AllocMemory(0, 0x1C);
+	uint32_t toAddress = PVZ::Memory::AllocMemoryUnsafe(0, 0x1C);
 
 	SETARG(__asm__MakeString, 1) = fromAddress;
 	SETARG(__asm__MakeString, 6) = toAddress;

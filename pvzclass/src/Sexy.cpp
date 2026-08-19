@@ -2,7 +2,7 @@
 
 PVZ::Sexy::PButtonListener PVZ::Sexy::MakeButtonListener(ButtonListener* listener)
 {
-	int address = PVZ::Memory::AllocMemory(0, 32);
+	int address = PVZ::Memory::AllocMemoryUnsafe(0, 32);
 	PVZ::Memory::WriteMemoryUnsafe<int>(address, address + 4);
 	PVZ::Memory::WriteMemoryUnsafe<ButtonListener>(address + 4, *listener);
 	return address;
@@ -10,7 +10,7 @@ PVZ::Sexy::PButtonListener PVZ::Sexy::MakeButtonListener(ButtonListener* listene
 
 PVZ::Sexy::PEditListener PVZ::Sexy::MakeEditListener(EditListener* listener)
 {
-	int address = PVZ::Memory::AllocMemory(0, 20);
+	int address = PVZ::Memory::AllocMemoryUnsafe(0, 20);
 	PVZ::Memory::WriteMemoryUnsafe<int>(address, address + 4);
 	PVZ::Memory::WriteMemoryUnsafe<EditListener>(address + 4, *listener);
 	return address;
@@ -18,7 +18,7 @@ PVZ::Sexy::PEditListener PVZ::Sexy::MakeEditListener(EditListener* listener)
 
 PVZ::Sexy::PCheckboxListener PVZ::Sexy::MakeCheckboxListener(CheckboxListener* listener)
 {
-	int address = PVZ::Memory::AllocMemory(0, 8);
+	int address = PVZ::Memory::AllocMemoryUnsafe(0, 8);
 	PVZ::Memory::WriteMemoryUnsafe<int>(address, address + 4);
 	PVZ::Memory::WriteMemoryUnsafe<CheckboxListener>(address + 4, *listener);
 	return address;
@@ -26,7 +26,7 @@ PVZ::Sexy::PCheckboxListener PVZ::Sexy::MakeCheckboxListener(CheckboxListener* l
 
 PVZ::Sexy::PListListener PVZ::Sexy::MakeListListener(ListListener* listener)
 {
-	int address = PVZ::Memory::AllocMemory(0, 16);
+	int address = PVZ::Memory::AllocMemoryUnsafe(0, 16);
 	PVZ::Memory::WriteMemoryUnsafe<int>(address, address + 4);
 	PVZ::Memory::WriteMemoryUnsafe<ListListener>(address + 4, *listener);
 	return address;
@@ -200,7 +200,7 @@ BYTE __asm__MakeList[]
 
 PVZ::Sexy::PList PVZ::Sexy::MakeList(PListListener listener)
 {
-	int address = PVZ::Memory::AllocMemory(0, 0xF8);
+	int address = PVZ::Memory::AllocMemoryUnsafe(0, 0xF8);
 	SETARG(__asm__MakeList, 1) = listener;
 	SETARG(__asm__MakeList, 6) = address;
 	PVZ::Memory::Execute(STRING(__asm__MakeList));

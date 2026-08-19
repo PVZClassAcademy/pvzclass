@@ -56,7 +56,7 @@ Draw::PSharedImageRef Draw::GetSharedImage(DWORD isnewAddress, PVZ::PVZString va
 	SETARG(__asm__GetSharedImage, 1) = isnewAddress;
 	SETARG(__asm__GetSharedImage, 6) = variant.GetBaseAddress();
 	SETARG(__asm__GetSharedImage, 11) = filename.GetBaseAddress();
-	PSharedImageRef imageRef = PVZ::Memory::AllocMemory(0, 4);
+	PSharedImageRef imageRef = PVZ::Memory::AllocMemoryUnsafe(0, 4);
 	SETARG(__asm__GetSharedImage, 16) = imageRef;
 	PVZ::Memory::Execute(STRING(__asm__GetSharedImage));
 	return imageRef;
@@ -200,7 +200,7 @@ void PVZ::Graphics::FillRect(int x, int y, int width, int height)
 
 void PVZ::Graphics::DrawTextBox(DWORD edit)
 {
-	int rect = PVZ::Memory::AllocMemory(0, 16);
+	int rect = PVZ::Memory::AllocMemoryUnsafe(0, 16);
 	PVZ::Memory::Execute(AsmBuilder()
 		.push(rect)
 		.mov_reg_imm(REG_ECX, edit)
