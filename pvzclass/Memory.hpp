@@ -168,6 +168,11 @@ namespace PVZ
 		/// @param size 小于一页部分的内存字节数，默认为 0。
 		/// @return 申请的内存的首地址
 		static int AllocMemory(int pages = 1, int size = 0);
+		/// @brief 申请一定大小的内存空间。在 localExecute 模式下不保证访问权限为可读写执行。
+		/// @param pages 内存页数，默认为 1。
+		/// @param size 小于一页部分的内存字节数，默认为 0。
+		/// @return 申请的内存的首地址
+		static int AllocMemoryUnsafe(int pages = 1, int size = 0);
 		/// @brief 在 PVZ 主程序创建一个线程。\n
 		/// 在 dll 中调用此函数会改为直接执行指定地址的函数。
 		/// @param address 线程的起始地址
