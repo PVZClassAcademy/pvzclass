@@ -3,7 +3,7 @@
 PVZ::SaveGameContext PVZ::SaveGameContext::Make()
 {
 	// Buffer是0x20byte，后面还有2byte的bool，保险起见留0x30byte
-	int address = PVZ::Memory::AllocMemory(0, 0x30);
+	int address = PVZ::Memory::AllocMemoryUnsafe(0, 0x30);
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EAX, address)
 		.invoke(0x5D60A0)
@@ -49,7 +49,7 @@ void PVZ::SaveGameContext::Write(char* buf, int buflen)
 	}
 	else
 	{
-		address = PVZ::Memory::AllocMemory(0, buflen);
+		address = PVZ::Memory::AllocMemoryUnsafe(0, buflen);
 		PVZ::Memory::WriteArrayUnsafe<char>(address, buf, buflen);
 	}
 	PVZ::Memory::Execute(AsmBuilder()

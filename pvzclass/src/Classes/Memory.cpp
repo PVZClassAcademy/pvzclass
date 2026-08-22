@@ -52,6 +52,19 @@ int PVZ::Memory::AllocMemory(int pages, int size)
 	}
 }
 
+int PVZ::Memory::AllocMemoryUnsafe(int pages, int size)
+{
+	if (localExecute)
+	{
+		BYTE* page = new BYTE[PAGE_SIZE * pages + size];
+		return (int)page;
+	}
+	else
+	{
+		return (int)VirtualAllocEx(hProcess, 0, PAGE_SIZE * pages + size, MEM_COMMIT, PAGE_EXECUTE_READWRITE);
+	}
+}
+
 void PVZ::Memory::CreateThread(int address)
 {
 	if (localExecute)

@@ -22,7 +22,7 @@ void PVZ::CutScene::PlaceStreetZombie(ZombieType::ZombieType type, bool grid[5][
 	int address = 0;
 	if (!PVZ::Memory::localExecute)
 	{
-		address = PVZ::Memory::AllocMemory(0, 25);
+		address = PVZ::Memory::AllocMemoryUnsafe(0, 25);
 		for (int i = 0; i < 5; i++) PVZ::Memory::WriteArrayUnsafe<bool>(address + i * 5, grid[i], sizeof(grid[i]));
 	}
 	else
