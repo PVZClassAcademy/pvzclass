@@ -1,5 +1,6 @@
 #pragma once
 #include "../../PVZ.h"
+#include "../Draw.h"
 
 namespace PVZ
 {
@@ -72,6 +73,13 @@ namespace PVZ
 		/// @brief 识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x9C);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		/// @brief 在 PVZ 主程序中创建空白动画部件
+		/// @note 以此法创建的动画部件需要使用 Free() 销毁，否则会造成内存泄露。
+		/// @return 创建的动画部件
+		static Animation Make();
+		/// @brief 释放该动画部件在 PVZ 占用的内存空间
+		/// @attention 只有通过 Make 创建的字符串才应该使用该函数销毁。
+		void Free();
 		/// @brief 将该模型附加在指定识别 ID 的附件上。
 		/// @param attachmentID 附件的识别 ID
 		/// @param OffsetX X 坐标偏移
@@ -80,6 +88,11 @@ namespace PVZ
 		AttachEffect AttachTo(AttachmentID attachmentID, float OffsetX, float OffsetY);
 		/// @brief 移除该动画部件
 		void Die();
+		/// @brief 确保指定类型的动画部件已被加载，然后初始化此类动画部件。
+		/// @param X X 坐标
+		/// @param Y Y 坐标
+		/// @param type 动画部件类型
+		void InitializeType(float X, float Y, AnimationType::AnimationType type);
 		/// @brief 播放指定动画
 		/// @param TrackName 动画轨道名称
 		/// @param blendType 混合类型
@@ -112,5 +125,13 @@ namespace PVZ
 		/// @brief 用于补间动画开始混合时，设置每条轨道的初始补间动画数据。
 		/// @param blendTime 需要设置的补间市场
 		void StartBlend(int blendTime);
+
+		/// @brief 绘制此动画部件
+		/// @param g 绘制图像
+		void Draw(Graphics g);
+		/// @brief 绘制动画部件指定渲染分组中的所有轨道。
+		/// @param g 绘制图像
+		/// @param group 渲染分组
+		void DrawRenderGroup(Graphics g, int group);
 	};
 }
