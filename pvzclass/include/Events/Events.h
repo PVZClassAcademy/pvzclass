@@ -34,6 +34,7 @@
 #include "ProjectileHitZombieEvent.h"
 #include "ProjectileRemoveEvent.h"
 #include "PuzzlePhaseCompleteEvent.hpp"
+#include "ReanimatorCacheEvents.hpp"
 #include "UpdateAppEvent.h"
 #include "UpdateGameObjectsEvent.h"
 #include "BossBungeeSpawnEvent.h"

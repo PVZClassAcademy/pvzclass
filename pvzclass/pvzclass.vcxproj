@@ -354,6 +354,7 @@
     <ClInclude Include="include\Events\ProjectileDefEvent.hpp" />
     <ClInclude Include="include\Events\ProjectileImageEvent.hpp" />
     <ClInclude Include="include\Events\ProjectileUpdateEvents.hpp" />
+    <ClInclude Include="include\Events\ReanimatorCacheEvents.hpp" />
     <ClInclude Include="include\Events\SeedPacketAllowedToPickEvent.h" />
     <ClInclude Include="include\Events\SeedPacketMouseDownEvent.hpp" />
     <ClInclude Include="include\Events\ProjectileCreateEvent.h" />

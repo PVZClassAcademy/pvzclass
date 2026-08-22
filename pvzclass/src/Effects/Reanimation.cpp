@@ -94,6 +94,28 @@ PVZ::TrackInstance PVZ::Animation::GetTrackInstance(const char* trackName)
 	return TrackInstance(this->FindTrackIndex(trackName) * 0x60 + address);
 }
 
+PVZ::Animation PVZ::Animation::Make()
+{
+	uint32_t addr = PVZ::Memory::AllocMemoryUnsafe(0, 0x9C);
+
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EDX, addr)
+		.invoke(0x471920)
+		.ret()
+	);
+	return PVZ::Animation(addr);
+}
+
+void PVZ::Animation::Free()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
+		.invoke(0x471A20)
+		.ret()
+	);
+	PVZ::Memory::FreeMemory(this->BaseAddress);
+}
+
 PVZ::AttachEffect PVZ::Animation::AttachTo(PVZ::AttachmentID attachmentID, float OffsetX, float OffsetY)
 {
 	SETARG(__asm__Reanimation__AttachTo, 1) = BaseAddress;
@@ -108,6 +130,18 @@ void PVZ::Animation::Die()
 {
 	SETARG(__asm__Reanimation__Die, 1) = BaseAddress;
 	Memory::Execute(STRING(__asm__Reanimation__Die));
+}
+
+void PVZ::Animation::InitializeType(float X, float Y, AnimationType::AnimationType type)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, type)
+		.push_float(Y)
+		.push_float(X)
+		.mov_reg_imm(REG_EDI, this->GetBaseAddress())
+		.invoke(0x471A60)
+		.ret()
+	);
 }
 
 void PVZ::Animation::Play(const char* trackName, int blendType, PVZEnum::ReanimLoopType loopType, float rate)
@@ -222,6 +256,22 @@ void PVZ::Animation::StartBlend(int blendTime)
 		.push_imm32(blendTime)
 		.push_imm32(this->GetBaseAddress())
 		.invoke(0x473310)
+		.ret()
+	);
+}
+
+void PVZ::Animation::Draw(Graphics g)
+{
+	this->DrawRenderGroup(g, 0);
+}
+
+void PVZ::Animation::DrawRenderGroup(Graphics g, int group)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(group)
+		.push_imm32(g.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x472E40)
 		.ret()
 	);
 }
