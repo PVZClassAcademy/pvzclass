@@ -54,9 +54,9 @@ namespace PVZ
 
 	void QuitPVZ()
 	{
-		CloseHandle(Memory::hProcess);
 		Memory::FreeMemory(Memory::Variable);
 		Memory::WriteArray<BYTE>(0x415D40, STRING(__asm__Revert_UpdateHook));
+		CloseHandle(Memory::hProcess);
 	}
 }
 
@@ -69,6 +69,7 @@ void PVZ::InitPVZDLL()
 
 void PVZ::InitPVZNoLock(DWORD pid)
 {
+	Memory::immediateExecute = true;
 	Memory::localExecute = false;
 	Memory::processId = pid;
 	Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
