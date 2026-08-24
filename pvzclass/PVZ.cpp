@@ -54,9 +54,9 @@ namespace PVZ
 
 	void QuitPVZ()
 	{
-		CloseHandle(Memory::hProcess);
 		Memory::FreeMemory(Memory::Variable);
 		Memory::WriteArray<BYTE>(0x415D40, STRING(__asm__Revert_UpdateHook));
+		CloseHandle(Memory::hProcess);
 	}
 }
 
