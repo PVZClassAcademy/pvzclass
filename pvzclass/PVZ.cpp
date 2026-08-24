@@ -69,6 +69,7 @@ void PVZ::InitPVZDLL()
 
 void PVZ::InitPVZNoLock(DWORD pid)
 {
+	Memory::immediateExecute = true;
 	Memory::localExecute = false;
 	Memory::processId = pid;
 	Memory::hProcess = OpenProcess(PROCESS_ALL_ACCESS, 0, pid);
