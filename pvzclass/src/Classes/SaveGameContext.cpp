@@ -93,3 +93,15 @@ void PVZ::SaveGameContext::SyncBoard(Board board, bool read)
 		PVZ::GetPVZApp().GameState = PVZGameState::Playing;
 	}
 }
+
+void PVZ::SaveGameContext::SyncDataIDList(IntList list, TodAllocator allocator)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, allocator.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, list.GetBaseAddress())
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x481710)
+		.add_reg_imm(REG_ESP, 4)
+		.ret()
+	);
+}
