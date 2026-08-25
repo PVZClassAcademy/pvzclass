@@ -1,5 +1,6 @@
 #pragma once
 #include "../../PVZ.h"
+#include "TodAllocator.hpp"
 
 namespace PVZ
 {
@@ -32,5 +33,7 @@ namespace PVZ
 		T_SIMPLE_PROPERTY(IntListNode, Tail, 4);
 		/// @brief 节点数量
 		INT_SIMPLE_PROPERTY(Size, 8);
+		/// @brief 链表的内存空间分配器
+		T_SIMPLE_PROPERTY(TodAllocator, Allocator, 12);
 	};
 }

@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Classes\TodAllocator.cpp" />
     <ClCompile Include="src\Classes\AttachEffect.cpp" />
     <ClCompile Include="src\Classes\ChallengeScreen.cpp" />
     <ClCompile Include="src\Classes\List.cpp" />
@@ -459,6 +460,7 @@
     <ClInclude Include="include\Events\VaseOpenEvent.h" />
     <ClInclude Include="include\Widgets\ButtonWidget.hpp" />
     <ClInclude Include="include\Widgets\Dialog.hpp" />
+    <ClInclude Include="include\Classes\TodAllocator.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
