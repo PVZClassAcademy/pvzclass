@@ -1,6 +1,7 @@
 #pragma once
 #include "../../PVZ.h"
 #include "Board.hpp"
+#include "List.hpp"
 
 namespace PVZ
 {
@@ -41,5 +42,9 @@ namespace PVZ
 		/// @param read true 读取内存数据，false 将数据写入内存
 		/// @author Moon404
 		void SyncBoard(Board board, bool read);
+		/// @brief 将整数链表进行同步
+		/// @param list 待同步的链表
+		/// @param allocator 链表的内存分配器
+		void SyncDataIDList(IntList list, TodAllocator allocator);
 	};
 }
