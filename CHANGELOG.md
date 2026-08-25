@@ -1,4 +1,5 @@
 # 目录
+- [3.1](#3.1)
 - [3.0](#3.0)
 - [2.7.1](#2.7.1)
 - [2.7](#2.7)
@@ -25,6 +26,31 @@
 - [1.15.1](#1.15.1（2023/11/22）)
 - [1.15.0](#1.15.0（2023/10/27）)
 - [1.14.3](#1.14.3（2023/10/22）)
+
+## 3.1
+
+### 新增内容
+
+- `PVZ::Board` 新增一系列成员。
+- `PVZ::TodParticleSystem::AttachTo()`
+- `PVZEvent::ZombieFindIZBrainEvent`
+- `PVZ::Coin` 新增一系列成员函数。
+- `PVZ::Memory::AllocMemoryUnsafe()`
+- `PVZ::Animation` 新增一系列成员函数。
+- `PVZEvent::NormalZombieReanimMakeCacheEvent`
+
+### 改动内容
+
+- `LawnMowerState` 和 `LawnMowerType` 现在属于 `PVZEnum` 命名空间。
+
+### 修复漏洞
+
+- 修复 `InitPVZNoLock()` 没有默认将 `Memory::immediateExecute` 赋值为 true 的漏洞。
+- 修复 `QuitPVZ()` 调用 `CloseHandle()` 过早的漏洞。
+
+### 兼容性
+
+兼容 3.0 版本，`LawnMowerState` 和 `LawnMowerType` 除外。
 
 ## 3.0
 
