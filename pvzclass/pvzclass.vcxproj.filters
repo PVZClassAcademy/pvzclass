@@ -375,6 +375,9 @@
     <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp">
       <Filter>头文件\Events\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="src\Classes\List.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ProcessOpener.h">
@@ -984,6 +987,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Events\ReanimatorCacheEvents.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Classes\List.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

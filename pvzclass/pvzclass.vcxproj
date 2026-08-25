@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClCompile Include="src\Classes\AttachEffect.cpp" />
     <ClCompile Include="src\Classes\ChallengeScreen.cpp" />
+    <ClCompile Include="src\Classes\List.cpp" />
     <ClCompile Include="src\Effects\Reanimation.cpp" />
     <ClCompile Include="src\Classes\Attachment.cpp" />
     <ClCompile Include="src\Classes\Board.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="include\Classes\ResourceManager.hpp" />
     <ClInclude Include="include\Classes\SaveData.hpp" />
     <ClInclude Include="include\Classes\SeedChooserScreen.hpp" />
+    <ClInclude Include="include\Classes\List.hpp" />
     <ClInclude Include="include\Classes\TodParticleSystem.hpp" />
     <ClInclude Include="include\Classes\ZenGarden.hpp" />
     <ClInclude Include="Enums\FoleyType.h" />
