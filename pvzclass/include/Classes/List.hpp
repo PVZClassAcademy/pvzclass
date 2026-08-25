@@ -35,5 +35,13 @@ namespace PVZ
 		INT_SIMPLE_PROPERTY(Size, 8);
 		/// @brief 链表的内存空间分配器
 		T_SIMPLE_PROPERTY(TodAllocator, Allocator, 12);
+		/// @brief 在链表头添加元素
+		/// @param val 元素
+		void AddHead(int val);
+		/// @brief 在链表尾添加元素
+		/// @param val 元素
+		void AddTail(int val);
+		/// @brief 移除所有元素
+		void RemoveAll();
 	};
 }
