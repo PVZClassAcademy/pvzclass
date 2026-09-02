@@ -74,6 +74,26 @@ void PVZ::Challenge::IZSquishBrain(IZBrain brain)
 	PVZ::Memory::Execute(STRING(__asm__IZSquishBrain));
 }
 
+void PVZ::Challenge::PuzzlePhaseComplete(int row, int column)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(row)
+		.mov_reg_imm(REG_EAX, column)
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x429E50)
+		.ret()
+	);
+}
+
+void PVZ::Challenge::PuzzleNextStageClear()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EDI, this->GetBaseAddress())
+		.invoke(0x429E50)
+		.ret()
+	);
+}
+
 void PVZ::Challenge::IZPlacePlants(SeedType::SeedType type, int count, int row)
 {
 	PVZ::Memory::Execute(AsmBuilder()

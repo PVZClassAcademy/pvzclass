@@ -76,6 +76,12 @@ namespace PVZ
 		/// @param brain 将被压扁的脑子
 		/// @see IZBrain
 		void IZSquishBrain(IZBrain brain);
+		/// @brief 完成一轮解谜关卡
+		/// @param row 行
+		/// @param column 列 
+		void PuzzlePhaseComplete(int row, int column);
+		/// @brief 解谜模式下一关开始前的清场
+		void PuzzleNextStageClear();
 		/// @brief 在指定行随机种植若干个指定类型的植物，并对其进行 IZ 关卡的特殊调整。
 		/// @param type 植物类型
 		/// @param count 种植数量
