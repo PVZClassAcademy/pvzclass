@@ -377,6 +377,15 @@ void PVZ::Board::Earthquake(int horizontalAmplitude, int verticalAmplitude, int 
 	Memory::WriteMemoryUnsafe<int>(BaseAddress + 0x5548, verticalAmplitude);
 }
 
+void PVZ::Board::FadeOutLevel()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, BaseAddress)
+		.invoke(0x40C3E0)
+		.ret()
+	);
+}
+
 PVZ::Lawn PVZ::Board::GetLawn()
 {
 	return Lawn(BaseAddress);
