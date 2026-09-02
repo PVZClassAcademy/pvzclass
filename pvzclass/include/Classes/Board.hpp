@@ -200,6 +200,8 @@ namespace PVZ
 		/// @param verticalAmplitude 
 		/// @param duration 震动持续时间
 		void Earthquake(int horizontalAmplitude = 2, int verticalAmplitude = 4, int duration = 20);
+		/// @brief 关卡或关卡的一个阶段完成，判断是否完成完整关卡，并据此开始退出关卡或过渡至下一阶段。
+		void FadeOutLevel();
 		/// @brief 立刻失败。
 		void Lose();
 		/// @brief 若当前可以承担 amount 点阳光的支出，则消耗 theAmount 阳光，

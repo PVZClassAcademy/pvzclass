@@ -361,6 +361,16 @@ inline void DisableMusicUpdate(BOOLEAN b = true)
 	MEMMOD_BYTE(0x452706, NOP, 0);
 }
 
+/// @brief 禁用 Board 对鼠标情况的更新。\n
+///		建议仅在调试和测试环境下调用此函数。
+/// @note 仍可手动调用更新函数。
+/// @param b 是否开启此功能
+inline void DisableMousePositionUpdate(BOOLEAN b = true)
+{
+	MEMMOD_INT(0x415D95, 0x90909090, 0x178DFFFF);
+	MEMMOD_BYTE(0x415D94, NOP, 0xE8);
+}
+
 /// @brief 禁止僵尸进家时触发玩家失败。
 /// @param b 是否开启此功能
 inline void DisableZombieFailHome(BOOLEAN b = true)
