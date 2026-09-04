@@ -221,6 +221,13 @@ inline void LockShovel(PVZ::MousePointer* mousepointer, BOOLEAN b = true)
 	PVZ::Memory::WriteMemory<LONGLONG>(0x41233D, b ? -8029759805927192901 : 586669480753);
 }
 
+/// @brief 允许空存档创建用户时，生成预览用存档
+/// @param b 是否开启此功能
+inline void EnablePreviewProfilesOnSetup(BOOLEAN b = true)
+{
+	MEMMOD_BYTE(0x44B5EF, JO, JZ);
+}
+
 /// @brief 自动拾取物品
 /// @param b 是否开启此功能
 inline void AutoCollect(BOOLEAN b = true)
