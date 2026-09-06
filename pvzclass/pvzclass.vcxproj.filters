@@ -998,5 +998,8 @@
     <ClInclude Include="include\Classes\TodAllocator.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\PlayerInfoEvents.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
