@@ -6,10 +6,10 @@ namespace PVZ
 	class PVZApp;
 
 	/// @brief 控制存档相关内容的类
-	class SaveData : public BaseClass
+	class PlayerInfo : public BaseClass
 	{
 	public:
-		SaveData(int baseaddress) : BaseClass(baseaddress) {};
+		PlayerInfo(int baseaddress) : BaseClass(baseaddress) {};
 		/// @brief 获取当前用户名称
 		/// @param str 保存返回值的位置（char* 形式）
 		void GetPVZUserName(char str[]);//str[12]
@@ -73,9 +73,11 @@ namespace PVZ
 		/// @return 花园盆栽对象
 		GardenPlant GetGardenPlant(int index);
 	};
-	using PlayerInfo = SaveData;
+	using SaveData = PlayerInfo;
 
-	SaveData GetSaveData();
+	PlayerInfo GetPlayerInfo();
+	/// @deprecated 请改用 GetPlayerInfo()
+	PlayerInfo GetSaveData();
 }
 
 
