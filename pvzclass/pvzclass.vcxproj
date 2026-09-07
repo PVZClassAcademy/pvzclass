@@ -377,6 +377,7 @@
     <ClInclude Include="include\Events\ZombieEatSoundEvent.hpp" />
     <ClInclude Include="include\Events\ZombieEquipmentEvents.hpp" />
     <ClInclude Include="include\Events\ZombieAbilityEvents.hpp" />
+    <ClInclude Include="include\Events\ZombieSpawningEvents.hpp" />
     <ClInclude Include="include\Events\ZombieSpeedAlterEvent.hpp" />
     <ClInclude Include="include\Events\ZombieTakeDmgEvent.h" />
     <ClInclude Include="Enums\LawnmowerState.h" />

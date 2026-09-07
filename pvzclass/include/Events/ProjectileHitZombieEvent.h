@@ -19,3 +19,17 @@ public:
 		start(STRING(code));
 	}
 };
+
+namespace PVZEvent
+{
+	/// @brief 子弹是否可以击中僵尸事件
+	/// @param 触发事件的子弹，子弹判定的僵尸
+	/// @return 以 ThreeState::ThreeState 表示的，子弹是否能打中僵尸
+	class ProjectileFindTargetZombieRTEvent_ts : public ThreeStateEventTemplate<0x46CD95, 6, 0x46CDAD, 0x46CE58, REG_ESI, REG_EDI>
+	{
+	public:
+		ProjectileFindTargetZombieRTEvent_ts(const char* str) : ThreeStateEventTemplate() { Init(str); };
+		ProjectileFindTargetZombieRTEvent_ts(int address) : ThreeStateEventTemplate() { Init(address); };
+		ProjectileFindTargetZombieRTEvent_ts() : ProjectileFindTargetZombieRTEvent_ts("onProjFindTargetZombieRT") {};
+	};
+}
