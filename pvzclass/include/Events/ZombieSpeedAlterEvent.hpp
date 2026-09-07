@@ -37,4 +37,14 @@ namespace PVZEvent
 		ZombieWalkDistEvent(int address) : FloatDLLEventTemplate() { Init(address); };
 		ZombieWalkDistEvent() : FloatDLLEventTemplate() { Init("GetZombieWalkDist"); };
 	};
+	/// @brief 判断僵尸是否不走动的事件
+	/// @param 触发事件的僵尸
+	/// @return 以 ThreeState::ThreeState 表示的，僵尸是否不走动
+	class ZombieNotWalkingEvent_ts : public ThreeStateEventTemplate<0x52A611, 6, 0x52A7A4, 0x52A79A, REG_EAX>
+	{
+	public:
+		ZombieNotWalkingEvent_ts(const char* str) : ThreeStateEventTemplate() { Init(str); };
+		ZombieNotWalkingEvent_ts(int address) : ThreeStateEventTemplate() { Init(address); };
+		ZombieNotWalkingEvent_ts() : ThreeStateEventTemplate() { Init("IsZombieNotWalking"); };
+	};
 }

@@ -51,4 +51,14 @@ namespace PVZEvent
 			PlaceLadderEvent() : PlaceLadderEvent("onLadderPlaced") {};
 		};
 	}
+	namespace Catapult
+	{
+		class DeathEvent : public BoolDLLEventTemplate<0x52EC00, 6, 0x52ED9E, 0x24, REG_EAX>
+		{
+		public:
+			DeathEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+			DeathEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+			DeathEvent() : DeathEvent("onZombieCatapultDie") {};
+		};
+	}
 }
