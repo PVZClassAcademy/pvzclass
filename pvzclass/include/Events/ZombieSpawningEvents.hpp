@@ -11,6 +11,6 @@ namespace PVZEvent
 	public:
 		IsRowCanHaveZombieTypeEvent_ts(const char* str) : ThreeStateEventTemplate() { Init(str); };
 		IsRowCanHaveZombieTypeEvent_ts(int address) : ThreeStateEventTemplate() { Init(address); };
-		IsRowCanHaveZombieTypeEvent_ts(int address) : ThreeStateEventTemplate() { Init("IsRowCanHaveZombieType"); };
+		IsRowCanHaveZombieTypeEvent_ts() : IsRowCanHaveZombieTypeEvent_ts("IsRowCanHaveZombieType") {};
 	};
 }
