@@ -26,4 +26,15 @@ namespace PVZEvent
 		ZombieSpeedAlterEvent(const char* str) : ZombieSpeedAlterEvent(PVZ::Memory::GetProcAddress(str)) {};
 		ZombieSpeedAlterEvent() : ZombieSpeedAlterEvent("CalcZombieSpeedAlter") {};
 	};
+
+	/// @brief 僵尸位移距离事件
+	/// @param 触发事件的僵尸，僵尸的基础位移
+	/// @return 调整后的僵尸移动距离
+	class ZombieWalkDistEvent : public FloatDLLEventTemplate<0x52AB18, 5, 0x28, false, 0x28, REG_ESI>
+	{
+	public:
+		ZombieWalkDistEvent(const char* str) : FloatDLLEventTemplate() { Init(str); };
+		ZombieWalkDistEvent(int address) : FloatDLLEventTemplate() { Init(address); };
+		ZombieWalkDistEvent() : FloatDLLEventTemplate() { Init("GetZombieWalkDist"); };
+	};
 }
