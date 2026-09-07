@@ -393,6 +393,20 @@ inline void ZombieAlwaysDive(BOOLEAN b = true)
 	MEMMOD_INT(0x526212, 40, 700);
 }
 
+/// @brief 禁用 IZ 中向日葵被啃食时掉落阳光的效果。
+/// @param b 是否开启此功能
+inline void DisableIZEatSunDrop(BOOLEAN b = true)
+{
+	MEMMOD_BYTE(0x52FCA6, JUMP, JZ);
+}
+
+/// @brief 禁用 IZ 中坚果类植物受到的双倍伤害。
+/// @param b 是否开启此功能
+inline void DisableIZDoubleDamage(BOOLEAN b = true)
+{
+	MEMMOD_BYTE(0x52FD0B, JUMP, JZ);
+}
+
 /// @brief 添加防止附件的元素数溢出的保护代码
 /// @param b 是否开启此功能
 inline void AttachmentOverflowGuard(BOOLEAN b = true)
