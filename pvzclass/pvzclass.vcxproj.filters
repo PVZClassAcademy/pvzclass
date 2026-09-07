@@ -1001,5 +1001,8 @@
     <ClInclude Include="include\Events\PlayerInfoEvents.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\ZombieSpawningEvents.hpp">
+      <Filter>头文件\Events\Zombie</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

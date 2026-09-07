@@ -45,6 +45,7 @@
 #include "ZombieDecelerateEvent.h"
 #include "ZombieEatEvent.h"
 #include "ZombieFrozeEvent.h"
+#include "ZombieSpawningEvents.hpp"
 #include "ZombieTakeDmgEvent.h"
 #include "ZombieHypnotizeEvent.h"
 #include "ZombieRemoveEvent.h"
