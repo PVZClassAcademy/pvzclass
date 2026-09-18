@@ -72,6 +72,9 @@ namespace PVZ
 		/// @return 另一个同类型的场地物品，可能为空。
 		PVZ::Griditem GetAnotherSameTypeGriditem(PVZ::Griditem griditem);
 
+		/// @brief 植物根据剩余生命值掉落阳光。
+		/// @param plant 植物
+		void IZPlantDropRemainingSun(PVZ::Plant plant);
 		/// @brief 压扁指定的脑子，并计算因此产生的得分
 		/// @param brain 将被压扁的脑子
 		/// @see IZBrain

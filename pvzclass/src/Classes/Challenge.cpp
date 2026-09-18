@@ -1,4 +1,5 @@
 #include "Classes/Challenge.hpp"
+#include "Classes/GameObject.hpp"
 #include "Classes/Griditem.hpp"
 
 PVZ::Challenge::Challenge(int address)
@@ -63,6 +64,16 @@ PVZ::Griditem PVZ::Challenge::GetAnotherSameTypeGriditem(PVZ::Griditem griditem)
 		.mov_reg_imm(REG_EDI, this->GetBaseAddress())
 		.invoke(0x4273C0)
 		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	);
+}
+
+void PVZ::Challenge::IZPlantDropRemainingSun(PVZ::Plant plant)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ESI, plant.GetBaseAddress())
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x42B9D0)
 		.ret()
 	);
 }
