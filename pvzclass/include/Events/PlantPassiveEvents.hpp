@@ -21,12 +21,12 @@ namespace PVZEvent
 	class PlantDropRemainingSunEvent_ts : public DLLEventTemplate<0x42B9D0, 5, REG_ESI, MEM_ESP_ADD(0x28)>
 	{
 	protected:
-		static constexpr std::array<uint8_t, 24> compiled_special_bytes =
+		static constexpr std::array<uint8_t, 23> compiled_special_bytes =
 		{
 			TEST_EUX_EVX(REG_EAX, REG_EAX),
-			JS(15),
+			JS(19),
 			POPAD,
-			JE(16),
+			JE(0x0D),
 
 			PUSH_EBX,
 			PUSH_EBP,
@@ -39,7 +39,7 @@ namespace PVZEvent
 		};
 		virtual void InitExtra(AsmBuilder& builder)
 		{
-			builder.add_bytes(compiled_special_bytes.data(), 24);
+			builder.add_bytes(compiled_special_bytes.data(), 23);
 		}
 	public:
 		PlantDropRemainingSunEvent_ts(const char* str) : DLLEventTemplate() { Init(str); };
@@ -61,7 +61,7 @@ namespace PVZEvent
 			BYTE code[] =
 			{
 				PUSH_ESP,
-				CALC_PTR_ESP_V(CALC_ADD, 0x24),
+				CALC_PTR_ESP_V(CALC_ADD, 0x20),
 				PUSH_ESI,
 				INVOKE(address),
 				ADD_ESP(8),
