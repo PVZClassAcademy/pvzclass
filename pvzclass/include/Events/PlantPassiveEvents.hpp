@@ -47,5 +47,26 @@ namespace PVZEvent
 		PlantDropRemainingSunEvent_ts() : PlantDropRemainingSunEvent_ts("onPlantDropRemainingSun") {};
 	};
 
+	/// @brief 植物在 IZ 中因被碾或被偷取而掉落阳光时，修改掉落物创建参数事件
+	/// @param 触发事件的植物，由 PVZ::Array\<int\> 表示的掉落物创建参数，依次为：X 坐标，Y 坐标，硬币类型和硬币位移方式。
 	class PlantDropRemainingSunParamEvent : DLLEvent
+	{
+	public:
+		PlantDropRemainingSunParamEvent() : PlantDropRemainingSunParamEvent("SetPlantDropRemainingSunParam") {};
+		PlantDropRemainingSunParamEvent(const char* str) : PlantDropRemainingSunParamEvent(PVZ::Memory::GetProcAddress(str)) {};
+		PlantDropRemainingSunParamEvent(int address)
+		{
+			hookAddress = 0x42BA11;
+			rawlen = 5;
+			BYTE code[] =
+			{
+				PUSH_ESP,
+				CALC_PTR_ESP_V(CALC_ADD, 0x24),
+				PUSH_ESI,
+				INVOKE(address),
+				ADD_ESP(8),
+			};
+			start(STRING(code));
+		}
+	};
 }
