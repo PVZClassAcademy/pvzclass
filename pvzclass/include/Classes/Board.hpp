@@ -1,6 +1,27 @@
 #pragma once
 #include "../../PVZ.h"
 
+namespace PVZEnum
+{
+	enum PlantingReason
+	{
+		PLANTING_OK = 0,
+		PLANTING_NOT_HERE,
+		PLANTING_ONLY_ON_GRAVES,
+		PLANTING_ONLY_IN_POOL,
+		PLANTING_ONLY_ON_GROUND,
+		PLANTING_NEEDS_POT,
+		PLANTING_NOT_ON_ART,
+		PLANTING_NOT_PASSED_LINE,
+		PLANTING_NEEDS_UPGRADE,
+		PLANTING_NOT_ON_GRAVE,
+		PLANTING_NOT_ON_CRATER,
+		PLANTING_NOT_ON_WATER,
+		PLANTING_NEEDS_GROUND,
+		PLANTING_NEEDS_SLEEPING
+	};
+}
+
 namespace PVZ
 {
 	class Zombie;
@@ -352,6 +373,8 @@ namespace PVZ
 	{
 	public:
 		Lawn(int baseaddress);
+		/// @brief 所属的 Board
+		READONLY_PROPERTY_BINDING(Board, __get_Board, this->BaseAddress) mBoard;
 		/// @brief 获取指定格位的地形类型
 		/// @param row 行
 		/// @param column 列
@@ -377,6 +400,12 @@ namespace PVZ
 		/// @param type 卡牌类型
 		/// @return 是否可以使用
 		bool Plantable(int row, int column, SeedType::SeedType type);
+		/// @brief 判断指定类型卡牌是否可以在指定位置上使用。
+		/// @param row 行
+		/// @param column 列
+		/// @param type 卡牌类型
+		/// @return 是否可以种植。若失败，给出失败原因。
+		PVZEnum::PlantingReason CanPlantAt(int row, int column, SeedType::SeedType type);
 	};
 	/// @brief 冰道
 	class Icetrace : public BaseClass
