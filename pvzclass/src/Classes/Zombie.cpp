@@ -369,6 +369,15 @@ void PVZ::Zombie::ReanimShowPrefix(const char* TrackName, int renderGroup)
 	Memory::Execute(STRING(__asm__Zombie_ReanimShowPrefix));
 }
 
+void PVZ::Zombie::StopEating()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EDI, this->GetBaseAddress())
+		.invoke(0x52F440)
+		.ret()
+	);
+}
+
 PVZ::TodParticleSystem PVZ::Zombie::AddAttachedParticle(int X, int Y, EffectType::EffectType effect)
 {
 	return PVZ::Memory::Execute(AsmBuilder()

@@ -2,7 +2,7 @@
 #include "../../PVZ.h"
 #include "Board.hpp"
 #include "TodParticleSystem.hpp"
-#include "Effects/Reanimation.hpp"
+#include "../Effects/Reanimation.hpp"
 
 namespace GameObjectType
 {
@@ -273,6 +273,8 @@ namespace PVZ
 		/// @param trackPrefix 受影响轨道的名称的前缀。
 		/// @param renderGroup 调整后轨道组号。组号越大则图层越上层，为 -1 时隐藏。
 		void ReanimShowPrefix(const char* trackPrefix, int renderGroup);
+		/// @brief 僵尸退出啃食状态
+		void StopEating();
 		/// @brief 创建制定类型的粒子效果并绑定至僵尸的附件。
 		/// @param X X 坐标
 		/// @param Y Y 坐标

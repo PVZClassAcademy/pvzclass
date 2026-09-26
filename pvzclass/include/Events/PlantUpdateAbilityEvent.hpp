@@ -46,6 +46,6 @@ namespace PVZEvent
 	public:
 		JudgetPlantUpdateAbilityEvent(int address) : BoolDLLEventTemplate() { Init(address); };
 		JudgetPlantUpdateAbilityEvent(const char* name) : BoolDLLEventTemplate() { Init(name); };
-		JudgetPlantUpdateAbilityEvent() : JudgetPlantUpdateAbilityEvent("onZombieDropHelm") {};
+		JudgetPlantUpdateAbilityEvent() : JudgetPlantUpdateAbilityEvent("ShouldPlantUpdateAbility") {};
 	};
 }

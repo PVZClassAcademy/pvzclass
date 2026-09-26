@@ -41,3 +41,13 @@ bool PVZ::Lawn::Plantable(int row, int column, SeedType::SeedType type)
 	SETARG(__asm__Plantable, 31) = Memory::Variable;
 	return(Memory::Execute(STRING(__asm__Plantable)) == 0);
 }
+
+PVZEnum::PlantingReason PVZ::Lawn::CanPlantAt(int row, int column, SeedType::SeedType type)
+{
+	SETARG(__asm__Plantable, 1) = row;
+	SETARG(__asm__Plantable, 6) = type;
+	__asm__Plantable[11] = (byte)column;
+	SETARG(__asm__Plantable, 13) = this->mBoard.GetBaseAddress();
+	SETARG(__asm__Plantable, 31) = Memory::Variable;
+	return PVZEnum::PlantingReason(Memory::Execute(STRING(__asm__Plantable)));
+}
