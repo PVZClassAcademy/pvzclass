@@ -23,6 +23,10 @@ namespace PVZ
 
 	/// @warning 请勿在程序资源文件涉及非 ASCII 字符时改变此变量的值。
 	inline auto IsLocaleChanged = UnsafeItem<bool>(0x6A66F4);
+	/// @brief 是否展示过更多阳光的教程。
+	inline auto ShownMoreSunTutorial = UnsafeItem<bool>(0x6A9EA9);
+	/// @brief 是否开启合作伙伴模式。该模式下，游戏程序将会为空存档生成多个进度的存档（含金葵存档）。
+	inline auto IsPartnerBuild = UnsafeItem<bool>(0x6A9EA9);
 	/// @brief 是否开启快速模式
 	inline auto FastMo = UnsafeItem<bool>(0x6A9EAB);
 	/// @brief 开启加速模式时的加速倍率
