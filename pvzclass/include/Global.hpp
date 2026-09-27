@@ -23,6 +23,10 @@ namespace PVZ
 
 	/// @warning 请勿在程序资源文件涉及非 ASCII 字符时改变此变量的值。
 	inline auto IsLocaleChanged = UnsafeItem<bool>(0x6A66F4);
+	/// @brief 是否开启快速模式
+	inline auto FastMo = UnsafeItem<bool>(0x6A9EAB);
+	/// @brief 开启加速模式时的加速倍率
+	inline auto FastUpdateCount = SafeItem<int>(0x4526D3);
 
 	class Resource
 	{
