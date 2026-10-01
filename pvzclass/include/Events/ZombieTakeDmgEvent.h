@@ -95,4 +95,47 @@ namespace PVZEvent
 		ZombieEatByZombieEvent(const char* name) : BoolDLLEventTemplate() { Init(name); };
 		ZombieEatByZombieEvent() : ZombieEatByZombieEvent("onZombieEatByZombie") {};
 	};
+
+	/// @brief 僵尸索敌判定事件
+	/// @param 触发事件的僵尸
+	/// @note 不影响攻击间隔判定
+	/// @return 由 ThreeState::ThreeState 表示的，是否可以索敌
+	class IsZombieAble2EatEvent : public ThreeStateEventTemplate<0x52F4C8, 5, 0x52F640, 0x52F6BC, REG_EAX>
+	{
+	public:
+		IsZombieAble2EatEvent() : ThreeStateEventTemplate() { Init("IsZombieAble2Eat"); };
+		IsZombieAble2EatEvent(const char* str) : ThreeStateEventTemplate() { Init(str); };
+		IsZombieAble2EatEvent(int address) : ThreeStateEventTemplate() { Init(address); };
+	};
+
+	/// @brief 僵尸是否被缠绕水草缠绕判定事件
+	/// @param 触发事件的僵尸
+	/// @return 由 ThreeState::ThreeState 表示的，是否被缠绕水草缠绕
+	class IsZombieTangleKelpTargetEvent
+	{
+	private:
+		class Part1 : public ThreeStateEventTemplate<0x526199, 7, 0x5261C8, 0x5261CD, REG_EDI>
+		{
+		public:
+			Part1(int address) : ThreeStateEventTemplate() { Init(address); };
+		} *part1;
+		class Part2 : public ThreeStateEventTemplate<0x5324B0, 5, 0x413A5E, 0x413A5B, REG_EDI>
+		{
+		public:
+			Part2(int address) : ThreeStateEventTemplate() { Init(address); };
+		} *part2;
+	public:
+		IsZombieTangleKelpTargetEvent() : IsZombieTangleKelpTargetEvent("IsZombieTangleKelpTarget") {};
+		IsZombieTangleKelpTargetEvent(const char* name) : IsZombieTangleKelpTargetEvent(PVZ::Memory::GetProcAddress(name)) {};
+		IsZombieTangleKelpTargetEvent(int address)
+		{
+			part1 = new Part1(address);
+			part2 = new Part2(address);
+		}
+		void end()
+		{
+			part1->end();
+			part2->end();
+		}
+	};
 }
