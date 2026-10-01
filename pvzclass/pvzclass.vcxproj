@@ -290,6 +290,7 @@
     <ClInclude Include="include\Events\FatalErrorEvent.h" />
     <ClInclude Include="include\Events\GetRandomNumberEvent.h" />
     <ClInclude Include="include\Events\MagnetEvents.hpp" />
+    <ClInclude Include="include\Events\PlantDrawingEvents.hpp" />
     <ClInclude Include="include\Events\PlantFromBankEvent.h" />
     <ClInclude Include="include\Draw.h" />
     <ClInclude Include="Enums\KeyCode.hpp" />
@@ -359,6 +360,7 @@
     <ClInclude Include="include\Events\ProjectileImageEvent.hpp" />
     <ClInclude Include="include\Events\ProjectileUpdateEvents.hpp" />
     <ClInclude Include="include\Events\ReanimatorCacheEvents.hpp" />
+    <ClInclude Include="include\Events\ReanimEvents.hpp" />
     <ClInclude Include="include\Events\SeedPacketAllowedToPickEvent.h" />
     <ClInclude Include="include\Events\SeedPacketMouseDownEvent.hpp" />
     <ClInclude Include="include\Events\ProjectileCreateEvent.h" />

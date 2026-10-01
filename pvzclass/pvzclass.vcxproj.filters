@@ -1004,5 +1004,11 @@
     <ClInclude Include="include\Events\ZombieSpawningEvents.hpp">
       <Filter>头文件\Events\Zombie</Filter>
     </ClInclude>
+    <ClInclude Include="include\Events\PlantDrawingEvents.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events\ReanimEvents.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
