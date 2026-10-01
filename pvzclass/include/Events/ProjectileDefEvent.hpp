@@ -78,4 +78,15 @@ namespace PVZEvent
 			part2->end();
 		}
 	};
+
+	/// @brief 获取子弹伤害标签事件
+	/// @param 触发事件的子弹，子弹击中的僵尸
+	/// @return 伤害标签，负值会被忽略。
+	class ProjectileDmgFlagEvent : public IntDLLEventTemplate<0x46D230, 6, 0, 0, 0, REG_EAX, true, REG_EAX, REG_EDI>
+	{
+	public:
+		ProjectileDmgFlagEvent(const char* str) : IntDLLEventTemplate() { Init(str); };
+		ProjectileDmgFlagEvent(int address) : IntDLLEventTemplate() { Init(address); };
+		ProjectileDmgFlagEvent() : ProjectileDmgFlagEvent("GetProjectileDmgFlag") {};
+	};
 }

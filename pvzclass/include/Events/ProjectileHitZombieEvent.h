@@ -32,4 +32,57 @@ namespace PVZEvent
 		ProjectileFindTargetZombieRTEvent_ts(int address) : ThreeStateEventTemplate() { Init(address); };
 		ProjectileFindTargetZombieRTEvent_ts() : ProjectileFindTargetZombieRTEvent_ts("onProjFindTargetZombieRT") {};
 	};
+
+	/// @brief 子弹击中僵尸事件
+	/// @param 依次为：触发事件的子弹，子弹击中的僵尸
+	/// @return 是否结算原版的子弹击中过程。若为 false，则子弹不会消失，但也不会造成伤害
+	class ProjectileImpactEvent : public BoolDLLEventTemplate<0x46E000, 5, 0x46EB41, REG_EAX, REG_ECX>
+	{
+	public:
+		ProjectileImpactEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+		ProjectileImpactEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+		ProjectileImpactEvent() : ProjectileImpactEvent("onProjectileImpact") {};
+	};
+
+	/// @brief 子弹击中僵尸时，是否造成溅射伤害事件
+	/// @param 触发事件的子弹，子弹击中的僵尸
+	/// @return 由 ThreeState::ThreeState 表示的，是否造成溅射伤害
+	class IsProjectileSplashDmgEvent_ts : public DLLEventTemplate<0x46E013, 6, REG_ESI, REG_EDI>
+	{
+	public:
+		IsProjectileSplashDmgEvent_ts(const char* str) : DLLEventTemplate() { Init(str); };
+		IsProjectileSplashDmgEvent_ts(int address) : DLLEventTemplate() { Init(address); };
+		IsProjectileSplashDmgEvent_ts() : DLLEventTemplate() { Init("IsProjectileSplashDmg"); };
+	protected:
+		static constexpr std::array<uint8_t, 22> compiled_special_bytes =
+		{
+			TEST_AL_AL,
+			JS(18),
+			POPAD,
+			JE(6),
+
+			PUSHDWORD(0x46E05B),
+			RET,
+
+			MOV_EUX_PTR_EVX_ADD_V(REG_EBX, REG_EDI, 0x5C),
+			PUSHDWORD(0x46E065),
+			RET
+		};
+		virtual void InitExtra(AsmBuilder& builder)
+		{
+			builder.add_bytes(compiled_special_bytes.data(), 22);
+		}
+	};
+
+	/// @brief 判断僵尸是否受到子弹的溅射伤害
+	/// @param 依次为：溅射伤害的子弹，触发事件的僵尸
+	/// @note 该事件只重载类型和行差的判定。
+	/// @return 由 ThreeState::ThreeState 表示的，是否受到溅射伤害
+	class CheckZombieHitBySplashRTEvent : public ThreeStateEventTemplate<0x46D2E5, 6, 0x46D32D, 0x46D319, REG_EBX, REG_EBP>
+	{
+	public:
+		CheckZombieHitBySplashRTEvent() : ThreeStateEventTemplate() { Init("IsZombieHitBySplashRT"); };
+		CheckZombieHitBySplashRTEvent(const char* str) : ThreeStateEventTemplate() { Init(str); };
+		CheckZombieHitBySplashRTEvent(int address) : ThreeStateEventTemplate() { Init(address); };
+	};
 }

@@ -24,3 +24,17 @@ public:
 		start(STRING(code));
 	}
 };
+
+namespace PVZEvent
+{
+	/// @brief 子弹被叶子保护伞弹开事件
+	/// @param 依次为 触发事件的子弹，弹开子弹的植物
+	/// @note 该事件不能让其他植物获得弹开子弹的能力。若需要此调整，请使用 CheckUmbrellaEvent 。
+	class ProjectileReflectedEvent : public DLLEventTemplate<0x46D6D6, 7, REG_EDI, REG_EBP>
+	{
+	public:
+		ProjectileReflectedEvent() : DLLEventTemplate() { Init("onProjectileReflected"); };
+		ProjectileReflectedEvent(const char* str) : DLLEventTemplate() { Init(str); };
+		ProjectileReflectedEvent(int address) : DLLEventTemplate() { Init(address); };
+	};
+}
