@@ -61,4 +61,60 @@ namespace PVZEvent
 		MagnetShroomFindGriditemEvent_ts(int address) : ThreeStateEventTemplate() { Init(address); };
 		MagnetShroomFindGriditemEvent_ts() : MagnetShroomFindGriditemEvent_ts("onMagnetShroomFindGriditem") {};
 	};
+
+	/// @brief 植物索敌特殊条件事件
+	/// @param 触发事件的植物，植物索敌的僵尸
+	/// @return 由 ThreeState::ThreeState 表示的，是否可以索敌该僵尸
+	class PlantFindTargetSpecialEvent : public DLLEventTemplate<0x4676DA, 6, REG_EDI>
+	{
+	public:
+		PlantFindTargetSpecialEvent() : DLLEventTemplate() { Init("onPlantFindTargetSpecial"); };
+		PlantFindTargetSpecialEvent(const char* str) : DLLEventTemplate() { Init(str); };
+		PlantFindTargetSpecialEvent(int address) : DLLEventTemplate() { Init(address); };
+		static constexpr std::array<uint8_t, 27> compiled_special_bytes =
+		{
+			TEST_AL_AL,
+			JS(23),
+			POPAD,
+			MOV_PTR_ESP_ADD_V(0x14, 0),
+			JE(6),
+
+			PUSHDWORD(0x4677B5),
+			RET,
+
+			PUSHDWORD(0x467884),
+			RET
+		};
+		virtual void InitExtra(AsmBuilder& builder)
+		{
+			builder.add_bytes(compiled_special_bytes.data(), 27);
+		}
+	};
+
+	/// @brief 植物索敌优先级重载函数
+	/// @note 返回值越高，优先级越高
+	/// @param 触发事件的植物，植物当前索敌的僵尸，原始优先级
+	/// @return 重载后的优先级
+	class PlantFindTargetZombiePriorityEvent : public DLLEvent
+	{
+	public:
+		PlantFindTargetZombiePriorityEvent(int address)
+		{
+			hookAddress = 0x46786C;
+			rawlen = 5;
+			BYTE code[] =
+			{
+				PUSH_EAX,
+				PUSH_ESI,
+				PUSH_PTR_EUX_ADD_V(REG_EBP, 8),
+				INVOKE(address),
+				ADD_ESP(12),
+
+				MOV_PTR_ESP_ADD_V_EUX(REG_EAX, 0x1C)
+			};
+			start(STRING(code));
+		}
+		PlantFindTargetZombiePriorityEvent(const char* str) : PlantFindTargetZombiePriorityEvent(PVZ::Memory::GetProcAddress(str)) {};
+		PlantFindTargetZombiePriorityEvent() : PlantFindTargetZombiePriorityEvent("GetPlantFindTargetZombiePriority") {};
+	};
 }
