@@ -393,6 +393,13 @@ inline void ZombieAlwaysDive(BOOLEAN b = true)
 	MEMMOD_INT(0x526212, 40, 700);
 }
 
+/// @brief 关闭黄油击中伴舞僵尸时会导致伴舞僵尸脱队的效果。
+/// @param b 是否开启此功能
+inline void DisableButterDetachBackupDancer(bool b = true)
+{
+	MEMMOD_BYTE(0x53274C, JUMP, JZ);
+}
+
 /// @brief 禁用 IZ 中向日葵被啃食时掉落阳光的效果。
 /// @param b 是否开启此功能
 inline void DisableIZEatSunDrop(BOOLEAN b = true)
