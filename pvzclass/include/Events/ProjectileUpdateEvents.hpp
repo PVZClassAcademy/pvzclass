@@ -13,4 +13,16 @@ namespace PVZEvent
 		ProjUpdateMotionEvent(const char* name) : BoolDLLEventTemplate() { Init(name); };
 		ProjUpdateMotionEvent() : ProjUpdateMotionEvent("onProjectileUpdateMotion") {};
 	};
+
+	/// @brief 检查子弹是否应该过期事件
+	/// @note 构造后，原版的判定条件会失效
+	/// @param 触发事件的子弹
+	/// @return 子弹是否过期
+	class ProjCheckExpireEvent : public DiversionEventTemplate<0x46CE91, 6, 0x46D047, 0x46CE9D, REG_EBP>
+	{
+	public:
+		ProjCheckExpireEvent(const char* str) : DiversionEventTemplate() { Init(str); };
+		ProjCheckExpireEvent(int address) : DiversionEventTemplate() { Init(address); };
+		ProjCheckExpireEvent() : ProjCheckExpireEvent("onProjectileCheckExpire") {};
+	};
 }
