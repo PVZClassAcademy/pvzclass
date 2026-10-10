@@ -193,7 +193,6 @@
     <ClCompile Include="src\Classes\SeedCard.cpp" />
     <ClCompile Include="src\Classes\SeedChoserScreen.cpp" />
     <ClCompile Include="src\Classes\TodParticleSystem.cpp" />
-    <ClCompile Include="src\Classes\TrackInstance.cpp" />
     <ClCompile Include="src\Classes\ZenGarden.cpp" />
     <ClCompile Include="Enums\AnimationType.cpp" />
     <ClCompile Include="src\Classes\SaveGameContext.cpp" />

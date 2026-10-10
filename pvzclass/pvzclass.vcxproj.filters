@@ -276,9 +276,6 @@
     <ClCompile Include="src\Classes\SeedChoserScreen.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="src\Classes\TrackInstance.cpp">
-      <Filter>源文件\Classes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Classes\Wave.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
