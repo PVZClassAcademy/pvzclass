@@ -339,9 +339,6 @@
     <ClCompile Include="src\Widgets\Dialog.cpp">
       <Filter>源文件\Widget</Filter>
     </ClCompile>
-    <ClCompile Include="src\Classes\Reanimator.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="src\Classes\ReanimatorCache.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
@@ -844,9 +841,6 @@
     </ClInclude>
     <ClInclude Include="include\Widgets\Dialog.hpp">
       <Filter>头文件\Widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Classes\Reanimator.hpp">
-      <Filter>头文件\Classes</Filter>
     </ClInclude>
     <ClInclude Include="include\Classes\ReanimatorCache.hpp">
       <Filter>头文件\Classes</Filter>

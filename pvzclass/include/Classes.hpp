@@ -14,7 +14,6 @@
 
 #include "Classes/Definition.hpp"
 
-#include "Classes/Reanimator.hpp"
 #include "Classes/ReanimatorCache.hpp"
 
 #include "Classes/ChallengeScreen.hpp"
