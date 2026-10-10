@@ -186,7 +186,6 @@
     <ClCompile Include="src\Classes\Music.cpp" />
     <ClCompile Include="src\Classes\Plant.cpp" />
     <ClCompile Include="src\Classes\PVZApp.cpp" />
-    <ClCompile Include="src\Classes\Reanimator.cpp" />
     <ClCompile Include="src\Classes\ReanimatorCache.cpp" />
     <ClCompile Include="src\Classes\Rect.cpp" />
     <ClCompile Include="src\Classes\ResourceManager.cpp" />
@@ -194,7 +193,6 @@
     <ClCompile Include="src\Classes\SeedCard.cpp" />
     <ClCompile Include="src\Classes\SeedChoserScreen.cpp" />
     <ClCompile Include="src\Classes\TodParticleSystem.cpp" />
-    <ClCompile Include="src\Classes\TrackInstance.cpp" />
     <ClCompile Include="src\Classes\ZenGarden.cpp" />
     <ClCompile Include="Enums\AnimationType.cpp" />
     <ClCompile Include="src\Classes\SaveGameContext.cpp" />
@@ -247,7 +245,6 @@
     <ClCompile Include="PVZ.cpp" />
     <ClCompile Include="src\Classes\Wave.cpp" />
     <ClCompile Include="src\Classes\Zombie.cpp" />
-    <ClCompile Include="src\Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
     <ClCompile Include="src\Sexy.cpp" />
     <ClCompile Include="src\Widgets\GameSelector.cpp" />
@@ -265,7 +262,6 @@
     <ClInclude Include="include\Classes\Griditem.hpp" />
     <ClInclude Include="include\Classes\LawnMower.hpp" />
     <ClInclude Include="include\Classes\Mouse.hpp" />
-    <ClInclude Include="include\Classes\Reanimator.hpp" />
     <ClInclude Include="include\Classes\ReanimatorCache.hpp" />
     <ClInclude Include="include\Classes\SeedBank.hpp" />
     <ClInclude Include="include\Classes\Challenge.hpp" />
