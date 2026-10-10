@@ -4,7 +4,6 @@
 #include "AsmFunctions.h"
 #include "AsmBuilder.hpp"
 #include "Memory.hpp"
-#include <ctime>
 #include <vector>
 #include <type_traits>
 #include <optional>
@@ -473,25 +472,6 @@ namespace PVZ
 		static TrackInstance GetByIndex(uint32_t index);
 		AttachmentID GetAttachmentID();
 		Attachment GetAttachment();
-	};
-	class GardenPlant : public BaseClass
-	{
-	public:
-		GardenPlant(int address);
-		T_PROPERTY(SeedType::SeedType, Type, __get_Type, __set_Type, 8);
-		T_PROPERTY(GardenScene::GardenScene, Location, __get_Location, __set_Location, 0xC);
-		INT_PROPERTY(Column, __get_Column, __set_Column, 0x10);
-		INT_PROPERTY(Row, __get_Row, __set_Row, 0x14);
-		//GPD_LEFT or GPD_RIGTHT
-		INT_PROPERTY(Direction, __get_Direction, __set_Direction, 0x18);
-		T_PROPERTY(std::time_t, LastWateredTime, __get_LastWateredTime, __set_LastWateredTime, 0x20);
-		INT_PROPERTY(Colour, __get_Colour, __set_Colour, 0x28);
-		T_PROPERTY(GardenPlantState::GardenPlantState, State, __get_State, __set_State, 0x2C);
-		INT_PROPERTY(WateredCount, __get_WateredCount, __set_WateredCount, 0x30);
-		INT_PROPERTY(LevelUpWaterNeed, __get_LevelUpWaterNeed, __set_LevelUpWaterNeed, 0x34);
-		T_PROPERTY(GardenPlantNeed::GardenPlantNeed, LevelUpNeed, __get_LevelUpNeed, __set_LevelUpNeed, 0x38);
-		T_PROPERTY(std::time_t, LastGoldTime, __get_LastGoldTime, __set_LastGoldTime, 0x40);
-		T_PROPERTY(std::time_t, LastGrowthTime, __get_LastGrowthTime, __set_LastGrowthTime, 0x48);
 	};
 
 	#pragma endregion

@@ -247,7 +247,6 @@
     <ClCompile Include="PVZ.cpp" />
     <ClCompile Include="src\Classes\Wave.cpp" />
     <ClCompile Include="src\Classes\Zombie.cpp" />
-    <ClCompile Include="src\Classes\GardenPlant.cpp" />
     <ClCompile Include="Enums\SeedState.cpp" />
     <ClCompile Include="src\Sexy.cpp" />
     <ClCompile Include="src\Widgets\GameSelector.cpp" />
