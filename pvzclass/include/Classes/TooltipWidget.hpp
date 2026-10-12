@@ -19,5 +19,8 @@ namespace PVZ
 
 		void CalculateSize();
 		void SetLabel(PVZString str);
+		void SetTitle(PVZ::PVZString str);
+		void SetWarningText(PVZ::PVZString str);
+		void FlashWarning(int duration = 70);
 	};
 }
