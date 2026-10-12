@@ -318,4 +318,16 @@ namespace PVZEvent
 		IsZombieSeedTypeEvent(const char* name) : DiversionEventTemplate() { Init(name); };
 		IsZombieSeedTypeEvent() : IsZombieSeedTypeEvent("IsZombieSeedType") {};
 	};
+
+	/// @brief 将给定卡牌类型转换为僵尸类型的事件
+	/// @note 不影响原生的僵尸卡，且无法覆盖这些卡的对应僵尸类型。
+	/// @param 卡牌类型
+	/// @return 转换后的僵尸类型。若返回值为负数，则不进行转换
+	class IZombieSeedTypeToZombieTypeEvent : public IntDLLEventTemplate<0x42A0E1, 5, 0, 0, 0, REG_EAX, true, REG_EAX>
+	{
+	public:
+		IZombieSeedTypeToZombieTypeEvent(int address) : IntDLLEventTemplate() { Init(address); };
+		IZombieSeedTypeToZombieTypeEvent(const char* name) : IntDLLEventTemplate() { Init(name); };
+		IZombieSeedTypeToZombieTypeEvent() : IZombieSeedTypeToZombieTypeEvent("GetIZombieSeedTypeToZombieType") {};
+	};
 }
