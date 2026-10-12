@@ -1,5 +1,6 @@
 #pragma once
 #include "../../PVZ.h"
+#include "TooltipWidget.hpp"
 
 namespace PVZEnum
 {
@@ -78,6 +79,7 @@ namespace PVZ
 		/// @brief 场地物品总数
 		INT_READONLY_PROPERTY(GriditemsCount, __get_GriditemsCount, 0x12C);
 		T_SIMPLE_PROPERTY(bool, IgnoreMouseUp, 0x150);
+		T_SIMPLE_PROPERTY(TooltipWidget, Tooltip, 0x154);
 		/// @brief 游戏是否已暂停
 		T_PROPERTY(BOOLEAN, GamePaused, __get_GamePaused, __set_GamePaused, 0x164);
 
