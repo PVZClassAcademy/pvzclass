@@ -307,4 +307,15 @@ namespace PVZEvent
 			start(STRING(code));
 		};
 	};
+
+	/// @brief 判断给定卡牌类型是否为僵尸卡事件
+	/// @note 使用该事件会导致原生规则失效。
+	/// @param 卡牌类型
+	class IsZombieSeedTypeEvent : public DiversionEventTemplate<0x42B530, 5, 0x42B57E, 0x42B57B, REG_EAX>
+	{
+	public:
+		IsZombieSeedTypeEvent(int address) : DiversionEventTemplate() { Init(address); };
+		IsZombieSeedTypeEvent(const char* name) : DiversionEventTemplate() { Init(name); };
+		IsZombieSeedTypeEvent() : IsZombieSeedTypeEvent("IsZombieSeedType") {};
+	};
 }
