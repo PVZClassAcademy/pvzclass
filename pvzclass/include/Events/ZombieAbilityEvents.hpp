@@ -140,6 +140,19 @@ namespace PVZEvent
 		};
 	}
 
+	namespace Zomboss
+	{
+		/// @brief 僵王放置僵尸后的事件
+		/// @param 触发事件的僵王，僵王放置的僵尸
+		class SpawnContactAfterEvent : public DLLEventTemplate<0x534E25, 5, REG_EAX, REG_ESI>
+		{
+		public:
+			SpawnContactAfterEvent(const char* str) : DLLEventTemplate() { Init(str); };
+			SpawnContactAfterEvent(int address) : DLLEventTemplate() { Init(address); };
+			SpawnContactAfterEvent() : DLLEventTemplate() { Init("onZombossSpawnContactAfter"); };
+		};
+	}
+
 	namespace PeaZombie
 	{
 		/// @brief 豌豆僵尸判定是否发射子弹事件。
