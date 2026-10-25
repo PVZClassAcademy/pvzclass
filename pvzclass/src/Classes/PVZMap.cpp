@@ -63,3 +63,19 @@ bool PVZ::StringStringMap::Insert(PVZString key, PVZString value)
 		.ret()
 	) & 0xFF;
 }
+
+PVZ::PVZString PVZ::Evaluate(PVZString str, StringStringMap def_map)
+{
+	auto result = PVZ::PVZString::Make("");
+
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, def_map.GetBaseAddress())
+		.push_imm32(str.GetBaseAddress())
+		.push_imm32(result.GetBaseAddress())
+		.invoke(0x5B0CC0)
+		.add_reg_imm(REG_ESP, 8)
+		.ret()
+	);
+
+	return result;
+}

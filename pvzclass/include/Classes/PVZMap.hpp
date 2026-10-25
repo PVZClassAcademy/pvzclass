@@ -23,4 +23,10 @@ namespace PVZ
 		/// @return 是否成功插入。若 map 中的键已有对应的值，则插入失败。
 		bool Insert(PVZString key, PVZString value);
 	};
+
+	/// @brief 将给定字符串中所有用一对百分号包裹的部分作为键，并用键值对 map 中对应的值取代。
+	/// @param def_map 存放键值对的 map
+	/// @note 若没有对应的键，则会直接清除
+	/// @return 转换后的字符串
+	PVZString Evaluate(PVZString str, StringStringMap def_map);
 }
