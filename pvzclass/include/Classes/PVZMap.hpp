@@ -17,5 +17,10 @@ namespace PVZ
 		static StringStringMap Make();
 		/// @brief 释放该 map 在 PVZ 占用的内存空间
 		void Free();
+		/// @brief 向 map 插入一个键值对
+		/// @param key 键
+		/// @param value 值
+		/// @return 是否成功插入。若 map 中的键已有对应的值，则插入失败。
+		bool Insert(PVZString key, PVZString value);
 	};
 }

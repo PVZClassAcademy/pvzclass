@@ -34,3 +34,32 @@ void PVZ::StringStringMap::Free()
 	);
 	PVZ::Memory::FreeMemory(this->BaseAddress);
 }
+
+bool PVZ::StringStringMap::Insert(PVZString key, PVZString value)
+{
+	return PVZ::Memory::Execute(AsmBuilder()
+		.sub_reg_imm(REG_ESP, 0x0A4)
+		.mov_reg_reg(REG_EDI, REG_ESP)
+
+		.push_reg(REG_EDI)
+		.invoke(0x4439F0)
+
+		.mov_reg_mem_reg_add_imm32(REG_EAX, REG_EDI, 0x78)
+		.push_reg(REG_EAX)
+		.mov_mem_reg_add_imm8_imm32(REG_EDI, 0x78, PVZ::Memory::ReadMemory<uint32_t>(this->GetBaseAddress() + 4))
+
+		.push_imm32(value.GetBaseAddress())
+		.mov_reg_imm(REG_ECX, key.GetBaseAddress())
+		.push_reg(REG_EDI)
+		.invoke(0x5A19D0)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+
+		.pop(REG_EAX)
+		.mov_mem_reg_add_imm8_reg(REG_EDI, 0x78, REG_EAX)
+		.push_reg(REG_EDI)
+		.invoke(0x443AE0)
+
+		.add_reg_imm(REG_ESP, 0x0A4)
+		.ret()
+	) & 0xFF;
+}

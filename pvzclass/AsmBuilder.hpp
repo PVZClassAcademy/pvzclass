@@ -345,6 +345,26 @@ public:
 		return this->add_byte(0x8B).add_byte(0x80 + (reg_dest << 3) + reg_src).add_dword(imm);
 	}
 
+	// mov [dest+imm8], src
+	_Derived& mov_mem_reg_add_imm8_reg(uint8_t reg_dest, uint8_t imm8, uint32_t reg_src)
+	{
+		if (reg_dest > 7 || reg_src > 7)
+			throw std::invalid_argument("Invalid register for MOV");
+		if (reg_dest == REG_ESP)
+			throw std::invalid_argument("This command is NOT suitable for esp");
+		return this->add_byte(0x89).add_byte(0x40 + reg_dest + (reg_src << 3)).add_byte(imm8);
+	}
+
+	// mov [dest+imm8], imm32
+	_Derived& mov_mem_reg_add_imm8_imm32(uint8_t reg_dest, uint8_t imm8, uint32_t imm32)
+	{
+		if (reg_dest > 7)
+			throw std::invalid_argument("Invalid register for MOV");
+		if (reg_dest == REG_ESP)
+			throw std::invalid_argument("This command is NOT suitable for esp");
+		return this->add_byte(0xC7).add_byte(0x40 + reg_dest).add_byte(imm8).add_dword(imm32);
+	}
+
 	_Derived& mov_mem_esp_add_imm8_reg(uint8_t imm, uint8_t reg)
 	{
 		if (reg > 7)
