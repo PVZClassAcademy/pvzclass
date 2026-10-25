@@ -375,6 +375,9 @@
     <ClCompile Include="src\Classes\TooltipWidget.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\Classes\PVZMap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ProcessOpener.h">
@@ -1002,6 +1005,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="include\Classes\TooltipWidget.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Classes\PVZMap.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
