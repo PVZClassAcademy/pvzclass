@@ -470,6 +470,10 @@ namespace PVZ
 	/// @warning num 应当不低于 2049 。
 	void ExtendRenderItem(uint32_t num);
 
+	/// @brief 将指定整数转换为字符串
+	/// @param val 被转换的数
+	/// @return 转换得到的 PVZ 字符串
+	PVZString IntToString(int val);
 	/// @brief 将给定文本中的首次出现的指定子串替换为指定的新串
 	/// @param text 原始文本，会自动调用 Translate() 进行转换
 	/// @param str2find 被替换的字符串

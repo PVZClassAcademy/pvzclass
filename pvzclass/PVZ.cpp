@@ -161,6 +161,20 @@ void PVZ::ExtendRenderItem(uint32_t num)
 	PVZ::Memory::WriteMemory<uint32_t>(0x416887, num * 12);
 }
 
+PVZ::PVZString PVZ::IntToString(int val)
+{
+	auto str = PVZ::PVZString::Make("");
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(val)
+		.push_imm32(0x657B78) // "%d"
+		.mov_reg_imm(REG_ESI, str.GetBaseAddress())
+		.invoke(0x5B0CA0)
+		.add_reg_imm(REG_ESP, 8)
+		.ret()
+	);
+	return str;
+}
+
 uint8_t __asm__MakeString[]
 {
 	PUSHDWORD(0),
