@@ -211,7 +211,7 @@ namespace PVZ
 		/// @return 翻译后得到的字符串
 		PVZ::PVZString Translate(const char* str);
 		/// @brief 释放该字符串在 PVZ 占用的内存空间
-		/// @attention 只有通过 Make 创建的字符串才应该使用该函数销毁。
+		/// @attention 只有通过 Make(), IntToString() 或 Float 创建的字符串才应该使用该函数销毁。
 		void Free();
 		/// @brief 将字符串转换为整数
 		/// @param str 字符串
