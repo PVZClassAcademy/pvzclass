@@ -113,19 +113,6 @@ byte __asm__CreateProjectile2[84]
 	RET,
 };
 
-byte __asm__CreatePortalpieces1[10]
-{
-	MOV_ECX(4),
-	JMPFAR(0),
-};
-
-byte __asm__CreatePortalpieces2[15]
-{
-	MOV_PTR_EAX_ADD_V_ECX(0x14),
-	MOV_PTR_EAX_ADD_V_V(0x1C, 0x54B78),
-	JMPFAR(0),
-};
-
 byte __asm__Random[]
 {
 	PUSH_ECX,
@@ -154,24 +141,13 @@ void Creator::AsmInit()
 	SETARG(__asm__CreateProjectile2, 71) = PVZ::Memory::Variable + 4;
 	SETARG(__asm__CreateProjectile2, 79) = PVZ::Memory::Variable;
 	PVZ::Memory::WriteArrayUnsafe<byte>(PVZ::Memory::Variable + 16, STRING(__asm__CreateProjectile2));
-	//protal
-	SETARG(__asm__CreatePortalpieces1, 6) = PVZ::Memory::Variable + 200 - 5 - 0x427071;
-	PVZ::Memory::WriteArray<byte>(0x42706C, STRING(__asm__CreatePortalpieces1));
-	SETARG(__asm__CreatePortalpieces2, 11) = 0x427076 - 5 - (PVZ::Memory::Variable + 210);
-	PVZ::Memory::WriteArrayUnsafe<byte>(PVZ::Memory::Variable + 200, STRING(__asm__CreatePortalpieces2));
+
 	// random
 	PVZ::Memory::WriteArrayUnsafe<byte>(PVZ::Memory::Variable + 225, STRING(__asm__Random));
 }
 
-byte __asm__Asm__Reset[10]
-{
-	MOV_PTR_EUX_ADD_V_EVX(REG_EAX, REG_EBX, 0x14),
-	MOV_PTR_EUX_ADD_V(REG_EAX, 0x1C, 0x54B78)
-};
-
 void Creator::AsmReset()
 {
-	PVZ::Memory::WriteArray<byte>(0x42706C, __asm__Asm__Reset, 10);
 }
 
 PVZ::Projectile Creator::CreateProjectile(ProjectileType::ProjectileType type, int x, int y, float angle, float speed)
@@ -562,23 +538,15 @@ void Creator::__CreatePortal()
 
 void Creator::CreatePortal(int yellow1Row, int yellow1Column, int yellow2Row, int yellow2Column, int blue1Row, int blue1Column, int blue2Row, int blue2Column)
 {
-	PVZ::Memory::WriteMemory<int>(0x426FE9, yellow1Row);
-	PVZ::Memory::WriteMemory<int>(0x426FE2, yellow1Column);
-	PVZ::Memory::WriteMemory<int>(0x427014, yellow2Row);
-	PVZ::Memory::WriteMemory<int>(0x42700D, yellow2Column);
-	PVZ::Memory::WriteMemory<int>(0x427044, blue1Row);
-	PVZ::Memory::WriteMemory<int>(0x42703D, blue1Column);
-	PVZ::Memory::WriteMemory<int>(0x42706D, blue2Row);
-	PVZ::Memory::WriteMemory<int>(0x427068, blue2Column);
-	__CreatePortal();
-	PVZ::Memory::WriteMemory<int>(0x426FE9, 0);
-	PVZ::Memory::WriteMemory<int>(0x426FE2, 2);
-	PVZ::Memory::WriteMemory<int>(0x427014, 1);
-	PVZ::Memory::WriteMemory<int>(0x42700D, 9);
-	PVZ::Memory::WriteMemory<int>(0x427044, 3);
-	PVZ::Memory::WriteMemory<int>(0x42703D, 9);
-	PVZ::Memory::WriteMemory<int>(0x42706D, 4);
-	PVZ::Memory::WriteMemory<int>(0x427068, 2);
+	auto griditems = PVZ::GetBoard().GetAllGriditems();
+	for (DWORD i = 0; i < griditems.size(); i++)
+		if (griditems[i].Type == GriditemType::PortalBlue || griditems[i].Type == GriditemType::PortalYellow)
+			griditems[i].Remove();
+
+	CreatePortal(yellow1Row, yellow1Column, 1);
+	CreatePortal(yellow2Row, yellow2Column, 1);
+	CreatePortal(blue1Row, blue1Column, 0);
+	CreatePortal(blue2Row, blue2Column, 0);
 }
 
 byte __asm__ClearZombiePreview[19]

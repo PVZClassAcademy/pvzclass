@@ -79,7 +79,7 @@ namespace Creator
 	/// @brief 为部分函数建立基础。
 	void AsmInit();
 
-	/// @brief 消除 AsmInit() 产生的效应。
+	/// @brief 消除 AsmInit() 产生的部分效应。
 	void AsmReset();
 
 	/// @brief 快速创建一个子弹。
@@ -224,8 +224,6 @@ namespace Creator
 	void __CreatePortal();
 
 	/// @brief 在指定位置生成传送门
-	/// @attention 你需要先调用一次 AsmInit() 后才能使用这个函数。
-	/// @see AsmInit()
 	/// @param yellow1Row 第一扇方传送门的行
 	/// @param yellow1Column 第一扇方传送门的列
 	/// @param yellow2Row 第二扇方传送门的行
