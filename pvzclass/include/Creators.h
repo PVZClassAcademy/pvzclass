@@ -221,8 +221,6 @@ namespace Creator
 	void CreateVaseFormation(PVZLevel::PVZLevel vblevel);
 
 	/// @brief 移除场上所有传送门，然后在默认位置生成传送门
-	/// @attention 你需要先调用一次 AsmInit() 后才能使用这个函数。
-	/// @see AsmInit()
 	void __CreatePortal();
 
 	/// @brief 在指定位置生成传送门
