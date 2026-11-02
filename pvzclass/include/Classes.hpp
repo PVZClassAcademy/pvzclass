@@ -1,4 +1,6 @@
 #pragma once
+#include "Classes/PVZMap.hpp"
+
 #include "Classes/Music.hpp"
 #include "Classes/SaveData.hpp"
 #include "Classes/ZenGarden.hpp"

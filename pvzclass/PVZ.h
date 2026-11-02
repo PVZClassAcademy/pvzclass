@@ -211,7 +211,7 @@ namespace PVZ
 		/// @return 翻译后得到的字符串
 		PVZ::PVZString Translate(const char* str);
 		/// @brief 释放该字符串在 PVZ 占用的内存空间
-		/// @attention 只有通过 Make 创建的字符串才应该使用该函数销毁。
+		/// @attention 只有通过 Make(), IntToString(), FloatToString() 或 Evaluate() 创建的字符串才应该使用该函数销毁。
 		void Free();
 		/// @brief 将字符串转换为整数
 		/// @param str 字符串
@@ -470,6 +470,15 @@ namespace PVZ
 	/// @warning num 应当不低于 2049 。
 	void ExtendRenderItem(uint32_t num);
 
+	/// @brief 将指定整数转换为字符串
+	/// @param val 被转换的数
+	/// @return 转换得到的 PVZ 字符串
+	PVZString IntToString(int val);
+	/// @brief 将指定浮点数转换为字符串
+	/// @param val 被转换的数
+	/// @note 使用了 %g，因此会自动处理小数点后位数。
+	/// @return 转换得到的 PVZ 字符串
+	PVZString FloatToString(float val);
 	/// @brief 将给定文本中的首次出现的指定子串替换为指定的新串
 	/// @param text 原始文本，会自动调用 Translate() 进行转换
 	/// @param str2find 被替换的字符串

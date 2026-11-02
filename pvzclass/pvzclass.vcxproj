@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Classes\PVZMap.cpp" />
     <ClCompile Include="src\Classes\TodAllocator.cpp" />
     <ClCompile Include="src\Classes\AttachEffect.cpp" />
     <ClCompile Include="src\Classes\ChallengeScreen.cpp" />
@@ -263,6 +264,7 @@
     <ClInclude Include="include\Classes\Griditem.hpp" />
     <ClInclude Include="include\Classes\LawnMower.hpp" />
     <ClInclude Include="include\Classes\Mouse.hpp" />
+    <ClInclude Include="include\Classes\PVZMap.hpp" />
     <ClInclude Include="include\Classes\ReanimatorCache.hpp" />
     <ClInclude Include="include\Classes\SeedBank.hpp" />
     <ClInclude Include="include\Classes\Challenge.hpp" />
