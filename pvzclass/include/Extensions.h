@@ -232,26 +232,24 @@ inline void EnablePreviewProfilesOnSetup(BOOLEAN b = true)
 /// @param b 是否开启此功能
 inline void AutoCollect(BOOLEAN b = true)
 {
-	byte __autocollect_set[26]
+	byte __autocollect_set[]
 	{
 		PUSHAD,
-		0x8B, 0xC8,
-		0x83, 0x79, 0x58, 0x10,
-		0x74, 5,
-		INVOKE(0x432060),
+		MOV_EUX_EVX(REG_ESI, REG_EAX),
+		INVOKE(0x432000),
 		POPAD,
 		RETN(0x10),
 	};
 
-	byte __autocollect_reset[3] { 0xC2, 0x10, 0 };
+	byte __autocollect_reset[3] { RETN(0x10) };
 	if (b)
 	{
 		auto board = PVZ::GetBoard();
 		if (board.isValid())
 		{
-			auto coins = PVZ::GetBoard().GetAllCoins();
+			auto coins = board.GetAllCoins();
 			for (auto coin : coins)
-				coin.Collect();
+				coin.TryAutoCollect();
 		}
 		PVZ::Memory::WriteMemory<byte>(0x40CCDA, 0xE9);
 		PVZ::Memory::WriteMemory<int>(0x40CCDB, PVZ::Memory::Variable + 300 - 4 - 0x40CCDB);
