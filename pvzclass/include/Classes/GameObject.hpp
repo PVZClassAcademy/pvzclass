@@ -70,6 +70,17 @@ namespace PVZ
 		/// @brief 绘制图层编号
 		INT_PROPERTY(Layer, __get_Layer, __set_Layer, 0x20);
 	};
+
+	class HitResult : public BaseClass
+	{
+	public:
+		HitResult(uint32_t address) : BaseClass(address) {};
+		/// @brief 僵尸类型
+		T_SIMPLE_PROPERTY(BaseClass, Object, 0);
+		/// @brief 僵尸状态
+		T_SIMPLE_PROPERTY(GameObjectType::GameObjectType, ObjType, 4);
+	};
+
 	/// @brief 僵尸
 	class Zombie : public GameObject
 	{
