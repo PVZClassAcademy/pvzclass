@@ -90,6 +90,9 @@ namespace PVZ
 		/// @param count 种植数量
 		/// @param row 指定的行。若为 -1，则没有行限制。
 		void IZPlacePlants(SeedType::SeedType type, int count, int row);
+
+		/// @brief 更新保护传送门关卡的特性
+		void UpdatePortalCombat();
 	};
 	using Miscellaneous = Challenge;
 }
