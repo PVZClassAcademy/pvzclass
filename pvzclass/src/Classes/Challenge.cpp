@@ -116,3 +116,12 @@ void PVZ::Challenge::IZPlacePlants(SeedType::SeedType type, int count, int row)
 		.ret()
 	);
 }
+
+void PVZ::Challenge::UpdatePortalCombat()
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_ECX, this->GetBaseAddress())
+		.invoke(0x4275E0)
+		.ret()
+	);
+}

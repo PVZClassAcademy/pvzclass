@@ -128,6 +128,8 @@ inline void EnablePortal(BOOLEAN b = true, BOOLEAN adjust_existed = false)
 inline void FixPortal(BOOLEAN b = true)
 {
 	MEMMOD_BYTE(0x4276DD, 0, 255);
+	MEMMOD_BYTE(0x4276E7, 0x81, 0x85);
+	MEMMOD_BYTE(0x427788, 0x71, 0x7F);
 }
 
 /// @brief 设置阳光上限
