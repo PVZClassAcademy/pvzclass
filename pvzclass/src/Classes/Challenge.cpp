@@ -78,6 +78,17 @@ void PVZ::Challenge::IZPlantDropRemainingSun(PVZ::Plant plant)
 	);
 }
 
+PVZ::IZBrain PVZ::Challenge::IZGetBrainTarget(PVZ::Zombie zombie)
+{
+	return PVZ::IZBrain(PVZ::Memory::Execute(AsmBuilder()
+		.mov_reg_imm(REG_EAX, zombie.GetBaseAddress())
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x42B810)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	));
+}
+
 void PVZ::Challenge::IZSquishBrain(IZBrain brain)
 {
 	SETARG(__asm__IZSquishBrain, 1) = brain.GetBaseAddress();
