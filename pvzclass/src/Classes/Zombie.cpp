@@ -530,6 +530,15 @@ void PVZ::Zombie::PickRandomSpeed()
 		.ret());
 }
 
+void PVZ::Zombie::PogoBreak(PVZ::DamageFlags flags)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(flags)
+		.push_imm32(this->GetBaseAddress())
+		.invoke(0x525350)
+		.ret());
+}
+
 void PVZ::Zombie::PoolSplash(bool into_pool)
 {
 	PVZ::Memory::Execute(AsmBuilder()
