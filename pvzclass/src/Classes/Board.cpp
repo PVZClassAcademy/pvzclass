@@ -432,6 +432,20 @@ PVZ::Challenge PVZ::Board::GetMiscellaneous()
 	return this->GetChallenge<PVZ::Challenge>();
 }
 
+PVZ::Plant PVZ::Board::NewPlant(SeedType::SeedType type, int row, int column, SeedType::SeedType imitater_type)
+{
+	return PVZ::Plant(PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(imitater_type)
+		.push_imm32(type)
+		.push_imm32(row)
+		.push_imm32(column)
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x42B810)
+		.mov_mem_reg(PVZ::Memory::Variable, REG_EAX)
+		.ret()
+	));
+}
+
 PVZ::Zombie PVZ::Board::ZombieHitTest(int mouse_x, int mouse_y)
 {
 	DWORD address = PVZ::Memory::Execute(AsmBuilder()
