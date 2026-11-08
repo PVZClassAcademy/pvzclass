@@ -314,6 +314,9 @@ namespace PVZ
 		void UpdateAnimSpeed();
 		/// @brief 随机刷新僵尸的移动速度。
 		void PickRandomSpeed();
+		/// @brief 跳跳僵尸失去跳跳杆
+		/// @param flags 伤害标签
+		void PogoBreak(PVZ::DamageFlags flags);
 		/// @brief 创建僵尸出入泳池的音效和水花动画。
 		/// @param into_pool 是否入水
 		void PoolSplash(bool into_pool);

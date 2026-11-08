@@ -75,6 +75,10 @@ namespace PVZ
 		/// @brief 植物根据剩余生命值掉落阳光。
 		/// @param plant 植物
 		void IZPlantDropRemainingSun(PVZ::Plant plant);
+		/// @brief 僵尸寻找攻击范围内的脑子
+		/// @param zombie 僵尸
+		/// @return 目标脑子。可能为空。
+		IZBrain IZGetBrainTarget(Zombie zombie);
 		/// @brief 压扁指定的脑子，并计算因此产生的得分
 		/// @param brain 将被压扁的脑子
 		/// @see IZBrain

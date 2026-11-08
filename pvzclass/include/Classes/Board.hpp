@@ -362,6 +362,16 @@ namespace PVZ
 		/// @attention 与 GetChallenge() 不同，此方法只能获得 Challenge 类型的对象。
 		/// @return Challenge 成员对象 
 		Challenge GetMiscellaneous();
+
+		/// @brief 在指定位置生成一个指定类型的植物。
+		/// @note 与 Creator::CreatePlant() 不同，该函数生成植物时不会产生种植的音效和粒子效果。
+		/// @param type 植物类型
+		/// @param row 行
+		/// @param column 列
+		/// @param imitater_type 若 type 为模仿者，表示模仿的植物类型
+		/// @return 生成的植物
+		Plant NewPlant(SeedType::SeedType type, int row, int column, SeedType::SeedType imitater_type = SeedType::None);
+
 		/// @brief 取得指定坐标处存在的僵尸。
 		/// @note 关卡引入阶段和选卡阶段内的植物僵尸会被此函数忽略。
 		/// @param mouse_x X 坐标
