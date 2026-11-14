@@ -16,7 +16,7 @@ namespace PVZEvent
 {
 	/// @brief 获取 Coin 消失前持续时长的事件
 	/// @param 触发事件的 Coin
-	class GetCoinDisappearTimeEvent : public IntDLLEventTemplate<0x433050, 7, 0, 0, 0, REG_EAX, false, REG_ECX>
+	class GetCoinDisappearTimeEvent : public IntDLLEventTemplate<0x433050, 7, 0, 0, 0, REG_EAX, true, REG_ECX>
 	{
 	public:
 		GetCoinDisappearTimeEvent() : GetCoinDisappearTimeEvent("GetCoinDisappearTime") {};

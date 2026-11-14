@@ -161,7 +161,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Classes\PVZMap.cpp" />
     <ClCompile Include="src\Classes\TodAllocator.cpp" />
     <ClCompile Include="src\Classes\AttachEffect.cpp" />
     <ClCompile Include="src\Classes\ChallengeScreen.cpp" />
@@ -199,7 +198,7 @@
     <ClCompile Include="Enums\AnimationType.cpp" />
     <ClCompile Include="src\Classes\SaveGameContext.cpp" />
     <ClCompile Include="src\Effects\EffectSystem.cpp" />
-    <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp" />
+    <ClInclude Include="include\Events\ProjectileDrawTransEvent.hpp" />
     <ClCompile Include="src\Creators.cpp" />
     <ClCompile Include="src\Draw.cpp" />
     <ClCompile Include="Enums\CaptionStyle.cpp" />
@@ -240,7 +239,7 @@
     <ClCompile Include="Enums\ZombieType.cpp" />
     <ClCompile Include="Enums\MagnetItemType.cpp" />
     <ClCompile Include="src\Events\DLLEvent.cpp" />
-    <ClCompile Include="include\Events\PlantDamageZombieEvent.hpp" />
+    <ClInclude Include="include\Events\PlantDamageZombieEvent.hpp" />
     <ClCompile Include="src\Global.cpp" />
     <ClCompile Include="src\ProcessOpener.cpp" />
     <ClCompile Include="src\Classes\Projectile.cpp" />
@@ -264,7 +263,6 @@
     <ClInclude Include="include\Classes\Griditem.hpp" />
     <ClInclude Include="include\Classes\LawnMower.hpp" />
     <ClInclude Include="include\Classes\Mouse.hpp" />
-    <ClInclude Include="include\Classes\PVZMap.hpp" />
     <ClInclude Include="include\Classes\ReanimatorCache.hpp" />
     <ClInclude Include="include\Classes\SeedBank.hpp" />
     <ClInclude Include="include\Classes\Challenge.hpp" />

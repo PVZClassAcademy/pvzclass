@@ -50,51 +50,52 @@ protected:
 
 	};
 
-	inline static const std::unordered_map<JumpNearType, JumpNearOpcode> JUMP_SHORT_OPCODES = {
+	// 按 JumpNearType 的声明顺序索引；固定指令表无需哈希表及其动态初始化。
+	inline static constexpr JumpNearOpcode JUMP_SHORT_OPCODES[] = {
 		// 无条件
-		{JumpNearType::Jmp,      {0xE9, 0x00}},  // JMP rel32（单字节0xE9，无第二字节）
+		{0xE9, 0x00},  // JMP rel32（单字节0xE9，无第二字节）
 
 		// 零标志（ZF）
-		{JumpNearType::Jz,       {0x0F, 0x84}},  // JZ rel32
-		{JumpNearType::Jnz,      {0x0F, 0x85}},  // JNZ rel32
-		{JumpNearType::Je,       {0x0F, 0x84}},  // JE = JZ
-		{JumpNearType::Jne,      {0x0F, 0x85}},  // JNE = JNZ
+		{0x0F, 0x84},  // JZ rel32
+		{0x0F, 0x85},  // JNZ rel32
+		{0x0F, 0x84},  // JE = JZ
+		{0x0F, 0x85},  // JNE = JNZ
 
 		// 进位标志（CF）
-		{JumpNearType::Jb,       {0x0F, 0x82}},  // JB = JC = JNAE
-		{JumpNearType::Jbe,      {0x0F, 0x86}},  // JBE = JNA
-		{JumpNearType::Jnb,      {0x0F, 0x83}},  // JNB = JAE = JNC
-		{JumpNearType::Jnbe,     {0x0F, 0x87}},  // JNBE = JA
-		{JumpNearType::Ja,       {0x0F, 0x87}},  // JA = JNBE
-		{JumpNearType::Jna,      {0x0F, 0x86}},  // JNA = JBE
-		{JumpNearType::Jae,      {0x0F, 0x83}},  // JAE = JNB = JNC
-		{JumpNearType::Jnae,     {0x0F, 0x82}},  // JNAE = JB = JC
-		{JumpNearType::Jc,       {0x0F, 0x82}},  // JC = JB = JNAE
-		{JumpNearType::Jnc,      {0x0F, 0x83}},  // JNC = JNB = JAE
+		{0x0F, 0x82},  // JB = JC = JNAE
+		{0x0F, 0x86},  // JBE = JNA
+		{0x0F, 0x83},  // JNB = JAE = JNC
+		{0x0F, 0x87},  // JNBE = JA
+		{0x0F, 0x87},  // JA = JNBE
+		{0x0F, 0x86},  // JNA = JBE
+		{0x0F, 0x83},  // JAE = JNB = JNC
+		{0x0F, 0x82},  // JNAE = JB = JC
+		{0x0F, 0x82},  // JC = JB = JNAE
+		{0x0F, 0x83},  // JNC = JNB = JAE
 
 		// 符号标志（SF）
-		{JumpNearType::Js,       {0x0F, 0x88}},  // JS rel32
-		{JumpNearType::Jns,      {0x0F, 0x89}},  // JNS rel32
+		{0x0F, 0x88},  // JS rel32
+		{0x0F, 0x89},  // JNS rel32
 
 		// 溢出标志（OF）
-		{JumpNearType::Jo,       {0x0F, 0x80}},  // JO rel32
-		{JumpNearType::Jno,      {0x0F, 0x81}},  // JNO rel32
+		{0x0F, 0x80},  // JO rel32
+		{0x0F, 0x81},  // JNO rel32
 
 		// 奇偶标志（PF）
-		{JumpNearType::Jp,       {0x0F, 0x8A}},  // JP = JPE
-		{JumpNearType::Jnp,      {0x0F, 0x8B}},  // JNP = JPO
-		{JumpNearType::Jpe,      {0x0F, 0x8A}},  // JPE = JP
-		{JumpNearType::Jpo,      {0x0F, 0x8B}},  // JPO = JNP
+		{0x0F, 0x8A},  // JP = JPE
+		{0x0F, 0x8B},  // JNP = JPO
+		{0x0F, 0x8A},  // JPE = JP
+		{0x0F, 0x8B},  // JPO = JNP
 
 		// 有符号数大小（SF/OF）
-		{JumpNearType::Jl,       {0x0F, 0x8C}},  // JL = JNGE
-		{JumpNearType::Jle,      {0x0F, 0x8E}},  // JLE = JNG
-		{JumpNearType::Jnl,      {0x0F, 0x8D}},  // JNL = JGE
-		{JumpNearType::Jnle,     {0x0F, 0x8F}},  // JNLE = JG
-		{JumpNearType::Jg,       {0x0F, 0x8F}},  // JG = JNLE
-		{JumpNearType::Jng,      {0x0F, 0x8E}},  // JNG = JLE
-		{JumpNearType::Jge,      {0x0F, 0x8D}},  // JGE = JNL
-		{JumpNearType::Jnge,     {0x0F, 0x8C}},  // JNGE = JL
+		{0x0F, 0x8C},  // JL = JNGE
+		{0x0F, 0x8E},  // JLE = JNG
+		{0x0F, 0x8D},  // JNL = JGE
+		{0x0F, 0x8F},  // JNLE = JG
+		{0x0F, 0x8F},  // JG = JNLE
+		{0x0F, 0x8E},  // JNG = JLE
+		{0x0F, 0x8D},  // JGE = JNL
+		{0x0F, 0x8C},  // JNGE = JL
 	};
 
 	/// @brief 添加相对跳转指令
@@ -102,7 +103,10 @@ protected:
 	/// @param rel_offset 相对偏移
 	_Derived& add_jump_rel32(JumpNearType type, uint32_t rel_offset)
 	{
-		auto opcode = JUMP_SHORT_OPCODES.at(type);
+		const auto index = static_cast<size_t>(type);
+		if (index >= sizeof(JUMP_SHORT_OPCODES) / sizeof(JUMP_SHORT_OPCODES[0]))
+			throw std::out_of_range("Invalid jump type");
+		const auto opcode = JUMP_SHORT_OPCODES[index];
 		if (opcode.op2 == 0x00)
 		{
 			// 无条件跳转
