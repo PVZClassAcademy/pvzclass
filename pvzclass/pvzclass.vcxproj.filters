@@ -324,9 +324,6 @@
     <ClCompile Include="src\Classes\TodParticleSystem.cpp">
       <Filter>源文件\Classes</Filter>
     </ClCompile>
-    <ClCompile Include="include\Events\PlantDamageZombieEvent.hpp">
-      <Filter>头文件\Events\Plant</Filter>
-    </ClCompile>
     <ClCompile Include="src\Events\DLLEvent.cpp">
       <Filter>源文件\Events</Filter>
     </ClCompile>
@@ -362,9 +359,6 @@
     </ClCompile>
     <ClCompile Include="src\Global.cpp">
       <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="include\Events\ProjectileDrawTransEvent.hpp">
-      <Filter>头文件\Events\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="src\Classes\Containers.cpp">
       <Filter>源文件</Filter>
@@ -1003,6 +997,12 @@
     </ClInclude>
     <ClInclude Include="include\Classes\TooltipWidget.hpp">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events\PlantDamageZombieEvent.hpp">
+      <Filter>头文件\Events\Plant</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Events\ProjectileDrawTransEvent.hpp">
+      <Filter>头文件\Events\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
