@@ -80,4 +80,31 @@ namespace PVZ
 		/// @param count 元素数
 		void resize(int count);
 	};
+
+	/// @brief 键类型与值类型均为字符串的 map。
+	/// @see PVZString
+	class StringStringMap : public BaseClass
+	{
+	public:
+		StringStringMap() = default;
+		explicit StringStringMap(uint32_t address) : BaseClass(address) {};
+
+		/// @brief 在 PVZ 主程序中创建一个字符串到字符串的 map
+		/// @note 以此法创建的 map 需要使用 Free() 销毁，否则会造成内存泄露。
+		/// @return 创建的 map
+		static StringStringMap Make();
+		/// @brief 释放该 map 在 PVZ 占用的内存空间
+		void Free();
+		/// @brief 向 map 插入一个键值对
+		/// @param key 键
+		/// @param value 值
+		/// @return 是否成功插入。若 map 中的键已有对应的值，则插入失败。
+		bool Insert(PVZString key, PVZString value);
+	};
+
+	/// @brief 将给定字符串中所有用一对百分号包裹的部分作为键，并用键值对 map 中对应的值取代。
+	/// @param def_map 存放键值对的 map
+	/// @note 若没有对应的键，则会直接清除
+	/// @return 转换后的字符串
+	PVZString Evaluate(PVZString str, StringStringMap def_map);
 }
