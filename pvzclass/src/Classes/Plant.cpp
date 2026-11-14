@@ -101,6 +101,17 @@ void PVZ::Plant::SetSleeping(bool sleeping)
 	Memory::Execute(STRING(__asm__Plant_SetSleeping));
 }
 
+void PVZ::Plant::CobCannonFire(int targetX, int targetY)
+{
+	PVZ::Memory::Execute(AsmBuilder()
+		.push_imm32(targetY)
+		.push_imm32(targetX)
+		.mov_reg_imm(REG_EAX, this->GetBaseAddress())
+		.invoke(0x466D50)
+		.ret()
+	);
+}
+
 void PVZ::Plant::CreateEffect()
 {
 	this->DoSpecial();

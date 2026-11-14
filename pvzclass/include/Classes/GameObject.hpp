@@ -463,6 +463,10 @@ namespace PVZ
 		/// @brief 识别 ID
 		INT_READONLY_PROPERTY(Id, __get_Id, 0x148);
 		READONLY_PROPERTY_BINDING(int, __get_Index, Id & 0xFFFF) Index;
+		/// @brief 玉米加农炮开始向目标位置开炮
+		/// @param targetX 目标 X 坐标
+		/// @param targetY 目标 Y 坐标
+		void CobCannonFire(int targetX, int targetY);
 		/// @brief 与 DoSpecial() 相同。
 		/// @see DoSpecial()
 		void CreateEffect();
