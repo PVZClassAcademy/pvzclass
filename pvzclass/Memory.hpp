@@ -1,4 +1,5 @@
 #pragma once
+#include "AsmFunctions.h"
 #include "AsmBuilder.hpp"
 /// @file Memory.hpp
 /// @brief 包含读写 PVZ 本体内存，以及其他内存操作的若干函数和宏定义。
