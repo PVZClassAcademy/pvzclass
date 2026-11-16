@@ -24,7 +24,7 @@ void PVZ::TooltipWidget::SetTitle(PVZ::PVZString str)
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EDX, str.GetBaseAddress())
 		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
-		.invoke(0x51A8D0)
+		.invoke(0x51A950)
 		.ret()
 	);
 }
@@ -34,7 +34,7 @@ void PVZ::TooltipWidget::SetWarningText(PVZ::PVZString str)
 	PVZ::Memory::Execute(AsmBuilder()
 		.mov_reg_imm(REG_EDX, str.GetBaseAddress())
 		.mov_reg_imm(REG_ESI, this->GetBaseAddress())
-		.invoke(0x51A8D0)
+		.invoke(0x51A9D0)
 		.ret()
 	);
 }
