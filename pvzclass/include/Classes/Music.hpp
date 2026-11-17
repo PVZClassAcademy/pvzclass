@@ -30,6 +30,9 @@ namespace PVZ
 		/// @brief 淡出持续时间
 		INT_PROPERTY(FadeOutDuration, __get_FadeOutDuration, __set_FadeOutDuration, 0x48);
 
+		/// @brief 在指定时间内淡出当前音乐
+		/// @param duration 淡出时间
+		void FadeOut(int duration);
 		/// @brief 停止所有背景音乐
 		void StopAllMusic();
 	};

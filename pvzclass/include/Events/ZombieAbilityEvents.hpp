@@ -151,6 +151,16 @@ namespace PVZEvent
 			SpawnContactAfterEvent(int address) : DLLEventTemplate() { Init(address); };
 			SpawnContactAfterEvent() : DLLEventTemplate() { Init("onZombossSpawnContactAfter"); };
 		};
+		/// @brief 僵王死亡时，即将淡出音乐并移除场上僵尸的事件。
+		/// @param 触发事件的僵王
+		/// @return 是否结算原本的音乐淡出与场上其他僵尸的移除。
+		class DieSpecialEvent : public BoolDLLEventTemplate<0x53673D, 6, 0x536781, REG_EDI>
+		{
+		public:
+			DieSpecialEvent(const char* str) : BoolDLLEventTemplate() { Init(str); };
+			DieSpecialEvent(int address) : BoolDLLEventTemplate() { Init(address); };
+			DieSpecialEvent() : BoolDLLEventTemplate() { Init("onZombossDieSpecial"); };
+		};
 	}
 
 	namespace PeaZombie

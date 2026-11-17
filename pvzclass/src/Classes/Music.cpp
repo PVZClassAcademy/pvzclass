@@ -17,6 +17,15 @@ void PVZ::Music::__set_Type(MusicType::MusicType value)
 	Memory::Execute(STRING(__asm__Music__set_Type));
 }
 
+void PVZ::Music::FadeOut(int duration)
+{
+	if (this->Type != -1)
+	{
+		this->FadeOutCounter = duration;
+		this->FadeOutDuration = duration;
+	}
+}
+
 void PVZ::Music::StopAllMusic()
 {
 	PVZ::Memory::Execute(AsmBuilder()

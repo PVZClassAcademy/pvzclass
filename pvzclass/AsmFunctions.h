@@ -199,6 +199,7 @@ inline constexpr auto REG_EDI = 7;
 #define MOV_PTR_ESP_ADD_V_EUX(ux,v) 0x89,0x44+(ux)*8,0x24,v
 #define MOV_PTR_ESP_ADD_V(v1,v2)	0xC7,0x44,0x24,v1,INUMBER(v2)
 #define MOV_PTR_ESP_ADD(v1,v2)		0xC7,0x84,0x24,INUMBER(v1),INUMBER(v2)
+#define MOV_PTR_ESP_ADD_V_REG8(reg,v) 0x88,0x44+(reg)*8,0x24,v
 
 #define CMP_PTR_ESP_ADD_V_V(v1,v2)	0x83,0x7C,0x24,v1,v2
 #define CMP_PTR_ESP_ADD__V(v1,v2)	0x83,0xBC,0x24,INUMBER(v1),v2

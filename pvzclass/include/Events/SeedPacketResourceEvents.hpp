@@ -18,7 +18,35 @@ namespace PVZEvent
 			builder.mov_mem_esp_add_imm8_reg(0x18, REG_EAX);
 		}
 	};
+	/// @brief 设置卡牌的绘制偏移和缩放大小事件
+	/// @param 触发事件的卡牌内容类型，卡牌缩放尺寸的引用、卡牌 X 方向偏移的引用、卡牌 Y 方向偏移的引用
+	/// @return 是否绘制种子
+	class SeedPacketDrawOffsetEvent : public DLLEvent
+	{
+	public:
+		SeedPacketDrawOffsetEvent() : SeedPacketDrawOffsetEvent("GetSeedPacketDrawOffset") {};
+		SeedPacketDrawOffsetEvent(const char* str) : SeedPacketDrawOffsetEvent(PVZ::Memory::GetProcAddress(str)) {};
+		SeedPacketDrawOffsetEvent(int address)
+		{
+			hookAddress = 0x487D70;
+			rawlen = 5;
+			BYTE code[] =
+			{
+				PUSH_ESP,
+				CALC_PTR_ESP_V(CALC_ADD, 0x3C),
+				PUSH_ESP,
+				CALC_PTR_ESP_V(CALC_ADD, 0x3C),
+				PUSH_ESP,
+				CALC_PTR_ESP_V(CALC_ADD, 0x3C),
+				PUSH_EBP,
+				INVOKE(address),
+				ADD_ESP(16),
 
+				MOV_PTR_ESP_ADD_V_REG8(0, 0x43)
+			};
+			start(STRING(code));
+		}
+	};
 	/// @brief 获取卡牌描述事件
 	/// @param 触发事件的 TooltipWidget，TooltipWidget 所在的 Board，当前选中的 SeedPacket
 	class SeedPacketTooltipEvent : public DLLEventTemplate<0x40FA72, 5, MEM_ESP_ADD(0x34), REG_EBP, REG_ECX>
